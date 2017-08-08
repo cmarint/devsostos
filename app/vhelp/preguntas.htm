@@ -1,0 +1,20 @@
+<section class="ng-scope m-genr">
+  <h2>Preguntas Frecuentes</h2>
+  <div class="container" ng-init="getList()">  
+    <p>Si tu duda no se encuentra en las preguntas,<br>escríbenos a nuestro chat o por email completando el formulario al final de la página</p>
+    <div class="col-md-9 col-center" ng-repeat="faq in datos">
+      <a class="link" role="button" data-toggle="collapse" href="/#Preg{{faq.id}}" aria-expanded="true" aria-controls="Preg{{faq.id}}">
+        • {{faq.id}} {{faq.enunciado}}
+      </a>
+      <div class="collapse" id="Preg{{faq.id}}" aria-expanded="false">
+        <div class="well">
+          <p>{{faq.respuesta}}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+  
+
+

@@ -1,0 +1,19 @@
+<div class="container" ng-init="getAll()">
+    <h3>Mantenedor Alumnos</h3>
+    {{listas}}
+    <button class='btn btn-mini btn-success' ng-click="Dialogo(null,templateAdd)">
+      <i class='fa fa-plus-circle'></i> Agregar
+    </button>
+    <button class='btn btn-mini btn-primary' ng-show="excel">
+      <i class='fa fa-file-excel-o'></i> Importar
+    </button>
+    <hr>
+    <div ui-grid="{ data: alumnos }"></div>
+    <!-- table id="tblalumnos" class="table table-bordered table-hover">
+    <thead>
+      <tr><th>ID</th><th>RUT</th><th>NOMBRE</th><th>ESTADO</th></tr>
+    </thead>
+    </table -->
+    <input type="file" accept=".xlsx,.xls" class="form-control" xlsx-model="excel" multiple="false">
+    <pre ng-show="excel">{{excel}}</pre>
+</div>

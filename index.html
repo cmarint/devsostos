@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html ng-app="appSostos">
+<title>SOSTOS</title>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="keywords" content="educación, docentes, escuelas, escolares, universidad, corrector de pruebas, evaluaciones, prefesores">
+   <meta name="description" content="Es una plataforma digital online para facilitar la creación y corrección de pruebas escolares y universitarias de distintos niveles">
+   <meta name="author" content="Estudio Rocksteady SpA / BuildTech SpA">
+   <!-- Librería bootstrap -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+   <!-- Font -->
+   <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+   <link href="https://fonts.googleapis.com/css?family=Signika" rel="stylesheet">
+   <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+   <!-- UI GRID -->
+   <link rel="stylesheet" type="text/css" href="node_modules/angular-ui-grid/ui-grid.min.css">
+       
+   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+   <link rel="stylesheet" href="assets/css/sostos.css" />
+   <link rel="stylesheet" href="assets/css/tabla.css" />
+   <link rel="icon" href="assets/img/favicon.png">
+</head>
+<body ng-controller="mainController">
+
+    <!-- Sección donde defino el menú de navegación -->
+    <header ng-if="isUserLoggedIn">
+     <div ng-include="'app/vnav/navegacion.htm'"></div>
+    </header>
+    <!-- Fin Sección Menú -->
+
+    <!-- Sección contenido -->
+    <div id="main">
+        <div ng-view></div>
+    </div>
+    <!-- Fin sección contenido -->
+    
+    <!--footer-->
+    <footer ng-if="isUserLoggedIn">
+     <div ng-include="'app/vnav/footer.htm'"></div>
+    </footer>
+    <!-- Fin Footer -->
+
+
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/angular-route.min.js"></script>
+    <script src="assets/js/angular-sanitize.min.js"></script>
+    <script src="assets/js/angular-cookie.min.js"></script>
+    <script src="assets/js/jquery-2.2.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-touch/1.6.4/angular-touch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-animate.min.js"></script>
+    <!--script src="assets/js/691865e83e.js"></script -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.dataTables.min.js"></script>
+    
+    <script src="assets/js/ngDialog.min.js"></script>
+    <script src="assets/js/xlsx.full.min.js"></script>
+    <script src="assets/js/xlsx-model.js"></script>
+    <script src="assets/js/sostos.js"></script>
+    <script src="assets/js/modernizr.js"></script>
+    <script src="node_modules/angular-ui-grid/ui-grid.min.js"></script>
+
+    <script src="app/app.js"></script>
+    <!-- Controllers -->
+
+    <script src="app/vhelp/preguntas.js"></script>
+    <script src="app/vmaintainer/preguntasseguridad/preguntasseguridadController.js"></script>
+    <script src="app/vmaintainer/preguntasfrecuente/preguntasfrecuenteController.js"></script>
+    <script src="app/vmaintainer/alumnos/alumnosController.js"></script>
+    <script src="app/vmaintainer/instituciones/institucionesController.js"></script>
+    <script src="app/vmaintainer/niveles/nivelesController.js"></script>
+    <script src="app/vlogin/loginController.js"></script>
+    <!-- Fin Controllers -->
+    <script src="app/components/services/servicios.js"></script>
+    
+    <script type="text/javascript" src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
+    <script type="text/javascript" src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
+    
+    <!--SCRIPTS-->
+  <script type="text/javascript">
+    $(window).scroll(function() {
+    $('#img0').each(function(){
+      var imagePos = $(this).offset().top;
+      var topOfWindow = $(window).scrollTop();
+        if (imagePos < topOfWindow+400) {
+          $(this).addClass("slideDown");        }
+        });
+    });
+  </script>
+
+</body>
+</html>

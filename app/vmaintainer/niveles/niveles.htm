@@ -1,0 +1,34 @@
+<section class="ng-scope m-curs">
+<div class="container ng-scope" ng-init="getAll()">
+    <h2>Mis Cursos</h2>
+     <div class="bjd">
+        <button class="btn " data-toggle="modal" data-target="#m-agr-estb" type="button">
+          <i class="fa fa-plus-circle"></i> Agregar
+        </button>
+        <button class="btn" data-toggle="modal" data-target="#m-edi-estb" ng-click="editNIV()">
+          <i class="fa fa-pencil"></i> Editar
+        </button>
+         <button class="btn" data-toggle="modal" data-target="#m-eliminar">
+          <i class="fa fa-trash"></i> Eliminar
+        </button>
+      </div>
+      <div class="row row-centered">
+        <div class="col-md-7 col-centered">
+            <div ui-grid="gridOptions" ui-grid-pagination ui-grid-edit ui-grid-selection class="grid"></div>
+        </div>
+      </div>
+      <p>Página actual: {{ gridApi.pagination.getPage() }} de {{ gridApi.pagination.getTotalPages() }}</p>
+       <button type="button" class="btn " ng-click="gridApi.pagination.seek(1)">
+        Primera
+      </button>
+      <button type="button" class="btn " ng-click="gridApi.pagination.previousPage()">
+        Anterior
+      </button>
+      <button type="button" class="btn " ng-click="gridApi.pagination.nextPage()">
+        Siguiente
+      </button>
+      <button type="button" class="btn " ng-click="gridApi.pagination.seek(gridApi.pagination.getTotalPages())">
+        Última
+      </button>
+</div>
+</section>

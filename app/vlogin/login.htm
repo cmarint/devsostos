@@ -1,0 +1,29 @@
+<div class="container">
+    <form role="form" name="frmLg">
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <h1>Login</h1>
+        <input type="text" ng-model="user.username" name="username" id="username" class="form-control" placeholder="Ingrese Email" ng-required="true" autofocus>
+        <br><input type="password" ng-model="user.password" name="password" id="password" class="form-control" placeholder="Ingrese Contrase&ntilde;a" ng-required="true">
+        <br><button class="btn btn-lg btn-success btn-block" type="button" ng-click="login(user)" id="btn-login" ng-disabled="!frmLg.$valid">
+            Acceder</button>
+        <br>
+        <a href="#" class="pull-right need-help">Olvid&oacute; su Contrase&ntilde;a? </a><span class="clearfix"></span>
+      </div>
+      <div class="col-md-4">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <p ng-bind-html="error"></p>
+      </div>
+      <div class="col-md-4">
+      </div>
+
+    </form>
+
+</div>
