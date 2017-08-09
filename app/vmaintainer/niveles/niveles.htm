@@ -57,10 +57,17 @@
           <button type="button" class="close" data-dismiss="modal">×</button>
           <h4 class="modal-title">Editar Curso</h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" ng-controller="institucionesController">
           {{registroEdit}}
           <div class="form-horizontal" role="form">
             <div class="form-group col-md-12">
+              <div class="row" ng-init="getCombo()">
+                    <label class="control-label col-md-8" for="nombre">Institución</label>
+                    <select ng-model="registroEdit.id_Istitucion" class="form-control" ng-options="colegio.nombre for colegio in combo">
+                   </select>
+                     </label>
+              </div>
+
               <div class="row">
                 <label class="control-label col-md-8" for="nombre">Nombre</label>
                 <div class="col-md-8">
