@@ -109,7 +109,7 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
   };
 
   $scope.getCombo = function () {
-      apiEstabFactory.getIns().then(function (data) {
+      apiCursoFactory.getIns().then(function (data) {
           $scope.combo = data.data;
       });
   };
