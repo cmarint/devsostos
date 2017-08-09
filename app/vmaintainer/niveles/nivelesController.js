@@ -106,7 +106,7 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
   $scope.delNIV = function(){
       var registro = $scope.gridApi.selection.getSelectedRows();
       if (registro != '') {  
-          apiCursoFactory.delEst(registro[0].id).then(function (data){
+          apiCursoFactory.delNiv(registro[0].id).then(function (data){
             angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
                 $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
             });
@@ -117,13 +117,13 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
   }
   
   $scope.updNIV = function(registro){
-      apiCursoFactory.setEst(registro).then(function (data) {
+      apiCursoFactory.setNiv(registro).then(function (data) {
           console.log(data.data);
       })
   }
   
   $scope.addNIV = function(registro){
-      apiCursoFactory.addEst(registro).then(function (data) {
+      apiCursoFactory.addNiv(registro).then(function (data) {
           $scope.gridOptions.data.push(data.data);
       })
   }
