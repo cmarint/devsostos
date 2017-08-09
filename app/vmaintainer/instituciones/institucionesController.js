@@ -92,13 +92,6 @@ app.controller('institucionesController', function ($scope, i18nService, CONFIG,
       });
   };
 
-  $scope.getCombo = function () {
-      apiEstabFactory.getTodos().then(function (data) {
-          $scope.combo = data.data;
-      });
-  };
-
-  
   $scope.editEST = function(){
       var registro = $scope.gridApi.selection.getSelectedRows();
       if (registro != '') { 

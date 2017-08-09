@@ -14,6 +14,20 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG){
             })
             return deferred.promise;
         },
+        getIns: function()
+        {
+            deferred = $q.defer();
+            $http({
+                method: 'GET',
+                skipAuthorization: true,
+                url: CONFIG.APISOSTOSBE + '/institucion/get'
+            }).then(function(res) {
+                deferred.resolve(res);
+            }).then(function(error){
+                deferred.reject(error);
+            })
+            return deferred.promise;
+        },
         setNiv: function(registro)
         {   
             var regjson = angular.toJson(registro);
@@ -94,6 +108,11 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
       });
   };
 
+  $scope.getCombo = function () {
+      apiEstabFactory.getIns().then(function (data) {
+          $scope.combo = data.data;
+      });
+  };
   
   $scope.editNIV = function(){
       var registro = $scope.gridApi.selection.getSelectedRows();
