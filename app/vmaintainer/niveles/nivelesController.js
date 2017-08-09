@@ -79,8 +79,8 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
     columnDefs: [
           { field: 'id', minWidth: 80, width: 80, enableColumnResizing: false },
           { field: 'id_Institucion', minWidth: 80, width: 110, enableColumnResizing: false },
-          { field: 'nombre_Institucion', minWidth: 80, width: 110, enableColumnResizing: false },
-          { field: 'nombre', minWidth: 200, width: 400, enableColumnResizing: false },
+          { field: 'nombre_Institucion', minWidth: 200, width: 400, enableColumnResizing: false },
+          { field: 'nombre', minWidth: 120, width: 200, enableColumnResizing: false },
           { field: 'estado', minWidth: 80, width: 80, enableColumnResizing: false }
       ]
       ,onRegisterApi: function (gridApi) {
