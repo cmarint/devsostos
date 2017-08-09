@@ -14,7 +14,7 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG){
             })
             return deferred.promise;
         },
-        setEst: function(registro)
+        setNiv: function(registro)
         {   
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
@@ -30,7 +30,7 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG){
             })
             return deferred.promise;
         },
-        addEst: function(registro)
+        addNiv: function(registro)
         {   
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
@@ -46,7 +46,7 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG){
             })
             return deferred.promise;
         },
-        delEst: function(id)
+        delNiv: function(id)
         {   
             var regjson = angular.toJson(id);
             deferred = $q.defer();

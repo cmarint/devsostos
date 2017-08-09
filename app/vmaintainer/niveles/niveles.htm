@@ -32,3 +32,55 @@
       </button>
 </div>
 </section>
+
+<!-- Modal Eliminar -->
+<div id="m-eliminar" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Eliminar Curso</h4>
+            </div>
+            <div class="modal-body ng-scope"><p>¿Estás seguro de querer eliminar este registro?</p></div>
+                <div class="modal-footer"><button type="button" class="btn btn_c1" data-dismiss="modal" ng-click="delNIV()"><i class="fa fa-check-circle" aria-hidden="true"></i>Sí</button><button type="button" class="btn btn_c2" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i>No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal Eliminar -->
+
+<!-- Modal Editar-->
+  <div id="m-edi-estb" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Editar Curso</h4>
+        </div>
+        <div class="modal-body">
+          {{registroEdit}}
+          <div class="form-horizontal" role="form">
+            <div class="form-group col-md-12">
+              <div class="row">
+                <label class="control-label col-md-8" for="nombre">Nombre</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" id="nombre" placeholder="Enunciado" ng-model="registroEdit.nombre" ng-required="required">
+                </div>
+              </div>
+              <div class="row">
+                   <label class="control-label col-md-8" for="respuesta">Estado</label>
+                    <div class="col-md-8">
+                        <input type="checkbox" ng-model="registroEdit.estado" ng-true-value="'A'" ng-false-value="'I'">
+                        <strong ng-if="registroEdit.estado == 'A'"> Activo</strong><strong ng-if="registroEdit.estado == 'I'"> Inactivo</strong>
+                   </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="updEST(registroEdit)">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Fin Modal Editar -->
