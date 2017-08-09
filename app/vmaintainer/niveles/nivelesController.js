@@ -20,7 +20,7 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG){
             deferred = $q.defer();
             $http({
                 method: 'POST',
-                skipAuthorization: true,
+                //skipAuthorization: true,
                 url: CONFIG.APISOSTOSBE + '/nivel/upd',
                 data: regjson,
             }).then(function(res) {
@@ -79,6 +79,7 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
     columnDefs: [
           { field: 'id', minWidth: 80, width: 80, enableColumnResizing: false },
           { field: 'id_Institucion', minWidth: 80, width: 110, enableColumnResizing: false },
+          { field: 'nombre_Institucion', minWidth: 80, width: 110, enableColumnResizing: false },
           { field: 'nombre', minWidth: 200, width: 400, enableColumnResizing: false },
           { field: 'estado', minWidth: 80, width: 80, enableColumnResizing: false }
       ]
