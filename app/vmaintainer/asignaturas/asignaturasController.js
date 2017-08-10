@@ -93,7 +93,7 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
     columnDefs: [
           { field: 'id', minWidth: 80, width: 80, enableColumnResizing: false },
           { field: 'id_Institucion', minWidth: 80, width: 110, enableColumnResizing: false },
-          { field: 'nombre_Institucion', minWidth: 200, width: 400, enableColumnResizing: false },
+          { field: 'nombre_Institucion', minWidth: 200, width: 300, enableColumnResizing: false },
           { field: 'id_Nivel', minWidth: 80, width: 110, enableColumnResizing: false },
           { field: 'nombre_Nivel', minWidth: 200, width: 400, enableColumnResizing: false },
           { field: 'nombre', minWidth: 120, width: 200, enableColumnResizing: false },
@@ -103,7 +103,8 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
       $scope.gridApi = gridApi;
       }
   };
-
+  $scope.gridOptions.columnDefs[1].visible = false;
+  $scope.gridOptions.columnDefs[3].visible = false;
   $scope.getAll = function () {
       apiAsignaturaFactory.getTodos().then(function (data) {
 
