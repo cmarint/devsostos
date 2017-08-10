@@ -101,7 +101,7 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
       $scope.gridApi = gridApi;
       }
   };
-    
+ $scope.gridOptions.columnDefs[1].visible = false;
   $scope.getAll = function () {
       apiCursoFactory.getTodos().then(function (data) {
 
