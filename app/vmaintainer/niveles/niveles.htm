@@ -102,7 +102,7 @@
             <div class="form-group col-md-12">
               <div class="row">
                     <label class="control-label col-md-8" for="nombInstitucion">Institución</label>
-                    <select ng-model="datos.institucion" id="nombInstitucion" class="form-control" ng-options="colegio as colegio.nombre for colegio in combo" ng-change="datos.nombre_Institucion = datos.institucion.nombre;datos.id_Institucion = datos.institucion.id;">
+                    <select ng-model="institucion" id="nombInstitucion" class="form-control" ng-options="colegio as colegio.nombre for colegio in combo" ng-change="datos.nombre_Institucion = institucion.nombre;datos.id_Institucion = institucion.id;">
                    </select>
                     <input type="text" id="nombreInstitucion" ng-model="datos.nombre_Institucion">
                   <input type="text" id="idInstitucion" ng-model="datos.id_Institucion">
