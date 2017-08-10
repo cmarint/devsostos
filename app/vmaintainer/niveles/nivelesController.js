@@ -123,6 +123,7 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
       //$scope.getCombo();
       if (registro != '') { 
           $scope.registroEdit = registro[0]; 
+          $scope.idInstitucion = $scope.registroEdit.id_Institucion;
       }
   }
   
