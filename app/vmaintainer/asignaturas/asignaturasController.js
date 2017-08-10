@@ -79,7 +79,7 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG){
     }
 });
 
-app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiAsignaturaFactory, uiGridConstants) {
+app.controller('asignaturasController', function ($scope, i18nService, CONFIG, apiAsignaturaFactory, uiGridConstants) {
 
   i18nService.setCurrentLang('es');
   $scope.gridOptions = {
