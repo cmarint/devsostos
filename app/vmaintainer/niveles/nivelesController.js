@@ -104,7 +104,11 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
     
   $scope.getAll = function () {
       apiCursoFactory.getTodos().then(function (data) {
+
           $scope.gridOptions.data = data.data;
+
+      }).then(function (data) {
+           $scope.getCombo();
       });
   };
 
@@ -113,10 +117,11 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
           $scope.combo = data.data;
       });
   };
-  
+
+
   $scope.editNIV = function(){
       var registro = $scope.gridApi.selection.getSelectedRows();
-      $scope.getCombo();
+      //$scope.getCombo();
       if (registro != '') { 
           $scope.registroEdit = registro[0]; 
       }
