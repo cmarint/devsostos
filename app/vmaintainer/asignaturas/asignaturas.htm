@@ -1,11 +1,11 @@
 <section class="ng-scope m-asig">
 <div class="container ng-scope" ng-init="getAll()">
-    <h2>Mis Cursos</h2>
+    <h2>Mis Asignaturas</h2>
      <div class="bjd">
         <button class="btn " data-toggle="modal" data-target="#m-agr-estb" type="button">
           <i class="fa fa-plus-circle"></i> Agregar
         </button>
-        <button class="btn" data-toggle="modal" data-target="#m-edi-estb" ng-click="editNIV()">
+        <button class="btn" data-toggle="modal" data-target="#m-edi-estb" ng-click="editASI()">
           <i class="fa fa-pencil"></i> Editar
         </button>
          <button class="btn" data-toggle="modal" data-target="#m-eliminar">
@@ -13,7 +13,7 @@
         </button>
       </div>
       <div class="row row-centered">
-        <div class="col-md-9 col-centered">
+        <div class="col-md-12 col-centered">
             <div ui-grid="gridOptions" ui-grid-pagination ui-grid-edit ui-grid-selection class="grid"></div>
         </div>
       </div>
@@ -42,7 +42,7 @@
                 <h4 class="modal-title">Eliminar Curso</h4>
             </div>
             <div class="modal-body ng-scope"><p>¿Estás seguro de querer eliminar este registro?</p></div>
-                <div class="modal-footer"><button type="button" class="btn btn_c1" data-dismiss="modal" ng-click="delNIV()"><i class="fa fa-check-circle" aria-hidden="true"></i>Sí</button><button type="button" class="btn btn_c2" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i>No</button>
+                <div class="modal-footer"><button type="button" class="btn btn_c1" data-dismiss="modal" ng-click="delASI()"><i class="fa fa-check-circle" aria-hidden="true"></i>Sí</button><button type="button" class="btn btn_c2" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i>No</button>
             </div>
         </div>
     </div>
@@ -82,7 +82,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="updNIV(registroEdit)">
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="updASI(registroEdit)">
             </div>
           </div>
         </div>
@@ -122,7 +122,7 @@
                    </div>
             </div>
             <div class="modal-footer">
-              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="addNIV(datos)">
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="addASI(datos)">
             </div>
           </div>
         </div>
