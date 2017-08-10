@@ -7,20 +7,12 @@ app.constant('CONFIG', {
     APISOSTOSBE: "http://168.232.165.85:8080/sostos_backend_api"
 })
 
-app.run(['$rootScope',function($rootScope) {
-
-   $rootScope.isUserLoggedIn = true ; //Cambiar a false
-
-
-}]);
-
-
 app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwtHelper, store, $location,$routeParams) {
 
-   $rootScope.isUserLoggedIn = true; //Cambiar a false
+   $rootScope.isUserLoggedIn = false ; //Cambiar a false
 
-   /*$rootScope.$on('$routeChangeStart', function (event, next)
-    {
+   $rootScope.$on('$routeChangeStart', function (event, next)
+   {
         var token = store.get("token") || null;
         if(!token) {
             $rootScope.isUserLoggedIn = false;
@@ -28,11 +20,12 @@ app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwt
         }
 
         var bool = jwtHelper.isTokenExpired(token);
+        console.log(bool);
         if(bool === true) {
-            $rootScope.isUserLoggedIn = false;
+            $rootScope.isUserLoggedIn = true;
             $location.path("/");
         }
-    });*/
+    });
 
 
 
@@ -43,16 +36,13 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
 
     //$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
   jwtOptionsProvider.config({
-      tokenGetter: ['jwtServ', function(jwtServ) {
+      tokenGetter: ['options', function(options) {
+        //console.log(tknService.url.toString);
         return localStorage.getItem('token');
       }],
-	whiteListedDomains: ['168.232.165.85', 'localhost']
+      whiteListedDomains: ['168.232.165.85', 'localhost'] //,
+      //authPrefix: 'Bearer '
     });
-
-    jwtInterceptorProvider.tokenGetter = function() {
-        return localStorage.getItem('token');
-    };
-
     //$httpProvider.interceptors.push('jwtInterceptor');
 		
 

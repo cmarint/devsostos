@@ -1,16 +1,17 @@
-app.controller('loginController', ['$scope','CONFIG', 'authFactory', 'jwtHelper', 'store', '$location','$rootScope', function($scope, CONFIG, authFactory, jwtHelper, store, $location,$rootScope)
+app.controller('loginController', ['$scope','CONFIG', 'authFactory', 'jwtHelper', 'store', '$location','$rootScope', '$http', function($scope, CONFIG, authFactory, jwtHelper, store, $location,$rootScope, $http)
 {
-    //$rootScope.isUserLoggedIn = false;
+
 
 	  $scope.login = function(user)
     {
         authFactory.login(user).then(function(res)
         {
-            if(res.data && res.data.code == 0)
+
+            if(res.data && res.data.token != '')
             {
                 $rootScope.isUserLoggedIn = true;
 
-                store.set('token', res.data.response.token);
+                store.set('token', res.data.token);
                 $location.path("/home");
             }
             else
@@ -26,13 +27,14 @@ app.factory("authFactory", ["$http", "$q", "CONFIG", function($http, $q, CONFIG)
 	return {
 		login: function(user)
 		{
-			var deferred;
+            //return $http.post(CONFIG.APISOSTOS +'/token/get', user);
+            var deferred;
             deferred = $q.defer();
             $http({
                 method: 'POST',
                 skipAuthorization: true,
-                url: CONFIG.APISOSTOS+'/token/get',
-                //headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                url: CONFIG.APISOSTOS +'/token/get',
+                data: user,
                 headers: {'Content-Type': 'application/json'}
             })
             .then(function(res)
