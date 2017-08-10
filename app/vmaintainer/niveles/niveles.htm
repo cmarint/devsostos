@@ -101,7 +101,7 @@
           <div class="form-horizontal" role="form">
             <div class="form-group col-md-12">
               <div class="row">
-                    {{datos.id_Institucion}}
+                    {{datos.id_Institucion}} {{colegio.nombre}}
                     <label class="control-label col-md-8" for="nombInstitucion">Institución</label>
                     <select ng-model="datos.id_Institucion" id="nombInstitucion" class="form-control" ng-options="colegio.id as colegio.nombre for colegio in combo" ng-change="datos.nombre_Institucion = colegio.nombre">
                    </select>
