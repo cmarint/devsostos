@@ -106,6 +106,11 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     controller: 'nivelesController',
     authorization: false
   })
+  .when('/mntasignaturas', {
+    templateUrl : 'app/vmaintainer/asignaturas/asignaturas.htm',
+    controller: 'asignaturasController',
+    authorization: false
+  })
   //Fin Mantenedores
   .when('/perfil', {
     templateUrl : 'app/vperfil/perfil.htm',
