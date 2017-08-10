@@ -1,12 +1,13 @@
-app.factory('apiFaqFactory', function($http, $q, CONFIG){
+app.factory('apiFaqFactory', function($http, $q, CONFIG, store){
     return {
         getTodos: function() 
         { 
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
                 method: 'GET',
-                skipAuthorization: true,
-                url: CONFIG.APISOSTOSBE + '/preguntafrecuente/get'
+                skipAuthorization: false,
+                url: CONFIG.APISOSTOS + '/preguntafrecuente/get'
             }).then(function(res) {
                 deferred.resolve(res);
             }).then(function(error){
@@ -16,12 +17,13 @@ app.factory('apiFaqFactory', function($http, $q, CONFIG){
         },
         setFaq: function(registro)
         {   
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
                 method: 'POST',
                 skipAuthorization: true,
-                url: CONFIG.APISOSTOSBE + '/preguntafrecuente/upd',
+                url: CONFIG.APISOSTOS + '/preguntafrecuente/upd',
                 data: regjson,
             }).then(function(res) {
                 deferred.resolve(res);
@@ -32,12 +34,13 @@ app.factory('apiFaqFactory', function($http, $q, CONFIG){
         },
         addFaq: function(registro)
         {   
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
                 method: 'POST',
                 //skipAuthorization: true,
-                url: CONFIG.APISOSTOSBE + '/preguntafrecuente/add',
+                url: CONFIG.APISOSTOS + '/preguntafrecuente/add',
                 data: regjson
             }).then(function(res) {
                 deferred.resolve(res);
@@ -48,12 +51,13 @@ app.factory('apiFaqFactory', function($http, $q, CONFIG){
         },
         delFaq: function(id)
         {   
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(id);
             deferred = $q.defer();
             $http({
                 method: 'GET',
                 //skipAuthorization: true,
-                url: CONFIG.APISOSTOSBE + '/preguntafrecuente/del/' + id
+                url: CONFIG.APISOSTOS + '/preguntafrecuente/del/' + id
             }).then(function(res) {
                 deferred.resolve(res);
             }).then(function(error){
