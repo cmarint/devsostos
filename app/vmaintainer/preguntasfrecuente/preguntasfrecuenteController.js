@@ -1,3 +1,4 @@
+//FAQ
 app.factory('apiFaqFactory', function($http, $q, CONFIG, store){
     return {
         getTodos: function() 
