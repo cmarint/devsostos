@@ -118,13 +118,6 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
       });
   };
 
-  $scope.selectUpd = function (institucion)
-  {
-      $scope.datos.id_Institucion = institucion.id;
-       $scope.datos.nombre_Institucion = institucion.nombre;
-  };
-
-
   $scope.editNIV = function(){
       var registro = $scope.gridApi.selection.getSelectedRows();
       //$scope.getCombo();
