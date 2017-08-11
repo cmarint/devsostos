@@ -145,7 +145,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
             $http({
                 method: 'GET',
                 skipAuthorization: false,
-                url: CONFIG.APISOSTOSBE + '/usuario/getAllMenu/1'
+                url: CONFIG.APISOSTOSBE + '/usuario/getAllMenu'
             }).then(function(res) {
                 deferred.resolve(res);
             }).then(function(error){
