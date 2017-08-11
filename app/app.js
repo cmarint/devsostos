@@ -53,7 +53,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     controller 	: 'loginController',
     authorization: false
   })
-  .when('/', {
+  .when('/home', {
     templateUrl : 'app/vhome/home.htm',
     controller 	: 'mainController',
     authorization: false
