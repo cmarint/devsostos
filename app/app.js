@@ -166,9 +166,9 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
                 if (key === 'nombre') {
                     console.log(value);
                 }
-            }); //forEach
+            }) //forEach
         });
-     };
+     }
  });
 
 
