@@ -176,11 +176,9 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
                   '<a href="#!mntalumnos" class="btn m-alum">' +
                   '<span class="glyphicon glyphicon-education" aria-hidden="true"></span> Alumnos' +
                   '</a>';
-      };
-  };
 
+    };
 
-     //$rootScope.isUserLoggedIn=true;
  });
 
 
