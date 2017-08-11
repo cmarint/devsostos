@@ -158,9 +158,25 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
 
  app.controller('navController', function($scope, $rootScope, CONFIG, apiMenuFactory) {
       $scope.getAll = function () {
-       apiMenuFactory.getTodos().then(function (data) {
-          $scope.lista = data.data;
-       });
+       //apiMenuFactory.getTodos().then(function (data) {
+       //     $scope.lista = data.data;
+       //});
+       $scope.lista = '<a href="#!mntpreguntasfre" class="btn m-corr">' +
+                  '<span class="glyphicon glyphicon-print" aria-hidden="true"></span> FAQ' +
+                  '</a>' +
+                  '<a href="#!mntinstituciones" class="btn m-estb">' +
+                  '<span class="glyphicon glyphicon-flag"></span>Establecimientos' +
+                  '</a>' +
+                  '<a href="#!mntniveles" class="btn m-curs">' +
+                  '<span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span> Cursos' +
+                  '</a>' +
+                  '<a href="#!mntasignaturas" class="btn m-asig">' +
+                  '<span class="glyphicon glyphicon-apple" aria-hidden="true"></span> Asignaturas' +
+                  '</a>' +
+                  '<a href="#!mntalumnos" class="btn m-alum">' +
+                  '<span class="glyphicon glyphicon-education" aria-hidden="true"></span> Alumnos' +
+                  '</a>';
+      };
   };
 
 
