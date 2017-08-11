@@ -7,7 +7,7 @@ app.factory('apiFaqFactory', function($http, $q, CONFIG, store){
             deferred = $q.defer();
             $http({
                 method: 'GET',
-                skipAuthorization: false,
+                skipAuthorization: true,
                 url: CONFIG.APISOSTOS + '/preguntafrecuente/get'
             }).then(function(res) {
                 deferred.resolve(res);
