@@ -1,16 +1,12 @@
 app.controller('loginController', ['$scope','CONFIG', 'authFactory', 'jwtHelper', 'store', '$location','$rootScope', '$http', function($scope, CONFIG, authFactory, jwtHelper, store, $location,$rootScope, $http)
 {
-
-
 	  $scope.login = function(user)
     {
         authFactory.login(user).then(function(res)
         {
-
             if(res.data && res.data.token != '')
             {
                 $rootScope.isUserLoggedIn = true;
-
                 store.set('token', res.data.token);
                 $location.path("/home");
             }
@@ -27,7 +23,6 @@ app.factory("authFactory", ["$http", "$q", "CONFIG", function($http, $q, CONFIG)
 	return {
 		login: function(user)
 		{
-            //return $http.post(CONFIG.APISOSTOS +'/token/get', user);
             var deferred;
             deferred = $q.defer();
             $http({
