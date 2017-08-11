@@ -136,15 +136,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
       $scope.msg = 'Clave';
       //$rootScope.isUserLoggedIn=true;
   });
- 
- app.controller('navController', function($scope, $rootScope, CONFIG, apiMenuFactory) {
-      $scope.getAll = function () {
-      apiMenuFactory.getTodos().then(function (data) {
-          $scope.lista = data.data;
-      });
-  };
-
-  app.factory('apiMenuFactory', function($http, $q, CONFIG, store){
+ app.factory('apiMenuFactory', function($http, $q, CONFIG, store){
     return {
         getTodos: function()
         {
@@ -163,6 +155,14 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
         }
     }
   });
+
+ app.controller('navController', function($scope, $rootScope, CONFIG, apiMenuFactory) {
+      $scope.getAll = function () {
+       apiMenuFactory.getTodos().then(function (data) {
+          $scope.lista = data.data;
+       });
+  };
+
 
      //$rootScope.isUserLoggedIn=true;
  });
