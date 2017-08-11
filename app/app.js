@@ -137,8 +137,33 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
       //$rootScope.isUserLoggedIn=true;
   });
  
-app.controller('navController', function($scope, $rootScope) {
-     $scope.nombre = 'Claudio Marín';
+ app.controller('navController', function($scope, $rootScope, CONFIG, apiMenuFactory) {
+      $scope.getAll = function () {
+      apiMenuFactory.getTodos().then(function (data) {
+          $scope.lista = data.data;
+      });
+  };
+
+  app.factory('apiMenuFactory', function($http, $q, CONFIG, store){
+    return {
+        getTodos: function()
+        {
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            deferred = $q.defer();
+            $http({
+                method: 'GET',
+                skipAuthorization: false,
+                url: CONFIG.APISOSTOSBE + '/usuario/getAllMenu/1'
+            }).then(function(res) {
+                deferred.resolve(res);
+            }).then(function(error){
+                deferred.reject(error);
+            })
+            return deferred.promise;
+        }
+    }
+  });
+
      //$rootScope.isUserLoggedIn=true;
  });
 
