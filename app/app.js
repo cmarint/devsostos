@@ -9,9 +9,9 @@ app.constant('CONFIG', {
 
 app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwtHelper, store, $location,$routeParams) {
 
-   $rootScope.isUserLoggedIn = true ; //Cambiar a false
+   $rootScope.isUserLoggedIn = false ; //Cambiar a false
 
-  /* $rootScope.$on('$routeChangeStart', function (event, next)
+   $rootScope.$on('$routeChangeStart', function (event, next)
    {
         var token = store.get("token") || null;
         if(!token) {
@@ -25,7 +25,7 @@ app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwt
             $rootScope.isUserLoggedIn = true;
             $location.path("/");
         }
-    });*/
+    });
 
 
 
@@ -35,24 +35,24 @@ app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwt
 app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
 
     //$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-  /*jwtOptionsProvider.config({
+  jwtOptionsProvider.config({
       tokenGetter: ['options', function(options) {
         //console.log(tknService.url.toString);
         return localStorage.getItem('token');
       }],
       whiteListedDomains: ['168.232.165.85', 'localhost'] //,
       //authPrefix: 'Bearer '
-    });*/
+    });
     //$httpProvider.interceptors.push('jwtInterceptor');
 		
 
 
   $routeProvider
-  /*.when('/', {
+  .when('/', {
     templateUrl : 'app/vlogin/login.htm',
     controller 	: 'loginController',
     authorization: false
-  })*/
+  })
   .when('/', {
     templateUrl : 'app/vhome/home.htm',
     controller 	: 'mainController',
