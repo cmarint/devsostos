@@ -168,9 +168,9 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
                 }
             }); //forEach
         });
-};
-       });
-    };
+     };
+ });
+
 
  });
 
