@@ -164,7 +164,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
 
             angular.forEach($scope.lista, function(value, key) {
                 //if (key === 'nombre') {
-                    console.log(key + ':' + value[0].nombre);
+                    console.log(key + ':' + value[0]);
                 //}
             }) //forEach
         });
