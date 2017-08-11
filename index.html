@@ -22,7 +22,6 @@
    <link rel="icon" href="assets/img/favicon.png">
 </head>
 <body ng-controller="navController">
- {{lista}}
     <!-- Sección donde defino el menú de navegación -->
     <header ng-if="isUserLoggedIn">
         <div class="ng-scope" ng-init="getAll()">
@@ -57,7 +56,10 @@
               </div>
             </div>
             <div class="menu2">
-              <div class="container" ng-bind-html="lista">
+              <div ng-repeat="opcion in lista track by opcion.id">
+                {{opcion.nombre}}
+              </div>
+              <!-- div class="container" ng-bind-html="lista" -->
               </div>
             </div>
           </div>
