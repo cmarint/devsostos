@@ -21,7 +21,7 @@
    <link rel="stylesheet" href="assets/css/tabla.css" />
    <link rel="icon" href="assets/img/favicon.png">
 </head>
-<body ng-controller="navController">
+<body ng-controller="navController" ng-init="getAll()">
  {{lista}}
     <!-- Sección donde defino el menú de navegación -->
     <header ng-if="isUserLoggedIn">
