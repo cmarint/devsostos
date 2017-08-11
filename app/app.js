@@ -163,9 +163,9 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
             $scope.nombre = 'Nombre del Usuario';
 
             angular.forEach($scope.lista, function(value, key) {
-                if (key === 'nombre') {
-                    console.log(value);
-                }
+                //if (key === 'nombre') {
+                    console.log(key + ':' + value);
+                //}
             }) //forEach
         });
      }
