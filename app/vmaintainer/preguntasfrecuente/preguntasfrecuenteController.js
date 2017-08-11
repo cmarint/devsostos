@@ -3,11 +3,11 @@ app.factory('apiFaqFactory', function($http, $q, CONFIG, store){
     return {
         getTodos: function() 
         { 
-            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
                 method: 'GET',
-                skipAuthorization: true,
+                skipAuthorization: false,
                 url: CONFIG.APISOSTOS + '/preguntafrecuente/get'
             }).then(function(res) {
                 deferred.resolve(res);
@@ -23,7 +23,7 @@ app.factory('apiFaqFactory', function($http, $q, CONFIG, store){
             deferred = $q.defer();
             $http({
                 method: 'POST',
-                skipAuthorization: true,
+                skipAuthorization: false,
                 url: CONFIG.APISOSTOS + '/preguntafrecuente/upd',
                 data: regjson,
             }).then(function(res) {
@@ -40,7 +40,7 @@ app.factory('apiFaqFactory', function($http, $q, CONFIG, store){
             deferred = $q.defer();
             $http({
                 method: 'POST',
-                //skipAuthorization: true,
+                skipAuthorization: false,
                 url: CONFIG.APISOSTOS + '/preguntafrecuente/add',
                 data: regjson
             }).then(function(res) {
@@ -57,7 +57,7 @@ app.factory('apiFaqFactory', function($http, $q, CONFIG, store){
             deferred = $q.defer();
             $http({
                 method: 'GET',
-                //skipAuthorization: true,
+                skipAuthorization: false,
                 url: CONFIG.APISOSTOS + '/preguntafrecuente/del/' + id
             }).then(function(res) {
                 deferred.resolve(res);
