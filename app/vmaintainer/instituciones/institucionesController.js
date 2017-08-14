@@ -2,11 +2,12 @@ app.factory('apiEstabFactory', function($http, $q, CONFIG){
     return {
         getTodos: function() 
         { 
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
                 method: 'GET',
                 skipAuthorization: true,
-                url: CONFIG.APISOSTOSBE + '/institucion/get'
+                url: CONFIG.APISOSTOS + '/institucion/get'
             }).then(function(res) {
                 deferred.resolve(res);
             }).then(function(error){
@@ -16,12 +17,13 @@ app.factory('apiEstabFactory', function($http, $q, CONFIG){
         },
         setEst: function(registro)
         {   
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
                 method: 'POST',
                 skipAuthorization: true,
-                url: CONFIG.APISOSTOSBE + '/institucion/upd',
+                url: CONFIG.APISOSTOS + '/institucion/upd',
                 data: regjson,
             }).then(function(res) {
                 deferred.resolve(res);
@@ -32,12 +34,13 @@ app.factory('apiEstabFactory', function($http, $q, CONFIG){
         },
         addEst: function(registro)
         {   
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
                 method: 'POST',
                 //skipAuthorization: true,
-                url: CONFIG.APISOSTOSBE + '/institucion/add',
+                url: CONFIG.APISOSTOS + '/institucion/add',
                 data: regjson
             }).then(function(res) {
                 deferred.resolve(res);
@@ -48,12 +51,13 @@ app.factory('apiEstabFactory', function($http, $q, CONFIG){
         },
         delEst: function(id)
         {   
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(id);
             deferred = $q.defer();
             $http({
                 method: 'GET',
                 //skipAuthorization: true,
-                url: CONFIG.APISOSTOSBE + '/institucion/del/' + id
+                url: CONFIG.APISOSTOS + '/institucion/del/' + id
             }).then(function(res) {
                 deferred.resolve(res);
             }).then(function(error){

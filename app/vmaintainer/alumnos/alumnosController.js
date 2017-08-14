@@ -2,11 +2,12 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG){
     return {
         getTodos: function()
         {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
                 method: 'GET',
                 skipAuthorization: true,
-                url: CONFIG.APISOSTOSBE + '/alumno/get'
+                url: CONFIG.APISOSTOS + '/alumno/get'
             }).then(function(res) {
                 deferred.resolve(res);
             }).then(function(error){
@@ -16,11 +17,12 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG){
         },
         getIns: function()
         {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
                 method: 'GET',
                 skipAuthorization: true,
-                url: CONFIG.APISOSTOSBE + '/institucion/get'
+                url: CONFIG.APISOSTOS + '/institucion/get'
             }).then(function(res) {
                 deferred.resolve(res);
             }).then(function(error){
@@ -30,12 +32,13 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG){
         },
         setAsi: function(registro)
         {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
                 method: 'POST',
                 //skipAuthorization: true,
-                url: CONFIG.APISOSTOSBE + '/alumno/upd',
+                url: CONFIG.APISOSTOS + '/alumno/upd',
                 data: regjson,
             }).then(function(res) {
                 deferred.resolve(res);
@@ -46,12 +49,13 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG){
         },
         addAsi: function(registro)
         {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
                 method: 'POST',
                 //skipAuthorization: true,
-                url: CONFIG.APISOSTOSBE + '/alumno/add',
+                url: CONFIG.APISOSTOS + '/alumno/add',
                 data: regjson
             }).then(function(res) {
                 deferred.resolve(res);
@@ -62,12 +66,13 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG){
         },
         delAsi: function(id)
         {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(id);
             deferred = $q.defer();
             $http({
                 method: 'GET',
                 //skipAuthorization: true,
-                url: CONFIG.APISOSTOSBE + '/alumno/del/' + id
+                url: CONFIG.APISOSTOS + '/alumno/del/' + id
             }).then(function(res) {
                 deferred.resolve(res);
             }).then(function(error){
