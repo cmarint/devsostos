@@ -59,7 +59,7 @@
               <div ng-repeat="opcion in lista track by opcion.id">
                   <any ng-if="opcion.id_Menu_Padre === null">
                       <any ng-repeat="opt in opcion.menu track by id">
-                          <div ng-bind-html="opt.path"></div>
+                          {{opt.nombre }}
                       </any>
 
                   </any>
