@@ -1,4 +1,4 @@
-app.factory('apiAsignaturaFactory', function($http, $q, CONFIG){
+app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store){
     return {
         getTodos: function()
         {

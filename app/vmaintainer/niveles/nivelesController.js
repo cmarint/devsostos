@@ -1,4 +1,4 @@
-app.factory('apiCursoFactory', function($http, $q, CONFIG){
+app.factory('apiCursoFactory', function($http, $q, CONFIG, store){
     return {
         getTodos: function() 
         { 

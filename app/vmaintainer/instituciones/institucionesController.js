@@ -1,4 +1,4 @@
-app.factory('apiEstabFactory', function($http, $q, CONFIG){
+app.factory('apiEstabFactory', function($http, $q, CONFIG, store){
     return {
         getTodos: function() 
         { 
