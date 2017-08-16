@@ -52,13 +52,13 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
   .when('/home', {
     templateUrl : 'app/vhome/home.htm',
     controller 	: 'mainController',
-    authorization: false
+    authorization: true
   })  
   // Sección Ayuda
   .when('/preguntasfrec', {
     templateUrl : 'app/vhelp/preguntas.htm',
     controller: 'preguntasfrecuenteController',
-    authorization: false
+    authorization: true
   })
   .when('/chat', {
     templateUrl : 'app/vhelp/chat.htm',
