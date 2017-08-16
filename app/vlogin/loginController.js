@@ -8,6 +8,8 @@ app.controller('loginController', ['$scope','CONFIG', 'authFactory', 'jwtHelper'
             if(res.data && res.data.token != '')
             {
                 $rootScope.isUserLoggedIn = true;
+                var tokenPayload = jwtHelper.decodeToken(token);
+                console.log(tokenPayload);
                 store.set('token', res.data.token);
                 $location.path("/home");
             }

@@ -158,7 +158,6 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
       $scope.getAll = function () {
        apiMenuFactory.getTodos().then(function (data) {
             $scope.lista = data.data;
-            $scope.nombre = 'Nombre del Usuario';
         });
       };
 
