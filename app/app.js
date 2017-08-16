@@ -1,8 +1,7 @@
 var app = angular.module('appSostos', ['ngRoute','ngSanitize','angular-jwt', 'angular-storage','xlsx-model','ngTouch','ui.grid','ui.grid.selection','ui.grid.pagination','ui.grid.cellNav']);
 
 app.constant('CONFIG', {
-    APISOSTOS: "http://168.232.165.85:8080/sostos_frontend_api",
-    APISOSTOSBE: "http://168.232.165.85:8080/sostos_backend_api"
+    APISOSTOS: "http://168.232.165.85:8080/sostos_frontend_api"
 })
 
 app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwtHelper, store, $location,$routeParams) {

@@ -1,96 +1,145 @@
-app.factory('preguntasSeguridad', function($http, $q, CONFIG){
-  return{
-        get: function()
+//PSE
+app.factory('apiPseFactory', function($http, $q, CONFIG, store){
+    return {
+        getTodos: function()
         {
-            var deferred;
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            deferred = $q.defer();
+            $http({
+                method: 'GET',
+                skipAuthorization: false,
+                url: CONFIG.APISOSTOS + '/preguntaseguridad/get'
+            }).then(function(res) {
+                deferred.resolve(res);
+            }).then(function(error){
+                deferred.reject(error);
+            })
+            return deferred.promise;
+        },
+        setPse: function(registro)
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
                 method: 'POST',
                 skipAuthorization: false,
-                url: CONFIG.APILOCAL+'/srv_preguntasseg.php'
-            })
-            .then(function(res)
-            {
+                url: CONFIG.APISOSTOS + '/preguntaseguridad/upd',
+                data: regjson,
+            }).then(function(res) {
                 deferred.resolve(res);
+            }).then(function(error){
+                deferred.reject(error);
             })
-            .then(function(error)
-            {
+            return deferred.promise;
+        },
+        addPse: function(registro)
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            var regjson = angular.toJson(registro);
+            deferred = $q.defer();
+            $http({
+                method: 'POST',
+                skipAuthorization: false,
+                url: CONFIG.APISOSTOS + '/preguntaseguridad/add',
+                data: regjson
+            }).then(function(res) {
+                deferred.resolve(res);
+            }).then(function(error){
+                deferred.reject(error);
+            })
+            return deferred.promise;
+        },
+        delPse: function(id)
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            var regjson = angular.toJson(id);
+            deferred = $q.defer();
+            $http({
+                method: 'GET',
+                skipAuthorization: false,
+                url: CONFIG.APISOSTOS + '/preguntaseguridad/del/' + id
+            }).then(function(res) {
+                deferred.resolve(res);
+            }).then(function(error){
                 deferred.reject(error);
             })
             return deferred.promise;
         }
+
     }
 });
 
-app.controller('preguntasseguridadController', function ($scope, CONFIG, preguntasSeguridad, ngDialog, $window, $rootScope) {
+app.controller('preguntasfrecuenteController', function ($scope, i18nService, CONFIG, apiPseFactory, uiGridConstants) {
   
-  var templateUpd =    'app/vmaintainer/preguntasseguridad/updpreguntasseguridad.htm';
-  $scope.templateAdd = 'app/vmaintainer/preguntasseguridad/addpreguntasseguridad.htm';
+  i18nService.setCurrentLang('es');
+  $scope.gridOptions = {
+    enableRowSelection: true,
+    enableRowHeaderSelection: false,
+    enablePaginationControls: false,
+    multiSelect: false,
+    enableSorting: true,
+    paginationPageSizes: [10, 30, 60],
+    paginationPageSize: 10,
+    columnDefs: [
+          { field: 'id', minWidth: 80, width: 80, enableColumnResizing: false },
+          { field: 'enunciado', minWidth: 100, width: 200, enableColumnResizing: false },
+          { field: 'respuesta', enableSorting: false },
+          { field: 'estado', minWidth: 100, width: 100, enableColumnResizing: false }
+      ]
+      ,onRegisterApi: function (gridApi) {
+      $scope.gridApi = gridApi;
+      }
+  };
 
-  $scope.getAll = function ()
-  {
-      //var lista = JSON.toString(preguntasSeguridad.get());
-      var otable =  $('#tblpreguntas').DataTable({
-         "paging": true,
-         "lengthChange": true,
-         "searching": true,
-         "ordering": true,
-         "info": true,
-         "autoWidth": false,
-         "processing": true,
-         "ajax":
-            { "url": CONFIG.APILOCAL + '/srv_preguntasseg.php',
-            "dataType": "json",
-            "contentType": "application/json",
-            "type":'POST'
-            //"data":function ( d ) {return JSON.stringify();}
-            },
-         "language": {"url":"//cdn.datatables.net/plug-ins/1.10.12/i18n/Spanish.json"},
-         "scrollY": "300px",
-         "pagingType": "full_numbers",
-         "columns": [
-                       { data: 'id' },
-                       { data: 'pregunta' },
-                       { "targets": -1,
-                            "data": null,
-                            "defaultContent": "<button id='btnEditar'  class='btn btn-mini btn-primary'><i class='fa fa-pencil'></i> Editar</button> <button id='btnEliminar'  class='btn btn-mini btn-danger'><i class='fa fa-trash'></i> Eliminar</button>",
-                            "orderable": false
+  $scope.getAll = function () {
+      apiPseFactory.getTodos().then(function (data) {
+          $scope.gridOptions.data = data.data;
+      });
+  };
 
-                       }
-                    ],
-           "order": [[0, 'asc']]
-       });
-
-
-      $('#tblpreguntas' + ' tbody').on('click', 'button', function () {
-            var object = $(this);
-            var data = otable.row(object.parents('tr')).data();
-
-            if (object[0].id == 'btnEditar') {
-                  $scope.Dialogo(data, templateUpd);
-            }
-        });
-
+  $scope.getList = function () {
+      apiPseFactory.getTodos().then(function (data) {
+          $scope.datos = data.data;
+      });
   };
 
 
-  $scope.Dialogo = function(data, vtemplate)
-  {
-      ngDialog.open(
-                  {
-                      template: vtemplate,
-                      className: 'ngdialog-theme-default',
-                      data: JSON.stringify({ 'datos': data }),
-                      scope: $scope,
-                      showClose: false,
-                      overlay: true,
-                      closeByEscape: false,
-                      closeByDocument: false,
-                      id: 'dgPreguntas',
-                      width:'900px'
-                  });
+  $scope.editPSE = function(){
+      var registro = $scope.gridApi.selection.getSelectedRows();
+      if (registro != '') {
+          $scope.registroEdit = registro[0];
+      }
+  }
 
-  };
+
+  $scope.delPSE = function(){
+      var registro = $scope.gridApi.selection.getSelectedRows();
+      if (registro != '') {
+          apiPseFactory.delPse(registro[0].id).then(function (data){
+            angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
+                $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
+            });
+          })
+      } else {
+          alert('Debe seleccionar un registro');
+      }
+  }
+
+  $scope.updPSE = function(registro){
+      apiPseFactory.setPse(registro).then(function (data) {
+          console.log(data.data);
+      })
+  }
+
+  $scope.addPSE = function(registro){
+      //registro.estado = registro.flag ? 'A' : 'I';
+      //delete registro.flag;
+      apiPseFactory.addPse(registro).then(function (data) {
+          $scope.gridOptions.data.push(data.data);
+          //console.log(data.data);
+      })
+  }
 
 
 });

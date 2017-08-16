@@ -1,12 +1,127 @@
-<div class="container" ng-init="getAll()">
-    <h3>Mantenedor Preguntas de Seguridad</h3>
-    <button class='btn btn-mini btn-success' ng-click="Dialogo(null,templateAdd)">
-      <i class='fa fa-plus-circle'></i> Agregar
-    </button>
-    <hr>
-    <table id="tblpreguntas" class="table table-bordered table-hover">
-    <thead>
-      <tr><th>ID</th><th>Preguntas</th><th>Opciones</th></tr>
-    </thead>
-    </table>
+<section class="ng-scope m-curs">
+<div class="container ng-scope" ng-init="getAll()">
+    <h2>Mantenedor Preguntas de Seguridad</h2>
+     <div class="bjd">
+        <button class="btn " data-toggle="modal" data-target="#m-agr-curs" type="button">
+          <i class="fa fa-plus-circle"></i> Agregar
+        </button>
+        <button class="btn" data-toggle="modal" data-target="#m-edi-curs" ng-click="editPSE()">
+          <i class="fa fa-pencil"></i> Editar
+        </button>
+         <button class="btn" data-toggle="modal" data-target="#m-eliminar">
+          <i class="fa fa-trash"></i> Eliminar
+        </button>
+      </div>
+    <div ui-grid="gridOptions" ui-grid-pagination ui-grid-edit ui-grid-selection class="grid"></div>
+    <p>Página actual: {{ gridApi.pagination.getPage() }} de {{ gridApi.pagination.getTotalPages() }}</p>
+      <button type="button" class="btn " ng-click="gridApi.pagination.seek(1)">
+        Primera
+      </button>
+      <button type="button" class="btn " ng-click="gridApi.pagination.previousPage()">
+        Anterior
+      </button>
+      <button type="button" class="btn " ng-click="gridApi.pagination.nextPage()">
+        Siguiente
+      </button>
+      <button type="button" class="btn " ng-click="gridApi.pagination.seek(gridApi.pagination.getTotalPages())">
+        Última
+      </button>
 </div>
+</section>
+
+<!-- Modal Eliminar -->
+<div id="m-eliminar" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Eliminar Pregunta</h4>
+            </div>
+            <div class="modal-body ng-scope"><p>¿Estás seguro de querer eliminar este registro?</p></div>
+                <div class="modal-footer"><button type="button" class="btn btn_c1" data-dismiss="modal" ng-click="delPSE()"><i class="fa fa-check-circle" aria-hidden="true"></i>Sí</button><button type="button" class="btn btn_c2" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i>No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal Eliminar -->
+
+<!-- Modal Editar-->
+  <div id="m-edi-curs" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Editar Pregunta</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-horizontal" role="form">
+            <div class="form-group col-md-12">
+              <div class="row">
+                <label class="control-label col-md-8" for="enunciado">Enunciado</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" id="enunciado" placeholder="Enunciado" ng-model="registroEdit.enunciado" ng-required="required">
+                </div>
+              </div>
+              <div class="row">
+                <label class="control-label col-md-8" for="respuesta">Respuesta</label>
+                <div class="col-md-12">
+                    <textarea class="form-control" id="respuesta" placeholder="Respuesta" ng-model="registroEdit.respuesta" ng-required="required"></textarea>
+                </div>
+              </div>
+              <div class="row">
+                   <label class="control-label col-md-8" for="respuesta">Estado</label>
+                    <div class="col-md-8">
+                        <input type="checkbox" ng-model="registroEdit.estado" ng-true-value="'A'" ng-false-value="'I'">
+                        <strong ng-if="registroEdit.estado == 'A'"> Activo</strong><strong ng-if="registroEdit.estado == 'I'"> Inactivo</strong>
+                   </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="updPSE(registroEdit)">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Fin Modal Editar -->
+
+<!-- Modal Agregar-->
+  <div id="m-agr-curs" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Agregar Pregunta</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-horizontal" role="form">
+            <div class="form-group col-md-12">
+              <div class="row">
+                <label class="control-label col-md-8" for="enunciado">Enunciado</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" id="enunciado" placeholder="Enunciado" ng-model="datos.enunciado" ng-required="required">
+                </div>
+              </div>
+              <div class="row">
+                <label class="control-label col-md-8" for="respuesta">Respuesta</label>
+                <div class="col-md-12">
+                    <textarea class="form-control" id="respuesta" placeholder="Respuesta" ng-model="datos.respuesta" ng-required="required"></textarea>
+                </div>
+              </div>
+              <div class="row">
+                   <label class="control-label col-md-8" for="respuesta">Estado</label>
+                    <div class="col-md-8">
+                        <input type="checkbox" ng-model="datos.estado" ng-true-value="'A'" ng-false-value="'I'"><strong ng-if="datos.estado == 'A'"> Activo</strong><strong ng-if="datos.estado == 'I'"> Inactivo</strong>
+                   </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="addPSE(datos)">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Fin Modal Agregar -->
