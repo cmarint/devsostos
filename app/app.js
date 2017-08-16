@@ -7,6 +7,8 @@ app.constant('CONFIG', {
 app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwtHelper, store, $location,$routeParams) {
 
    $rootScope.isUserLoggedIn = false ; //Cambiar a false
+   store.remove('token');
+   $http.defaults.headers.common.Authorization = null;
 
    $rootScope.$on('$routeChangeStart', function (event, next)
    {
