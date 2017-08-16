@@ -44,7 +44,7 @@
                       {{nombre}}<span class="caret"></span>
                     </a><!--Variable de nombre por usuario-->
                     <ul class="dropdown-menu" ng-repeat="opcion in lista track by opcion.id" ng-if="opcion.id_Menu_Padre === null && opcion.nombre === 'MenuPerfil'">
-                      <any ng-repeat="opt in opcion.menu" ng-bind-html="opcion.menu[$index].path"></any>
+                      <ng-bind-html ng-repeat="opt in opcion.menu" ng-bind-html="opcion.menu[$index].path"></ng-bind-html>
                       <!--<li><a href="#!perfil">Cambiar datos personales</a></li>
                       <li><a href="#!clave">Cambiar contraseña</a></li>
                       <li><a href="seguridad.html">Preguntas de seguridad</a></li>
@@ -60,9 +60,6 @@
               <div class="container" ng-repeat="opcion in lista track by opcion.id" ng-if="opcion.id_Menu_Padre === null && opcion.nombre === 'MenuTab'">
                         <ng-bind-html ng-repeat="opt in opcion.menu" ng-bind-html="opcion.menu[$index].path"></ng-bind-html>
               </div>
-
-              <!-- div class="container" ng-bind-html="lista" -->
-              <!-- /div -->
             </div>
           </div>
 
