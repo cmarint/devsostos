@@ -3,7 +3,7 @@ app.factory('apiFaqFactory', function($http, $q, CONFIG, store){
     return {
         getTodos: function() 
         { 
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -18,7 +18,7 @@ app.factory('apiFaqFactory', function($http, $q, CONFIG, store){
         },
         setFaq: function(registro)
         {   
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -35,7 +35,7 @@ app.factory('apiFaqFactory', function($http, $q, CONFIG, store){
         },
         addFaq: function(registro)
         {   
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -52,7 +52,7 @@ app.factory('apiFaqFactory', function($http, $q, CONFIG, store){
         },
         delFaq: function(id)
         {   
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(id);
             deferred = $q.defer();
             $http({
