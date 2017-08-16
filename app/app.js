@@ -11,6 +11,8 @@ app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwt
    $rootScope.$on('$routeChangeStart', function (event, next)
    {
         var token = store.get("token") || null;
+        var tokenPayload = jwtHelper.decodeToken(token);
+        console.log(tokenPayload);
         if(!token) {
             $rootScope.isUserLoggedIn = false;
             $location.path("/");
