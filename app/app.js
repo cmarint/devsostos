@@ -12,13 +12,14 @@ app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwt
    {
         var token = store.get("token") || null;
         //var tokenPayload = jwtHelper.decodeToken(token);
-        //console.log(tokenPayload);
+        console.log(token);
         if(!token) {
             $rootScope.isUserLoggedIn = false;
             $location.path("/");
         }
 
         var bool = jwtHelper.isTokenExpired(token);
+       console.log(bool);
         if(bool === true) {
             $rootScope.isUserLoggedIn = false;
             $location.path("/");
