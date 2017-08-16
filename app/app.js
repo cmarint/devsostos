@@ -11,8 +11,8 @@ app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwt
    $rootScope.$on('$routeChangeStart', function (event, next)
    {
         var token = store.get("token") || null;
-        var tokenPayload = jwtHelper.decodeToken(token);
-        console.log(tokenPayload);
+        //var tokenPayload = jwtHelper.decodeToken(token);
+        //console.log(tokenPayload);
         if(!token) {
             $rootScope.isUserLoggedIn = false;
             $location.path("/");
@@ -41,7 +41,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
       whiteListedDomains: ['168.232.165.85', 'localhost'] //,
       //authPrefix: 'Bearer '
     });
-    //$httpProvider.interceptors.push('jwtInterceptor');
+    $httpProvider.interceptors.push('jwtInterceptor');
 		
 
 
