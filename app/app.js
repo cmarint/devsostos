@@ -73,32 +73,32 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
   .when('/mntpreguntasseg', {
     templateUrl : 'app/vmaintainer/preguntasseguridad/preguntasseguridad.htm',
     controller: 'preguntasseguridadController',
-    authorization: false
+    authorization: true
   })
   .when('/mntpreguntasfre', {
     templateUrl : 'app/vmaintainer/preguntasfrecuente/preguntasfrecuente.htm',
     controller: 'preguntasfrecuenteController',
-    authorization: false
+    authorization: true
   })
   .when('/mntalumnos', {
     templateUrl : 'app/vmaintainer/alumnos/alumnos.htm',
     controller: 'alumnosController',
-    authorization: false
+    authorization: true
   })
   .when('/mntinstituciones', {
     templateUrl : 'app/vmaintainer/instituciones/instituciones.htm',
     controller: 'institucionesController',
-    authorization: false
+    authorization: true
   })
    .when('/mntniveles', {
     templateUrl : 'app/vmaintainer/niveles/niveles.htm',
     controller: 'nivelesController',
-    authorization: false
+    authorization: true
   })
   .when('/mntasignaturas', {
     templateUrl : 'app/vmaintainer/asignaturas/asignaturas.htm',
     controller: 'asignaturasController',
-    authorization: false
+    authorization: true
   })
   //Fin Mantenedores
   .when('/perfil', {
