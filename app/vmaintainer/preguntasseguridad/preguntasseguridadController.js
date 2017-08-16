@@ -70,7 +70,7 @@ app.factory('apiPseFactory', function($http, $q, CONFIG, store){
     }
 });
 
-app.controller('preguntasfrecuenteController', function ($scope, i18nService, CONFIG, apiPseFactory, uiGridConstants) {
+app.controller('preguntasseguridadController', function ($scope, i18nService, CONFIG, apiPseFactory, uiGridConstants) {
   
   i18nService.setCurrentLang('es');
   $scope.gridOptions = {
@@ -84,7 +84,6 @@ app.controller('preguntasfrecuenteController', function ($scope, i18nService, CO
     columnDefs: [
           { field: 'id', minWidth: 80, width: 80, enableColumnResizing: false },
           { field: 'enunciado', minWidth: 100, width: 200, enableColumnResizing: false },
-          { field: 'respuesta', enableSorting: false },
           { field: 'estado', minWidth: 100, width: 100, enableColumnResizing: false }
       ]
       ,onRegisterApi: function (gridApi) {
