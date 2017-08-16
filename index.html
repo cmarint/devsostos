@@ -58,7 +58,7 @@
             </div>
             <div class="menu2">
               <div class="container" ng-repeat="opcion in lista track by opcion.id" ng-if="opcion.id_Menu_Padre === null && opcion.nombre === 'MenuTab'">
-                        <div ng-repeat="opt in opcion.menu" ng-bind-html="opcion.menu[$index].path"></div>
+                        <ng-bind-html ng-repeat="opt in opcion.menu" ng-bind-html="opcion.menu[$index].path"></ng-bind-html>
               </div>
 
               <!-- div class="container" ng-bind-html="lista" -->
