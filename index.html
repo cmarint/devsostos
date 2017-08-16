@@ -45,12 +45,6 @@
                     </a><!--Variable de nombre por usuario-->
                     <ul class="dropdown-menu" ng-repeat="opcion in lista track by opcion.id" ng-if="opcion.id_Menu_Padre === null && opcion.nombre === 'MenuPerfil'">
                       <ng-bind-html ng-repeat="opt in opcion.menu" ng-bind-html="opcion.menu[$index].path"></ng-bind-html>
-                      <!--<li><a href="#!perfil">Cambiar datos personales</a></li>
-                      <li><a href="#!clave">Cambiar contraseña</a></li>
-                      <li><a href="seguridad.html">Preguntas de seguridad</a></li>
-                      <li><a href="#!preguntasfrec">Preguntas frecuentes</a></li>
-                      <li role="separator" class="divider"></li>
-                      <li><a href="#">Cerrar sesión</a></li>-->
                     </ul>
                   </li>
                 </ul>
@@ -62,9 +56,6 @@
               </div>
             </div>
           </div>
-
-
-     <!-- div ng-include="'app/vnav/navegacion.htm'"></div -->
     </header>
     <!-- Fin Sección Menú -->
 

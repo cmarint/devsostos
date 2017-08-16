@@ -17,9 +17,8 @@ app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwt
         }
 
         var bool = jwtHelper.isTokenExpired(token);
-        console.log(bool);
         if(bool === true) {
-            $rootScope.isUserLoggedIn = true;
+            $rootScope.isUserLoggedIn = false;
             $location.path("/");
         }
     });
@@ -155,13 +154,19 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     }
   });
 
- app.controller('navController', function($scope, $rootScope, CONFIG, apiMenuFactory) {
+ app.controller('navController', function($scope, $rootScope, CONFIG, apiMenuFactory, $location) {
       $scope.getAll = function () {
        apiMenuFactory.getTodos().then(function (data) {
             $scope.lista = data.data;
             $scope.nombre = 'Nombre del Usuario';
         });
-     }
+      };
+
+      $scope.logOut = function () {
+          store.remove('token');
+          $http.defaults.headers.common.Authorization = null;
+          $location.path("/");
+      }
  });
 
 
