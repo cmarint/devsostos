@@ -34,7 +34,6 @@ app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwt
 
 app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
 
-    //$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
   jwtOptionsProvider.config({
       tokenGetter: ['options', function(options) {
         //console.log(tknService.url.toString);
