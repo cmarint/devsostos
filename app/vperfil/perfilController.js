@@ -18,7 +18,7 @@ app.factory("perfilFactory", ["$http", "$q", "CONFIG", function($http, $q, CONFI
             var deferred;
             deferred = $q.defer();
             $http({
-                method: 'POST',
+                method: 'GET',
                 skipAuthorization: false,
                 url: CONFIG.APISOSTOS +'/usuario/get/1',
                 data: user,

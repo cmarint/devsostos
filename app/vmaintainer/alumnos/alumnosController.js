@@ -2,7 +2,7 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, store){
     return {
         getTodos: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -17,7 +17,7 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, store){
         },
         getIns: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -32,7 +32,7 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, store){
         },
         setAsi: function(registro)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -49,7 +49,7 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, store){
         },
         addAsi: function(registro)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -66,7 +66,7 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, store){
         },
         delAsi: function(id)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(id);
             deferred = $q.defer();
             $http({
