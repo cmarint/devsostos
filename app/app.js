@@ -108,7 +108,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
   })
   .when('/clave', {
     templateUrl : 'app/vperfil/contrasena.htm',
-    controller: 'contrasenaController',
+    controller: 'perfilController',
     authorization: true
   })
   .otherwise({
@@ -129,14 +129,6 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
       //$rootScope.isUserLoggedIn=true;
   });
 
- app.controller('perfilController', function($scope, $rootScope) {
-      $scope.msg = 'Perfil';
-      //$rootScope.isUserLoggedIn=true;
-  });
- app.controller('contrasenaController', function($scope, $rootScope) {
-      $scope.msg = 'Clave';
-      //$rootScope.isUserLoggedIn=true;
-  });
  app.factory('apiMenuFactory', function($http, $q, CONFIG, store){
     return {
         getTodos: function()
