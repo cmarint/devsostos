@@ -30,7 +30,6 @@ app.factory("perfilFactory", ["$http", "$q", "CONFIG", function($http, $q, CONFI
                 method: 'GET',
                 skipAuthorization: false,
                 url: CONFIG.APISOSTOS +'/usuario/get/1',
-                data: user,
                 headers: {'Content-Type': 'application/json'}
             })
             .then(function(res)
