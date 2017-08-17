@@ -7,42 +7,24 @@
         <div class=" form-horizontal ng-pristine ng-valid">
           <div class="form-group">
             <div class="row">
-              <label class="control-label col-md-4" for="rutProfesor">Rut</label>
-              <div class="col-md-8"><input type="text" class="form-control" id="rutProfesor" placeholder="Ingrese Rut" readonly="" value="9.999.999-9"></div>
+              <label class="control-label col-md-4" for="nomUsuario">Usuario</label>
+              <div class="col-md-8"><input type="text" class="form-control" id="nomUsuario" readonly="" ng-model="data.username"></div>
             </div>
           </div>
           <div class="form-group">
             <div class="row">
               <label class="control-label col-md-4" for="nomProfesor">Nombre</label>
-              <div class="col-md-8"><input type="text" class="form-control" id="nomProfesor" placeholder="Ingrese Nombre"></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <label class="control-label col-md-4" for="dirProfesor">Dirección</label>
-              <div class="col-md-8"><input type="text" class="form-control" id="dirProfesor" placeholder="Ingrese Dirección"></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <label class="control-label col-md-4" for="comProfesor">Comuna</label>
-              <div class="col-md-8"><input type="text" class="form-control" id="comProfesor" placeholder="Ingrese Comuna"></div>
+              <div class="col-md-8"><input type="text" class="form-control" id="nomProfesor" placeholder="Ingrese Nombre" ng-model="data.nombre"></div>
             </div>
           </div>
           <div class="form-group">
             <div class="row">
               <label class="control-label col-md-4" for="mailProfesor">Email</label>
-              <div class="col-md-8"><input type="email" class="form-control" id="mailProfesor" placeholder="mail@mail.com" readonly="" value="mimail@dominio.cl"></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <label class="control-label col-md-4" for="telProfesor">Teléfono</label>
-              <div class="col-md-8"><input type="text" class="form-control" id="telProfesor" placeholder="+56 9 9999 9999"></div>
+              <div class="col-md-8"><input type="email" class="form-control" id="mailProfesor" readonly="" ng-model="data.email"></div>
             </div>
           </div>
           <div class="form-group col-md-12">
-            <input type="button" class="btn btn_c1" data-dismiss="modal" value="Actualizar">
+            <input type="button" class="btn btn_c1" data-dismiss="modal" value="Actualizar" ng-click="updPER(data)">
             <input type="button" class="btn btn_c2" data-dismiss="modal" value="Eliminar Cuenta">
           </div>
         </div>
