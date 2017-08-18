@@ -1,11 +1,11 @@
 <section class="ng-scope m-estb">
 <div class="container ng-scope" ng-init="getAll()">
-    <h2>Mis Establecimientos</h2>
+    <h2>Mis Categorías</h2>
      <div class="bjd">
         <button class="btn " data-toggle="modal" data-target="#m-agr-estb" type="button">
           <i class="fa fa-plus-circle"></i> Agregar
         </button>
-        <button class="btn" data-toggle="modal" data-target="#m-edi-estb" ng-click="editEST()">
+        <button class="btn" data-toggle="modal" data-target="#m-edi-estb" ng-click="editCAT()">
           <i class="fa fa-pencil"></i> Editar
         </button>
          <button class="btn" data-toggle="modal" data-target="#m-eliminar">
@@ -39,10 +39,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title">Eliminar Establecimiento</h4>
+                <h4 class="modal-title">Eliminar Categoría</h4>
             </div>
             <div class="modal-body ng-scope"><p>¿Estás seguro de querer eliminar este registro?</p></div>
-                <div class="modal-footer"><button type="button" class="btn btn_c1" data-dismiss="modal" ng-click="delEST()"><i class="fa fa-check-circle" aria-hidden="true"></i>Sí</button><button type="button" class="btn btn_c2" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i>No</button>
+                <div class="modal-footer"><button type="button" class="btn btn_c1" data-dismiss="modal" ng-click="delCAT()"><i class="fa fa-check-circle" aria-hidden="true"></i>Sí</button><button type="button" class="btn btn_c2" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i>No</button>
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">×</button>
-          <h4 class="modal-title">Editar Establecimiento</h4>
+          <h4 class="modal-title">Editar Categoría</h4>
         </div>
         <div class="modal-body">
           <div class="form-horizontal" role="form">
@@ -75,7 +75,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="updEST(registroEdit)">
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="updCAT(registroEdit)">
             </div>
           </div>
         </div>
@@ -90,13 +90,13 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">×</button>
-          <h4 class="modal-title">Agregar Establecimiento</h4>
+          <h4 class="modal-title">Agregar Categoría</h4>
         </div>
         <div class="modal-body">
           <div class="form-horizontal" role="form">
             <div class="form-group col-md-12">
               <div class="row">
-                <label class="control-label col-md-4" for="nombInstitucion">Nombre establecimiento</label>
+                <label class="control-label col-md-4" for="nombInstitucion">Nombre</label>
                 <div class="col-md-8">
                   <input type="text" class="form-control" id="nombInstitucion" placeholder="Ingrese establecimiento" ng-model="datos.nombre">
                 </div>
@@ -110,14 +110,10 @@
                         <strong ng-if="datos.estado == 'A'"> Activo</strong><strong ng-if="datos.estado == 'I'"> Inactivo</strong>
                    </div>
             </div>
-            
-            <div class="form-group col-md-12 m-estb">
-              <button class="btn" type="button" id="AddEstb">
-                <i class="fa fa-plus-circle"></i> Agregar más establecimientos
-              </button>
-            </div>
+
+
             <div class="modal-footer">
-              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="addEST(datos)">
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="addCAT(datos)">
             </div>
           </div>
         </div>

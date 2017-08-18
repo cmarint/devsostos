@@ -100,6 +100,12 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     controller: 'asignaturasController',
     authorization: true
   })
+ .when('/mntcategorias', {
+    templateUrl : 'app/vmaintainer/categorias/categorias.htm',
+    controller: 'categoriasController',
+    authorization: true
+  })
+
   //Fin Mantenedores
   .when('/perfil', {
     templateUrl : 'app/vperfil/perfil.htm',
@@ -131,7 +137,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     return {
         getTodos: function()
         {
-            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
                 method: 'GET',
