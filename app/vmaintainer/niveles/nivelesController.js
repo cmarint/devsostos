@@ -125,10 +125,7 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
       var registro = $scope.gridApi.selection.getSelectedRows();
       //$scope.getCombo();
       if (registro != '') { 
-          $scope.registroEdit = registro[0]; 
-          $scope.Institucion.id = $scope.registroEdit.id_Institucion;
-          $scope.Institucion.nombre = $scope.registroEdit.nombre_Institucion;
-          console.log($scope.registroEdit.id_Institucion);
+          $scope.registroEdit = registro[0];
       }
   }
   
@@ -149,11 +146,11 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
   $scope.updNIV = function(registro){
       apiCursoFactory.setNiv(registro).then(function (data) {
         //borro
-        angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
-            $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
-        });
-
-        $scope.gridOptions.data.push(registro);
+        $scope.gridOptions.data = [];
+      }).then(function (data) {
+        apiCursoFactory.getTodos().then(function (data) {
+          $scope.gridOptions.data = data.data;
+        })
           console.log(data.data);
       })
   }
