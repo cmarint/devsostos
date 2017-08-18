@@ -146,8 +146,14 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
   
   $scope.updNIV = function(registro){
       apiCursoFactory.setNiv(registro).then(function (data) {
-          $scope.gridOptions.data = [];
-          $scope.getAll();
+        //borro
+        angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
+            $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
+        });
+
+        $scope.gridOptions.data.push(registro);
+          //$scope.gridOptions.data = [];
+          //$scope.getAll();
           console.log(data.data);
       })
   }
