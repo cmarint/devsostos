@@ -126,7 +126,8 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
       //$scope.getCombo();
       if (registro != '') { 
           $scope.registroEdit = registro[0]; 
-          $scope.Institucion = $scope.registroEdit.id_Institucion;
+          $scope.Institucion.id = $scope.registroEdit.id_Institucion;
+          $scope.Institucion.nombre = $scope.registroEdit.nombre_Institucion;
           console.log($scope.registroEdit.id_Institucion);
       }
   }
@@ -153,8 +154,6 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
         });
 
         $scope.gridOptions.data.push(registro);
-          //$scope.gridOptions.data = [];
-          //$scope.getAll();
           console.log(data.data);
       })
   }
