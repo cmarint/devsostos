@@ -141,7 +141,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
             deferred = $q.defer();
             $http({
                 method: 'GET',
-                skipAuthorization: false,
+                skipAuthorization: true,
                 url: CONFIG.APISOSTOS + '/usuario/getAllMenu'
             }).then(function(res) {
                 deferred.resolve(res);
