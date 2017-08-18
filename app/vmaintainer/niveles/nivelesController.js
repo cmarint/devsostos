@@ -109,9 +109,7 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
  $scope.gridOptions.columnDefs[1].visible = false;
   $scope.getAll = function () {
       apiCursoFactory.getTodos().then(function (data) {
-
           $scope.gridOptions.data = data.data;
-
       }).then(function (data) {
            $scope.getCombo();
       });
@@ -148,6 +146,7 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
   
   $scope.updNIV = function(registro){
       apiCursoFactory.setNiv(registro).then(function (data) {
+          $scope.getAll();
           console.log(data.data);
       })
   }
