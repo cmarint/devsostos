@@ -2,7 +2,7 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG, store){
     return {
         getTodos: function() 
         { 
-            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -17,7 +17,7 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG, store){
         },
         getIns: function()
         {
-            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -32,12 +32,12 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG, store){
         },
         setNiv: function(registro)
         {   
-            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
                 method: 'POST',
-                //skipAuthorization: true,
+                skipAuthorization: true,
                 url: CONFIG.APISOSTOS + '/nivel/upd',
                 data: regjson,
             }).then(function(res) {
@@ -49,12 +49,12 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG, store){
         },
         addNiv: function(registro)
         {   
-            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
                 method: 'POST',
-                //skipAuthorization: true,
+                skipAuthorization: true,
                 url: CONFIG.APISOSTOS + '/nivel/add',
                 data: regjson
             }).then(function(res) {
@@ -66,12 +66,12 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG, store){
         },
         delNiv: function(id)
         {   
-            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             var regjson = angular.toJson(id);
             deferred = $q.defer();
             $http({
                 method: 'GET',
-                //skipAuthorization: true,
+                skipAuthorization: true,
                 url: CONFIG.APISOSTOS + '/nivel/del/' + id
             }).then(function(res) {
                 deferred.resolve(res);
