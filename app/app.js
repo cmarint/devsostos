@@ -120,13 +120,11 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
 
 
  app.controller('mainController', function($scope, $rootScope) {
-     $scope.msg = 'Homeeee';
-     //$rootScope.isUserLoggedIn=true;
+     $scope.msg = 'Home';
  });
 
  app.controller('chatController', function($scope, $rootScope) {
-      $scope.msg = 'Chatt';
-      //$rootScope.isUserLoggedIn=true;
+      $scope.msg = 'Chat';
   });
 
  app.factory('apiMenuFactory', function($http, $q, CONFIG, store){
