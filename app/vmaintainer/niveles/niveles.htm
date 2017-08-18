@@ -62,8 +62,9 @@
             <div class="form-group col-md-12">
               <div class="row">
                     <label class="control-label col-md-8" for="nombre">Institución</label>
-                    <select ng-model="registroEdit.id_Institucion" class="form-control" ng-options="colegio.id as colegio.nombre for colegio in combo">
+                    <select ng-model="registroEdit.id_Institucion" class="form-control" ng-options="colegio.id as colegio.nombre for colegio in combo" ng-change="registroEdit.nombre_Institucion = colegio.nombre">
                     </select>
+                    <input type="text" ng-model="registroEdit.nombre_Institucion">
 
               </div>
 
