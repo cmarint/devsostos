@@ -61,16 +61,16 @@
           {{registroEdit}}
           <div class="form-horizontal" role="form">
             <div class="form-group col-md-12">
-              <div class="row">
+              <div class="row" >
                     <label class="control-label col-md-8" for="nombreIns">Institución</label>
                     <select id="nombreIns" ng-model="registroEdit.id_Institucion" class="form-control" ng-options="colegio.id as colegio.nombre for colegio in combo">
                   </select>
               </div>
-             <!-- div class="row">
+             <div class="row" ng-init="getComboNivel()">
                     <label class="control-label col-md-8" for="nombreNiv">Nivel</label>
                     <select id="nombreNiv" ng-model="registroEdit.id_Nivel" class="form-control" ng-options="nivel.id as nivel.nombre for nivel in comboNiv">
                   </select>
-              </div -->
+              </div>
 
 
               <div class="row">
