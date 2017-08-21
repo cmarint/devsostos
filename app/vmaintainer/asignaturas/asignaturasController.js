@@ -30,6 +30,21 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store){
             })
             return deferred.promise;
         },
+          getNiv: function()
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            deferred = $q.defer();
+            $http({
+                method: 'GET',
+                skipAuthorization: true,
+                url: CONFIG.APISOSTOS + '/nivel/get'
+            }).then(function(res) {
+                deferred.resolve(res);
+            }).then(function(error){
+                deferred.reject(error);
+            })
+            return deferred.promise;
+        },
         setAsi: function(registro)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
@@ -128,12 +143,21 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
 
       }).then(function (data) {
            $scope.getCombo();
+           $scope.getComboNivel();
       });
   };
 
+//Institución
   $scope.getCombo = function () {
       apiAsignaturaFactory.getIns().then(function (data) {
           $scope.combo = data.data;
+      });
+  };
+
+//Nivel
+  $scope.getComboNivel = function () {
+      apiAsignaturaFactory.getNiv().then(function (data) {
+          $scope.comboNiv = data.data;
       });
   };
 
@@ -162,7 +186,12 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
 
   $scope.updASI = function(registro){
       apiAsignaturaFactory.setAsi(registro).then(function (data) {
-          console.log(data.data);
+        //borro
+        $scope.gridOptions.data = [];
+      }).then(function (data) {
+        apiAsignaturaFactory.getTodos().then(function (data) {
+            $scope.gridOptions.data = data.data;
+        })
       })
   }
 

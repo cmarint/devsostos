@@ -133,7 +133,6 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
 
   $scope.editNIV = function(){
       var registro = $scope.gridApi.selection.getSelectedRows();
-      //$scope.getCombo();
       if (registro != '') { 
           $scope.registroEdit = registro[0];
       }
