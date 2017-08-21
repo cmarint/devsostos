@@ -142,7 +142,7 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
           $scope.gridOptions.data = data.data;
 
       }).then(function (data) {
-          // $scope.getCombo();
+           $scope.getCombo();
       });
   };
 
@@ -166,6 +166,7 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
       //$scope.getCombo();
       if (registro != '') {
           $scope.registroEdit = registro[0];
+          $scope.getComboNivel();
       }
   }
 
