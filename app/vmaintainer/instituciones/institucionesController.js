@@ -82,6 +82,7 @@ app.controller('institucionesController', function ($scope, i18nService, CONFIG,
   };
 
   $scope.gridOptions = {
+    enableFiltering: true,
     enableRowSelection: true, 
     enableRowHeaderSelection: false,
     enablePaginationControls: false,
