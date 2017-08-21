@@ -106,7 +106,15 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     authorization: true
   })
 
-  //Fin Mantenedores
+  //Profesor
+  .when('/miscontenidos', {
+    templateUrl : 'app/vprofesor/contenidos/contenidos.htm',
+    controller: 'contenidosController',
+    authorization: true
+  })
+
+
+  //Comun perfiles
   .when('/perfil', {
     templateUrl : 'app/vperfil/perfil.htm',
     controller: 'perfilController',
