@@ -116,14 +116,24 @@
                     <select ng-model="datos.id_Institucion" id="nombInstitucion" class="form-control" ng-options="colegio.id as colegio.nombre for colegio in combo">
                    </select>
               </div>
+               <div class="row">
+                    <label class="control-label col-md-8" for="nombNivel">Nivel</label>
+                    <select ng-model="datos.id_Nivel" ng-init="getComboNivel()" id="nombNivel" class="form-control" ng-options="nivel.id as nivel.nombre for nivel in comboNiv | filter: { id_Institucion:datos.id_Institucion}">
+                   </select>
+              </div>
               <div class="row">
                 <label class="control-label col-md-4" for="nombCurso">Nombre Curso</label>
                 <div class="col-md-8">
                   <input type="text" class="form-control" id="nombCurso" placeholder="Ingrese curso" ng-model="datos.nombre">
                 </div>
               </div>
-              <div class="more"></div>
-            </div>
+              <div class="row">
+                <label class="control-label col-md-8" for="periodo">Periodo</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" id="periodo" placeholder="Nombre" ng-model="datos.periodo" ng-required="required">
+                </div>
+              </div>
+
             <div class="row">
                    <label class="control-label col-md-8" for="respuesta">Estado</label>
                     <div class="col-md-8">
