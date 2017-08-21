@@ -143,7 +143,7 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
 
       }).then(function (data) {
            $scope.getCombo();
-      }).then(function (data) {
+     // }).then(function (data) {
            $scope.getComboNivel();
       });
   };
