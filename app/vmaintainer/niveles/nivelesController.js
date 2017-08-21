@@ -106,8 +106,8 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
     paginationPageSizes: [10, 30, 60],
     paginationPageSize: 10,
     columnDefs: [
-          { field: 'id', minWidth: 80, width: 80, enableColumnResizing: false },
-          { field: 'id_Institucion', minWidth: 80, width: 110, enableColumnResizing: false },
+          { field: 'id', enableFiltering: false, minWidth: 80, width: 80, enableColumnResizing: false },
+          { field: 'id_Institucion', enableFiltering: false, minWidth: 80, width: 110, enableColumnResizing: false },
           { field: 'nombre_Institucion', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 400, enableColumnResizing: false },
           { field: 'nombre', headerCellClass: $scope.highlightFilteredHeader, minWidth: 120, width: 200, enableColumnResizing: false },
           { field: 'estado', minWidth: 80, width: 80, enableColumnResizing: false }
