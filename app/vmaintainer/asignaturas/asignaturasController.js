@@ -87,6 +87,15 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store){
 app.controller('asignaturasController', function ($scope, i18nService, CONFIG, apiAsignaturaFactory, uiGridConstants) {
 
   i18nService.setCurrentLang('es');
+
+  $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
+    if( col.filters[0].term ){
+      return 'header-filtered';
+    } else {
+      return '';
+    }
+  };
+
   $scope.gridOptions = {
     enableRowSelection: true,
     enableRowHeaderSelection: false,
@@ -96,13 +105,14 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
     paginationPageSizes: [10, 30, 60],
     paginationPageSize: 10,
     columnDefs: [
-          { field: 'id', minWidth: 80, width: 80, enableColumnResizing: false },
+          { field: 'id', enableFiltering: false, minWidth: 80, width: 80, enableColumnResizing: false },
           { field: 'id_Institucion', minWidth: 80, width: 110, enableColumnResizing: false },
-          { field: 'nombre_Institucion', minWidth: 200, width: 300, enableColumnResizing: false },
+          { field: 'nombre_Institucion', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 300, enableColumnResizing: false },
           { field: 'id_Nivel', minWidth: 80, width: 110, enableColumnResizing: false },
-          { field: 'nombre_Nivel', minWidth: 200, width: 250, enableColumnResizing: false },
-          { field: 'nombre', minWidth: 200, width: 250, enableColumnResizing: false },
-          { field: 'estado', minWidth: 80, width: 80, enableColumnResizing: false }
+          { field: 'nombre_Nivel', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 250, enableColumnResizing: false },
+          { field: 'nombre', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 250, enableColumnResizing: false },
+          { field: 'periodo', headerCellClass: $scope.highlightFilteredHeader, minWidth: 100, width: 120, enableColumnResizing: false },
+          { field: 'estado', headerCellClass: $scope.highlightFilteredHeader, minWidth: 80, width: 80, enableColumnResizing: false }
       ]
       ,onRegisterApi: function (gridApi) {
       $scope.gridApi = gridApi;

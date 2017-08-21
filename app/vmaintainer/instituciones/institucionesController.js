@@ -72,6 +72,15 @@ app.factory('apiEstabFactory', function($http, $q, CONFIG, store){
 app.controller('institucionesController', function ($scope, i18nService, CONFIG, apiEstabFactory, uiGridConstants) {
   
   i18nService.setCurrentLang('es');
+
+  $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
+    if( col.filters[0].term ){
+      return 'header-filtered';
+    } else {
+      return '';
+    }
+  };
+
   $scope.gridOptions = {
     enableRowSelection: true, 
     enableRowHeaderSelection: false,
@@ -81,9 +90,9 @@ app.controller('institucionesController', function ($scope, i18nService, CONFIG,
     paginationPageSizes: [10, 30, 60],
     paginationPageSize: 10,
     columnDefs: [
-          { field: 'id', minWidth: 80, width: 80, enableColumnResizing: false },
-          { field: 'nombre', minWidth: 200, width: 400, enableColumnResizing: false },
-          { field: 'estado', minWidth: 80, width: 80, enableColumnResizing: false }
+          { field: 'id', enableFiltering: false, minWidth: 80, width: 80, enableColumnResizing: false },
+          { field: 'nombre', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 400, enableColumnResizing: false },
+          { field: 'estado', headerCellClass: $scope.highlightFilteredHeader, minWidth: 80, width: 80, enableColumnResizing: false }
       ]
       ,onRegisterApi: function (gridApi) {
       $scope.gridApi = gridApi;
