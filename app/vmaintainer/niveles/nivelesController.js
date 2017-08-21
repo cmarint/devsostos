@@ -87,7 +87,17 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG, store){
 app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCursoFactory, uiGridConstants) {
   
   i18nService.setCurrentLang('es');
+
+  $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
+    if( col.filters[0].term ){
+      return 'header-filtered';
+    } else {
+      return '';
+    }
+  };
+
   $scope.gridOptions = {
+    enableFiltering: true,
     enableRowSelection: true, 
     enableRowHeaderSelection: false,
     enablePaginationControls: false,
@@ -98,8 +108,8 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
     columnDefs: [
           { field: 'id', minWidth: 80, width: 80, enableColumnResizing: false },
           { field: 'id_Institucion', minWidth: 80, width: 110, enableColumnResizing: false },
-          { field: 'nombre_Institucion', minWidth: 200, width: 400, enableColumnResizing: false },
-          { field: 'nombre', minWidth: 120, width: 200, enableColumnResizing: false },
+          { field: 'nombre_Institucion', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 400, enableColumnResizing: false },
+          { field: 'nombre', headerCellClass: $scope.highlightFilteredHeader, minWidth: 120, width: 200, enableColumnResizing: false },
           { field: 'estado', minWidth: 80, width: 80, enableColumnResizing: false }
       ]
       ,onRegisterApi: function (gridApi) {
