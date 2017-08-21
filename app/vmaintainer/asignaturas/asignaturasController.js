@@ -142,7 +142,7 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
           $scope.gridOptions.data = data.data;
 
       }).then(function (data) {
-           $scope.getCombo();
+          // $scope.getCombo();
       });
   };
 
@@ -151,14 +151,14 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
       apiAsignaturaFactory.getIns().then(function (data) {
           $scope.combo = data.data;
       });
-  };
+  }
 
 //Nivel
   $scope.getComboNivel = function () {
-      apiAsignaturaFactory.getNiv().then(function (datos) {
-          $scope.comboNiv = datos.data;
+      apiAsignaturaFactory.getNiv().then(function (data) {
+          $scope.comboNiv = data.data;
       });
-  };
+  }
 
 
   $scope.editASI = function(){
