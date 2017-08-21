@@ -30,7 +30,7 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store){
             })
             return deferred.promise;
         },
-          getNiv: function()
+        getNiv: function()
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
@@ -157,8 +157,8 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
 
 //Nivel
   $scope.getComboNivel = function () {
-      apiAsignaturaFactory.getNiv().then(function (data) {
-          $scope.comboNiv = data.data;
+      apiAsignaturaFactory.getNiv().then(function (datos) {
+          $scope.comboNiv = datos.data;
       });
   };
 
