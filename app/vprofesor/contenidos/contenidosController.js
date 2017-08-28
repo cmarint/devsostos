@@ -7,7 +7,7 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store){
             $http({
                 method: 'GET',
                 skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/asignatura/get'
+                url: CONFIG.APISOSTOS + '/tema/get'
             }).then(function(res) {
                 deferred.resolve(res);
             }).then(function(error){
@@ -111,6 +111,7 @@ app.controller('contenidosController', function ($scope, i18nService, CONFIG, ap
       apiTemaFactory.getTodos().then(function (data) {
           var res = getNestedChildren(data, "0");
           console.log(res);
+
           //$scope.nested_array_stingified = JSON.stringify($scope.res);
 
           //$scope.gridOptions.data = data.data;
