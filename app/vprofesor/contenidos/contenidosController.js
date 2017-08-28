@@ -106,11 +106,12 @@ app.controller('contenidosController', function ($scope, i18nService, CONFIG, ap
   };
   $scope.gridOptions.columnDefs[1].visible = false;
   $scope.gridOptions.columnDefs[3].visible = false;
+
   $scope.getAll = function () {
       apiTemaFactory.getTodos().then(function (data) {
-          $scope.res = getNestedChildren(data, "0");
-          console.log($scope.res);
-          $scope.nested_array_stingified = JSON.stringify($scope.res);
+          var res = getNestedChildren(data, "0");
+          console.log(res);
+          //$scope.nested_array_stingified = JSON.stringify($scope.res);
 
           //$scope.gridOptions.data = data.data;
 
