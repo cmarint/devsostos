@@ -69,7 +69,7 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store){
     }
 });
 
-app.controller('asignaturasController', function ($scope, i18nService, CONFIG, apiTemaFactory, uiGridConstants) {
+app.controller('contenidosController', function ($scope, i18nService, CONFIG, apiTemaFactory, uiGridConstants) {
 
   i18nService.setCurrentLang('es');
 
