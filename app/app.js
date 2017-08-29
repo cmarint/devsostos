@@ -7,12 +7,13 @@ app.constant('CONFIG', {
 app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies', function($rootScope, jwtHelper, store, $location,$routeParams,$cookies) {
 
    $rootScope.isUserLoggedIn = false ; //Cambiar a false
+   $cookies.remove('sostos.tkn');
    //store.remove('token');
 
    $rootScope.$on('$routeChangeStart', function (event, next)
    {
-        //var token = $cookies.get('sostos.tkn') || null;
-        var token = store.get("token") || null;
+        var token = $cookies.get('sostos.tkn') || null;
+        //var token = store.get("token") || null;
 
        //var tokenPayload = jwtHelper.decodeToken(token);
 
@@ -165,7 +166,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     }
   });
 
- app.controller('navController', function($scope, $rootScope, CONFIG, apiMenuFactory, $location) {
+ app.controller('navController', function($scope, $rootScope, CONFIG, apiMenuFactory, $location, $cookies) {
       $scope.getAll = function () {
        apiMenuFactory.getTodos().then(function (data) {
             $scope.lista = data.data;
@@ -174,6 +175,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
 
       $scope.logOut = function () {
           //store.remove('token');
+          $cookies.remove('sostos.tkn');
           $http.defaults.headers.common.Authorization = null;
           $location.path("/");
       }
