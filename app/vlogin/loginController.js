@@ -1,4 +1,4 @@
-app.controller('loginController', ['$scope','CONFIG', 'authFactory', 'jwtHelper', 'store', '$location','$rootScope', '$http', function($scope, CONFIG, authFactory, jwtHelper, store, $location,$rootScope, $http)
+app.controller('loginController', ['$scope','CONFIG', 'authFactory', 'jwtHelper', 'store', '$location','$rootScope', '$http', '$cookies', function($scope, CONFIG, authFactory, jwtHelper, store, $location,$rootScope, $http, $cookies)
 {
     $rootScope.isUserLoggedIn = false;
 	  $scope.login = function(user)
@@ -10,7 +10,7 @@ app.controller('loginController', ['$scope','CONFIG', 'authFactory', 'jwtHelper'
                 $rootScope.isUserLoggedIn = true;
                 store.set('token', res.data.token);
                 //Cookie
-                //$cookies.put('sostos.tkn', res.data.token);
+                $cookies.put('sostos.tkn', res.data.token);
                 $location.path("/home");
             }
             else
