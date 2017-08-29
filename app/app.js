@@ -7,20 +7,22 @@ app.constant('CONFIG', {
 app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwtHelper, store, $location,$routeParams) {
 
    $rootScope.isUserLoggedIn = false ; //Cambiar a false
-   store.remove('token');
+   //store.remove('token');
 
    $rootScope.$on('$routeChangeStart', function (event, next)
    {
-        var token = store.get("token") || null;
-        //var tokenPayload = jwtHelper.decodeToken(token);
-        //console.log(token);
+        var token = $cookies.get('sostos.tkn') || null;
+        //var token = store.get("token") || null;
+
+       //var tokenPayload = jwtHelper.decodeToken(token);
+
         if(!token) {
             $rootScope.isUserLoggedIn = false;
             $location.path("/");
         }
 
         var bool = jwtHelper.isTokenExpired(token);
-        //console.log(bool);
+
         if(bool === true) {
             $rootScope.isUserLoggedIn = false;
             $location.path("/");
@@ -37,7 +39,8 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
   jwtOptionsProvider.config({
       tokenGetter: ['options', function(options) {
         //console.log(tknService.url.toString);
-        return localStorage.getItem('token');
+        $cookies.get('sostos.tkn');
+        //return localStorage.getItem('token');
       }],
       whiteListedDomains: ['168.232.165.85', 'localhost'] //,
       //authPrefix: 'Bearer '
@@ -145,7 +148,8 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     return {
         getTodos: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
                 method: 'GET',
