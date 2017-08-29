@@ -131,6 +131,11 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     controller: 'perfilController',
     authorization: true
   })
+  .when('/logout', {
+    template : '',
+    controller: 'logoutController',
+    authorization: false
+  })
   .otherwise({
     redirectTo: '/'
   });
@@ -181,6 +186,13 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
           $http.defaults.headers.common.Authorization = null;
           $location.url("/",true);
       }
+ });
+
+app.controller('logoutController', function($scope, $rootScope, CONFIG, apiMenuFactory, $location, $cookies) {
+          store.remove('token');
+          $cookies.remove('sostos.tkn');
+          $http.defaults.headers.common.Authorization = null;
+          $location.url("/",true);
  });
 
 
