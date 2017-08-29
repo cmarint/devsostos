@@ -144,7 +144,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
       $scope.msg = 'Chat';
   });
 
- app.factory('apiMenuFactory', function($http, $q, CONFIG, store){
+ app.factory('apiMenuFactory', function($http, $q, CONFIG, store, $cookies){
     return {
         getTodos: function()
         {
