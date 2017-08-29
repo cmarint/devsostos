@@ -11,8 +11,8 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
 
    $rootScope.$on('$routeChangeStart', function (event, next)
    {
-        //var token = $cookies.get('sostos.tkn') || null;
-        var token = store.get("token") || null;
+        var token = $cookies.get('sostos.tkn') || null;
+        //var token = store.get("token") || null;
 
        //var tokenPayload = jwtHelper.decodeToken(token);
 
@@ -36,7 +36,7 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
 
 app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOptionsProvider, $cookies) {
 
-  jwtOptionsProvider.config({
+  /*jwtOptionsProvider.config({
       tokenGetter: ['options', function(options) {
         //console.log(tknService.url.toString);
         return $cookies.get('sostos.tkn');
@@ -46,7 +46,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
       //authPrefix: 'Bearer '
     });
     $httpProvider.interceptors.push('jwtInterceptor');
-		
+		*/
 
 
   $routeProvider
