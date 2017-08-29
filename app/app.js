@@ -4,7 +4,7 @@ app.constant('CONFIG', {
     APISOSTOS: "http://168.232.165.85:8080/sostos_frontend_api"
 })
 
-app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwtHelper, store, $location,$routeParams) {
+app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies',function($rootScope, jwtHelper, store, $location,$routeParams) {
 
    $rootScope.isUserLoggedIn = false ; //Cambiar a false
    //store.remove('token');
@@ -34,7 +34,7 @@ app.run(['$rootScope','jwtHelper', 'store', '$location',function($rootScope, jwt
 }]);
 
 
-app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
+app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOptionsProvider, $cookies) {
 
   jwtOptionsProvider.config({
       tokenGetter: ['options', function(options) {
