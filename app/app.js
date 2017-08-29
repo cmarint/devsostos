@@ -4,7 +4,7 @@ app.constant('CONFIG', {
     APISOSTOS: "http://168.232.165.85:8080/sostos_frontend_api"
 })
 
-app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams', function($rootScope, jwtHelper, store, $location,$routeParams) {
+app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies', function($rootScope, jwtHelper, store, $location,$routeParams,$cookies) {
 
    $rootScope.isUserLoggedIn = false ; //Cambiar a false
    //store.remove('token');
@@ -144,7 +144,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
       $scope.msg = 'Chat';
   });
 
- app.factory('apiMenuFactory', function($http, $q, CONFIG, store){
+ app.factory('apiMenuFactory', function($http, $q, CONFIG, store, $cookies){
     return {
         getTodos: function()
         {
