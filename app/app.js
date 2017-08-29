@@ -4,15 +4,15 @@ app.constant('CONFIG', {
     APISOSTOS: "http://168.232.165.85:8080/sostos_frontend_api"
 })
 
-app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies', function($rootScope, jwtHelper, store, $location,$routeParams,$cookies) {
+app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams', function($rootScope, jwtHelper, store, $location,$routeParams) {
 
    $rootScope.isUserLoggedIn = false ; //Cambiar a false
    //store.remove('token');
 
    $rootScope.$on('$routeChangeStart', function (event, next)
    {
-        var token = $cookies.get('sostos.tkn') || null;
-        //var token = store.get("token") || null;
+        //var token = $cookies.get('sostos.tkn') || null;
+        var token = store.get("token") || null;
 
        //var tokenPayload = jwtHelper.decodeToken(token);
 
@@ -34,7 +34,7 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
 }]);
 
 
-app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOptionsProvider, $cookies) {
+app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
 
   /*jwtOptionsProvider.config({
       tokenGetter: ['options', function(options) {
@@ -144,12 +144,12 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
       $scope.msg = 'Chat';
   });
 
- app.factory('apiMenuFactory', function($http, $q, CONFIG, store, $cookies){
+ app.factory('apiMenuFactory', function($http, $q, CONFIG, store){
     return {
         getTodos: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
                 method: 'GET',
