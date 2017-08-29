@@ -178,7 +178,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
           //store.remove('token');
           $cookies.remove('sostos.tkn');
           $http.defaults.headers.common.Authorization = null;
-          $location.path("/");
+          $location.url("/",true);
       }
  });
 
