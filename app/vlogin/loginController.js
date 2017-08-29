@@ -1,4 +1,4 @@
-app.controller('loginController', ['$scope','CONFIG', 'authFactory', 'jwtHelper', 'store', '$location','$rootScope', '$http','$cookies' function($scope, CONFIG, authFactory, jwtHelper, store, $location,$rootScope, $http, $cookies)
+app.controller('loginController', ['$scope','CONFIG', 'authFactory', 'jwtHelper', 'store', '$location','$rootScope', '$http','$cookies', function($scope, CONFIG, authFactory, jwtHelper, store, $location,$rootScope, $http, $cookies)
 {
     $rootScope.isUserLoggedIn = false;
 	  $scope.login = function(user)
