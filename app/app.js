@@ -19,7 +19,8 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
 
         if(!token) {
             $rootScope.isUserLoggedIn = false;
-            $location.path("/");
+            //$location.path("/");
+            $location.url('/',true);
         }
 
         var bool = jwtHelper.isTokenExpired(token);
