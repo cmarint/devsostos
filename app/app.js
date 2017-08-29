@@ -173,7 +173,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
       };
 
       $scope.logOut = function () {
-          store.remove('token');
+          //store.remove('token');
           $http.defaults.headers.common.Authorization = null;
           $location.path("/");
       }
