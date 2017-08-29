@@ -26,7 +26,8 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
 
         if(bool === true) {
             $rootScope.isUserLoggedIn = false;
-            $location.path("/");
+            //$location.path("/");
+            $location.url('/',true);
         }
     });
 
