@@ -39,7 +39,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
   jwtOptionsProvider.config({
       tokenGetter: ['options', function(options) {
         //console.log(tknService.url.toString);
-        $cookies.get('sostos.tkn');
+        return $cookies.get('sostos.tkn');
         //return localStorage.getItem('token');
       }],
       whiteListedDomains: ['168.232.165.85', 'localhost'] //,
