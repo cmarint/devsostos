@@ -1,8 +1,9 @@
-app.factory('apiEstabFactory', function($http, $q, CONFIG, store){
+app.factory('apiEstabFactory', function($http, $q, CONFIG, store, $cookies){
     return {
         getTodos: function() 
         { 
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',
