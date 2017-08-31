@@ -24,6 +24,9 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
             //$location.path("/");
             $location.url('/',true);
         }
+        else {
+            $rootScope.isUserLoggedIn = true ; //Cambiar a false
+        }
 
         var bool = jwtHelper.isTokenExpired(token);
         console.log('bool:' + bool);
