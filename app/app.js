@@ -189,6 +189,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
  });
 
 app.controller('logoutController', function($scope, $rootScope, CONFIG, apiMenuFactory, $location, $cookies) {
+          console.log('Saliendo......');
           store.remove('token');
           $cookies.remove('sostos.tkn');
           $http.defaults.headers.common.Authorization = null;
