@@ -6,8 +6,8 @@ app.constant('CONFIG', {
 
 app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies', function($rootScope, jwtHelper, store, $location,$routeParams,$cookies) {
 
-   $rootScope.isUserLoggedIn = false ; //Cambiar a false
-   $cookies.remove('sostos.tkn');
+   //$rootScope.isUserLoggedIn = false ; //Cambiar a false
+   //$cookies.remove('sostos.tkn');
    //store.remove('token');
 
    $rootScope.$on('$routeChangeStart', function (event, next)
