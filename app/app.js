@@ -13,6 +13,7 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
    $rootScope.$on('$routeChangeStart', function (event, next)
    {
         var token = $cookies.get('sostos.tkn') || null;
+        console.log('getAll:' + $cookies.getAll());
         console.log('token:' + token);
         //var token = store.get("token") || null;
 
