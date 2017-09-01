@@ -18,7 +18,7 @@ app.factory('apiEstabFactory', function($http, $q, CONFIG, store, $cookies){
         },
         setEst: function(registro)
         {   
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -35,7 +35,7 @@ app.factory('apiEstabFactory', function($http, $q, CONFIG, store, $cookies){
         },
         addEst: function(registro)
         {   
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -52,7 +52,7 @@ app.factory('apiEstabFactory', function($http, $q, CONFIG, store, $cookies){
         },
         delEst: function(id)
         {   
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(id);
             deferred = $q.defer();
             $http({

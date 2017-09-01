@@ -2,7 +2,7 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store){
     return {
         getTodos: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -15,9 +15,24 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store){
             })
             return deferred.promise;
         },
+        getTodosPrima: function()
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            deferred = $q.defer();
+            $http({
+                method: 'POST',
+                skipAuthorization: true,
+                url: CONFIG.APISOSTOS + '/asignatura/profesorasignaturafind'
+            }).then(function(res) {
+                deferred.resolve(res);
+            }).then(function(error){
+                deferred.reject(error);
+            })
+            return deferred.promise;
+        },
         getIns: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -32,7 +47,7 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store){
         },
         getNiv: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -47,7 +62,7 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store){
         },
         setAsi: function(registro)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -64,7 +79,7 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store){
         },
         addAsi: function(registro)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -81,7 +96,7 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store){
         },
         delAsi: function(id)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(id);
             deferred = $q.defer();
             $http({
@@ -137,7 +152,7 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
   $scope.gridOptions.columnDefs[1].visible = false;
   $scope.gridOptions.columnDefs[3].visible = false;
   $scope.getAll = function () {
-      apiAsignaturaFactory.getTodos().then(function (data) {
+      apiAsignaturaFactory.getTodosPrima().then(function (data) {
 
           $scope.gridOptions.data = data.data;
 
@@ -189,7 +204,7 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
         //borro
         $scope.gridOptions.data = [];
       }).then(function (data) {
-        apiAsignaturaFactory.getTodos().then(function (data) {
+        apiAsignaturaFactory.getTodosPrima().then(function (data) {
             $scope.gridOptions.data = data.data;
         })
       })
