@@ -125,6 +125,11 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     controller: 'contenidosController',
     authorization: true
   })
+ .when('/mntmisasignaturas', {
+    templateUrl : 'app/vprofesor/asignaturas/misasignaturas.htm',
+    controller: 'asignaturasController',
+    authorization: true
+  })
 
 
   //Comun perfiles

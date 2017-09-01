@@ -152,6 +152,16 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
   $scope.gridOptions.columnDefs[1].visible = false;
   $scope.gridOptions.columnDefs[3].visible = false;
   $scope.getAll = function () {
+      apiAsignaturaFactory.getTodos().then(function (data) {
+
+          $scope.gridOptions.data = data.data;
+
+      }).then(function (data) {
+           $scope.getCombo();
+      });
+  };
+
+ $scope.getAllPrima = function () {
       apiAsignaturaFactory.getTodosPrima().then(function (data) {
 
           $scope.gridOptions.data = data.data;
@@ -204,7 +214,7 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
         //borro
         $scope.gridOptions.data = [];
       }).then(function (data) {
-        apiAsignaturaFactory.getTodosPrima().then(function (data) {
+        apiAsignaturaFactory.getTodos().then(function (data) {
             $scope.gridOptions.data = data.data;
         })
       })
