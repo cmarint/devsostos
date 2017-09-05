@@ -17,7 +17,7 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
         },
         getTodosPrima: function()
         {
-            var datos =  [
+            var datos = {
         "estado_Asignatura": "A",
         "id_Institucion": 367,
         "nombre_Institucion": "L. POLI. ANTONIO VARAS DE LA BARRA",
@@ -30,7 +30,7 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
         "nombre_Usuario": "Profesor 1",
         "id_Usuario": 2,
         "email_Usuario": "info@sostos.cl"
-        ];
+            };
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
