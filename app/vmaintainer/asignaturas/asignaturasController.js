@@ -17,12 +17,27 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
         },
         getTodosPrima: function()
         {
+            var datos =  [
+        "estado_Asignatura": "A",
+        "id_Institucion": 367,
+        "nombre_Institucion": "L. POLI. ANTONIO VARAS DE LA BARRA",
+        "id_Nivel": 2,
+        "nombre_Nivel": "1° B",
+        "id_Asignatura": 5,
+        "nombre_Asignatura": "Inglés Básico",
+        "periodo_Asignatura": "2018-Prim",
+        "id_Profesor": 1,
+        "nombre_Usuario": "Profesor 1",
+        "id_Usuario": 2,
+        "email_Usuario": "info@sostos.cl"
+        ];
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'POST',
                 skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/asignatura/profesorasignaturafind'
+                url: CONFIG.APISOSTOS + '/asignatura/profesorasignaturafind',
+                data: JSON.toJSON(datos)
             }).then(function(res) {
                 deferred.resolve(res);
             }).then(function(error){
