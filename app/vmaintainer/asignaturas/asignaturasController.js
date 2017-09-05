@@ -266,14 +266,14 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
     paginationPageSizes: [10, 30, 60],
     paginationPageSize: 10,
     columnDefs: [
-          { field: 'id', enableFiltering: false, minWidth: 80, width: 80, enableColumnResizing: false },
+          { field: 'id_Asignatura', enableFiltering: false, minWidth: 80, width: 80, enableColumnResizing: false },
           { field: 'id_Institucion', minWidth: 80, width: 110, enableColumnResizing: false },
           { field: 'nombre_Institucion', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 300, enableColumnResizing: false },
           { field: 'id_Nivel', minWidth: 80, width: 110, enableColumnResizing: false },
           { field: 'nombre_Nivel', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 250, enableColumnResizing: false },
-          { field: 'nombre', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 250, enableColumnResizing: false },
-          { field: 'periodo', headerCellClass: $scope.highlightFilteredHeader, minWidth: 100, width: 120, enableColumnResizing: false },
-          { field: 'estado', headerCellClass: $scope.highlightFilteredHeader, minWidth: 80, width: 80, enableColumnResizing: false }
+          { field: 'nombre_Asignatura', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 250, enableColumnResizing: false },
+          { field: 'periodo_Asignatura', headerCellClass: $scope.highlightFilteredHeader, minWidth: 100, width: 120, enableColumnResizing: false },
+          { field: 'estado_Asignatura', headerCellClass: $scope.highlightFilteredHeader, minWidth: 80, width: 80, enableColumnResizing: false }
       ]
       ,onRegisterApi: function (gridApi) {
       $scope.gridApi = gridApi;
