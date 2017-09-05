@@ -127,7 +127,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
   })
  .when('/mntmisasignaturas', {
     templateUrl : 'app/vmaintainer/asignaturas/misasignaturas.htm',
-    controller: 'asignaturasController',
+    controller: 'misasignaturasController',
     authorization: true
   })
 
