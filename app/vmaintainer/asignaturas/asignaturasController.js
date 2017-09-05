@@ -37,7 +37,7 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
                 method: 'POST',
                 skipAuthorization: true,
                 url: CONFIG.APISOSTOS + '/asignatura/profesorasignaturafind',
-                data: JSON.toJSON(datos)
+                data: datos
             }).then(function(res) {
                 deferred.resolve(res);
             }).then(function(error){
