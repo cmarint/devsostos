@@ -303,7 +303,7 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
 //Institución
   $scope.getCombo = function () {
       apiAsignaturaFactory.getIns().then(function (data) {
-          $scope.combo = data.data;
+          $scope.combo = data;
       });
   }
 
