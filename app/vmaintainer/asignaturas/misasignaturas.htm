@@ -112,12 +112,12 @@
             <div class="form-group col-md-12">
               <div class="row">
                     <label class="control-label col-md-8" for="nombInstitucion">Institución</label>
-                    <select ng-model="datos.id_Institucion" id="nombInstitucion" class="form-control" ng-options="colegio.id as colegio.nombre for colegio in combo">
+                    <select ng-model="institucion" id="nombInstitucion" class="form-control" ng-options="colegio as colegio.nombre for colegio in combo">
                    </select>
               </div>
                <div class="row">
                     <label class="control-label col-md-8" for="nombNivel">Nivel</label>
-                    <select ng-model="datos.id_Nivel" id="nombNivel" class="form-control" ng-options="nivel.id as nivel.nombre for nivel in comboNiv | filter: { id_Institucion:datos.id_Institucion}">
+                    <select ng-model="datos.id_Nivel" id="nombNivel" class="form-control" ng-options="nivel.id as nivel.nombre for nivel in comboNiv | filter: { id_Institucion:institucion.id}">
                    </select>
               </div>
               <div class="row">
