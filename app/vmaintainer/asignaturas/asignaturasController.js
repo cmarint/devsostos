@@ -296,6 +296,7 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
           $scope.gridOptions.data = data.data;
       }).then(function (data) {
            $scope.getCombo();
+          console.log($scope.combo);
       });
   };
 
