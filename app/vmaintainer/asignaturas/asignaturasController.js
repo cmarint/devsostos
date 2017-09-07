@@ -297,14 +297,17 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
           $scope.gridOptions.data = data.data;
       }).then(function (data) {
            $scope.getCombo();
-          console.log($scope.combo);
+
       });
   };
 
 //Institución
   $scope.getCombo = function () {
       apiAsignaturaFactory.getIns().then(function (data) {
-          $scope.combo = data;
+          $scope.combo = data.data;
+      }).then(function (data) {
+
+           console.log($scope.combo);
       });
   }
 
