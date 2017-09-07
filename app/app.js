@@ -14,8 +14,8 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
    $rootScope.$on('$routeChangeStart', function (event, next)
    {
         var token = $cookies.get('sostos.tkn') || null;
-        console.log('getAll:' + $cookies.getAll());
-        console.log('token:' + token);
+        //console.log('getAll:' + $cookies.getAll());
+        //console.log('token:' + token);
         //var token = store.get("token") || null;
 
        //var tokenPayload = jwtHelper.decodeToken(token);
@@ -30,7 +30,7 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
         }
 
         var bool = jwtHelper.isTokenExpired(token);
-        console.log('bool:' + bool);
+        //console.log('bool:' + bool);
 
         if(bool === true) {
             $rootScope.isUserLoggedIn = false;
