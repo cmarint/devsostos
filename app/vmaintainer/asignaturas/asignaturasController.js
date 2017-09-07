@@ -304,10 +304,9 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
 //Institución
   $scope.getCombo = function () {
       apiAsignaturaFactory.getIns().then(function (resp) {
-          $scope.combo = resp.data;
+          $scope.comboIns = resp.data;
       }).then(function (resp) {
-
-           console.log($scope.combo);
+          console.log($scope.comboIns);
       });
   }
 
