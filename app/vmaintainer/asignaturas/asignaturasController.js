@@ -129,6 +129,7 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
     }
 });
 
+/*
 app.controller('asignaturasController', function ($scope, i18nService, CONFIG, apiAsignaturaFactory, uiGridConstants) {
 
   i18nService.setCurrentLang('es');
@@ -243,7 +244,7 @@ app.controller('asignaturasController', function ($scope, i18nService, CONFIG, a
 
 
 });
-
+*/
 app.controller('misasignaturasController', function ($scope, i18nService, CONFIG, apiAsignaturaFactory, uiGridConstants) {
 
   i18nService.setCurrentLang('es');
