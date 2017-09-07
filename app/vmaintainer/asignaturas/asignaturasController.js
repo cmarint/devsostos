@@ -292,12 +292,14 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
       });
   };*/
 
+ $scope.getCombo();
+
+
  $scope.getAllPrima = function () {
       apiAsignaturaFactory.getTodosPrima().then(function (data) {
           $scope.gridOptions.data = data.data;
-      }).then(function (data) {
-           $scope.getCombo();
-
+      //}).then(function (data) {
+    //
       });
   };
 
