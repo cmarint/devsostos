@@ -282,6 +282,8 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
   };
   $scope.gridOptions.columnDefs[1].visible = false;
   $scope.gridOptions.columnDefs[3].visible = false;
+
+  var oAsignatura = this;
   /*$scope.getAll = function () {
       apiAsignaturaFactory.getTodos().then(function (data) {
 
@@ -303,7 +305,7 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
   };
 
 //Institución
-  $scope.getCombo = function () {
+  oAsignatura.getCombo = function () {
       apiAsignaturaFactory.getIns().then(function (resp) {
           $scope.comboIns = resp.data;
       }).then(function (resp) {
@@ -359,8 +361,8 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
       })
   }
 
-  $scope.getCombo();
-   console.log($scope.comboIns);
+  oAsignatura.getCombo();
+  console.log($scope.comboIns);
 
 
 
