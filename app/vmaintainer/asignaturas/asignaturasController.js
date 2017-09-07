@@ -283,7 +283,7 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
   $scope.gridOptions.columnDefs[1].visible = false;
   $scope.gridOptions.columnDefs[3].visible = false;
 
-  var oAsignatura = this;
+  $scope.comboIns = null;
   /*$scope.getAll = function () {
       apiAsignaturaFactory.getTodos().then(function (data) {
 
@@ -299,13 +299,13 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
  $scope.getAllPrima = function () {
       apiAsignaturaFactory.getTodosPrima().then(function (data) {
           $scope.gridOptions.data = data.data;
-      //}).then(function (data) {
-    //
+      }).then(function (data) {
+          $scope.getCombo();
       });
   };
 
 //Institución
-  oAsignatura.getCombo = function () {
+  $scope.getCombo = function () {
       apiAsignaturaFactory.getIns().then(function (resp) {
           $scope.comboIns = resp.data;
       }).then(function (resp) {
@@ -360,9 +360,6 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
           $scope.gridOptions.data.push(data.data);
       })
   }
-
-  oAsignatura.getCombo();
-  console.log($scope.comboIns);
 
 
 
