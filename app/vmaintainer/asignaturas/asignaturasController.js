@@ -292,7 +292,8 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
       });
   };*/
 
- $scope.getCombo();
+ $scope.comboIni = $scope.getCombo();
+ console.log($scope.comboIni);
 
 
  $scope.getAllPrima = function () {
