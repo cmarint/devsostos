@@ -128,6 +128,8 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
   $scope.getCombo = function () {
       apiCursoFactory.getIns().then(function (data) {
           $scope.combo = data.data;
+      }).then(function (resp) {
+          console.log($scope.combo);
       });
   };
 

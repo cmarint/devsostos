@@ -1,8 +1,8 @@
 <section class="ng-scope m-asig" ng-controller="misasignaturasController">
 <div class="container ng-scope" ng-init="getAllPrima()">
-    <h2>Mis Asignaturas</h2> Combo: {{ combo }}
+    <h2>Mis Asignaturas</h2>
      <div class="bjd">
-        <button class="btn " data-toggle="modal" data-target="#m-agr-estb" type="button" ng-click="getComboNivel()">
+        <button class="btn " data-toggle="modal" data-target="#m-agr-estb" ng-click="logeo()">
           <i class="fa fa-plus-circle"></i> Agregar
         </button>
         <button class="btn" data-toggle="modal" data-target="#m-edi-estb" ng-click="editASI()">
@@ -31,6 +31,13 @@
         Última
       </button>
 </div>
+
+
+    <label class="control-label col-md-8" for="nombInstitucion">Institución</label>
+                    <select ng-model="institucion1" id="nombInstitucion" class="form-control" ng-options="colegio as colegio.nombre for colegio in combo" ng-change="datos.nombre_Institucion = institucion.nombre;datos.id_Institucion = institucion.id;">
+                   </select>
+                    <input type="hidden" id="nombreInstitucion" ng-model="datos.nombre_Institucion">
+                  <input type="hidden" id="idInstitucion" ng-model="datos.id_Institucion">
 </section>
 
 <!-- Modal Eliminar -->
@@ -100,20 +107,22 @@
   </div>
 <!-- Fin Modal Editar -->
 <!-- Modal Agregar Establecimiento-->
-  <div id="m-agr-estb" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
+  <div id="m-agr-asig" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">×</button>
-          <h4 class="modal-title">Agregar Curso</h4>
+          <h4 class="modal-title">Agregar Asignatura</h4>
         </div>
         <div class="modal-body">
           <div class="form-horizontal" role="form">
             <div class="form-group col-md-12">
               <div class="row">
                     <label class="control-label col-md-8" for="nombInstitucion">Institución</label>
-                    <select ng-model="institucion" id="nombInstitucion" class="form-control" ng-options="colegio as colegio.nombre for colegio in comboIni">
+                    <select ng-model="institucion1" id="nombInstitucion" class="form-control" ng-options="colegio as colegio.nombre for colegio in combo" ng-change="datos.nombre_Institucion = institucion.nombre;datos.id_Institucion = institucion.id;">
                    </select>
+                    <input type="hidden" id="nombreInstitucion" ng-model="datos.nombre_Institucion">
+                  <input type="hidden" id="idInstitucion" ng-model="datos.id_Institucion">
               </div>
                <div class="row">
                     <label class="control-label col-md-8" for="nombNivel">Nivel</label>
@@ -150,4 +159,45 @@
     </div>
   </div>
 <!-- Fin Modal Agregar -->
+
+<div id="m-agr-estb" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Agregar Curso</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-horizontal" role="form">
+            <div class="form-group col-md-12">
+              <div class="row">
+                    <label class="control-label col-md-8" for="nombInstitucion">Institución</label>
+                    <select ng-model="institucion" id="nombInstitucion" class="form-control" ng-options="colegio as colegio.nombre for colegio in combo" ng-change="datos.nombre_Institucion = institucion.nombre;datos.id_Institucion = institucion.id;">
+                   </select>
+                    <input type="hidden" id="nombreInstitucion" ng-model="datos.nombre_Institucion">
+                  <input type="hidden" id="idInstitucion" ng-model="datos.id_Institucion">
+              </div>
+              <div class="row">
+                <label class="control-label col-md-4" for="nombCurso">Nombre Curso</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" id="nombCurso" placeholder="Ingrese curso" ng-model="datos.nombre">
+                </div>
+              </div>
+              <div class="more"></div>
+            </div>
+            <div class="row">
+                   <label class="control-label col-md-8" for="respuesta">Estado</label>
+                    <div class="col-md-8">
+                        <input type="checkbox" ng-model="datos.estado" ng-true-value="'A'" ng-false-value="'I'">
+                        <strong ng-if="datos.estado == 'A'"> Activo</strong><strong ng-if="datos.estado == 'I'"> Inactivo</strong>
+                   </div>
+            </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="addNIV(datos)">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
