@@ -1,9 +1,9 @@
 //PSE
-app.factory('apiPseFactory', function($http, $q, CONFIG, store){
+app.factory('apiPseFactory', function($http, $q, CONFIG, store, $cookies){
     return {
         getTodos: function()
         {
-            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -18,7 +18,7 @@ app.factory('apiPseFactory', function($http, $q, CONFIG, store){
         },
         setPse: function(registro)
         {
-            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -35,7 +35,7 @@ app.factory('apiPseFactory', function($http, $q, CONFIG, store){
         },
         addPse: function(registro)
         {
-            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -52,7 +52,7 @@ app.factory('apiPseFactory', function($http, $q, CONFIG, store){
         },
         delPse: function(id)
         {
-            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(id);
             deferred = $q.defer();
             $http({

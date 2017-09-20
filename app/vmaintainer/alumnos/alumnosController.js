@@ -14,6 +14,41 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, $cookies){
                 deferred.reject(error);
             })
             return deferred.promise;
+        },
+        getMisAlumnos: function()
+        {
+            var jaison = {
+            "id_Institucion": 369,
+            "nombre_Institucion": "ESCUELA REPUBLICA DE ISRAEL",
+            "id_Nivel": 1,
+            "nombre_Nivel": "1° A",
+            "id_Asignatura": 1,
+            "nombre_Asignatura": "Artes Visuales",
+            "periodo_Asignatura": null,
+            "id_Profesor": 1,
+            "id_Usuario_Profesor": 2,
+            "nombre_Profesor": "Profesor 1",
+            "username_Alumno": "alumno1",
+            "rut_Alumno": "11111111-1",
+            "nombre_Alumno": "Alumno 1",
+            "estado_Alumno": "A",
+            "id_Alumno": 1,
+            "id_Usuario_Alumno": 3
+            };
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+
+            deferred = $q.defer();
+            $http({
+                method: 'GET',
+                skipAuthorization: true,
+                url: CONFIG.APISOSTOS + '/alumno/profesoralumnofind',
+                data: jaison
+            }).then(function(res) {
+                deferred.resolve(res);
+            }).then(function(error){
+                deferred.reject(error);
+            })
+            return deferred.promise;
         }
 
     }
@@ -44,10 +79,8 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
   //$scope.gridOptions.columnDefs[1].visible = false;
   //$scope.gridOptions.columnDefs[3].visible = false;
   $scope.getAll = function () {
-      apiAlumnoFactory.getTodos().then(function (data) {
-
+      apiAlumnoFactory.getMisAlumnos().then(function (data) {
           $scope.gridOptions.data = data.data;
-
       }).then(function (data) {
            //$scope.getCombo();
       });
