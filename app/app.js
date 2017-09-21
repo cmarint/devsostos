@@ -73,7 +73,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
   // Sección Ayuda
   .when('/preguntasfrec', {
     templateUrl : 'app/vhelp/preguntas.htm',
-    controller: 'preguntasfrecuenteController',
+    controller: 'ayudaController',
     authorization: true
   })
   .when('/chat', {

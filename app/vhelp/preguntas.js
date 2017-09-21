@@ -1,29 +1,37 @@
-app.factory('ayudaFactory', function($http, faqService){
-  return {
-    faqlist: function(callback){
-      return faqService.list();
+app.factory('ApiAyudaFactory', function($http, $q, CONFIG, $cookies){
+    return {
+        getTodos: function()
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            deferred = $q.defer();
+            $http({
+                method: 'GET',
+                skipAuthorization: true,
+                url: CONFIG.APISOSTOS + '/usuario/getAllPreguntaFrecuente'
+            }).then(function(res) {
+                deferred.resolve(res);
+            }).then(function(error){
+                deferred.reject(error);
+            })
+            return deferred.promise;
+        }
     }
-  };
 });
 
 
-app.controller('ayudaController', function ($scope, faqService, ayudaFactory) {
+
+
+app.controller('ayudaController', function ($scope, CONFIG, ApiAyudaFactory) {
+
+
 
   $scope.getFaqs = function () {
-    $scope.faqs = faqService.list();
+    ApiAyudaFactory.getTodos().then(function (data) {
+          $scope.datos = data.data;
+      }).then(function (data) {
+           //$scope.getCombo();
+      });
   }
 
-  $scope.saveContact = function () {
-      faqService.save($scope.newcontact);
-      $scope.newcontact = {};
-  }
 
-  $scope.delete = function (id) {
-      faqService.delete(id);
-      if ($scope.newcontact.id == id) $scope.newcontact = {};
-  }
-
-  $scope.edit = function (id) {
-      $scope.newcontact = angular.copy(faqService.get(id));
-  }
 });
