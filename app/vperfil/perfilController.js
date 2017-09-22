@@ -16,6 +16,12 @@ app.controller('perfilController', ['$scope','CONFIG', 'perfilFactory', '$http',
       });
     };
 
+    $scope.getPRE = function () {
+      perfilFactory.getPreSeg().then(function (data) {
+          $scope.data = data.data;
+      });
+    };
+
 
 }])
 
@@ -62,6 +68,28 @@ app.factory("perfilFactory", ["$http", "$q", "CONFIG", function($http, $q, CONFI
                 deferred.reject(error);
             })
             return deferred.promise;
-		}
+		},
+        getPreSeg: function()
+		{
+            var deferred;
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            deferred = $q.defer();
+            $http({
+                method: 'GET',
+                skipAuthorization: true,
+                url: CONFIG.APISOSTOS +'/usuario_preguntaseguridad/get',
+                headers: {'Content-Type': 'application/json'}
+            })
+            .then(function(res)
+            {
+                deferred.resolve(res);
+            })
+            .then(function(error)
+            {
+                deferred.reject(error);
+            })
+            return deferred.promise;
+		},
+
 	}
 }]);

@@ -138,6 +138,11 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     controller: 'perfilController',
     authorization: true
   })
+  .when('/preguntasseg', {
+    templateUrl : 'app/vperfil/preguntas.htm',
+    controller: 'perfilController',
+    authorization: true
+  })
   .when('/clave', {
     templateUrl : 'app/vperfil/contrasena.htm',
     controller: 'perfilController',

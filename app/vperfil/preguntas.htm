@@ -1,0 +1,37 @@
+<section class="m-genr" ng-init="getPRE()">
+    <h2>Preguntas de Seguridad</h2>
+    {{data}}
+    <form name="frmOp" role="form">
+    <div class="container ng-scope">
+      <div class="col-md-6 col-center">
+        <div class="form-horizontal ng-pristine ng-valid" method="post" role="form">
+          <div class="form-group">
+            <div class="row">
+              <label class="control-label col-md-4" for="oldPass">Pregunta #1</label>
+              <div class="col-md-8"><input type="password" class="form-control" id="oldPass" placeholder="Ingrese Contraseña Actual" ng-model="oldPassword" ng-required="true"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <label class="control-label col-md-4" for="newPass">Nueva Contraseña</label>
+              <div class="col-md-8"><input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Ingrese Contraseña Nueva" ng-model="newPassword" ng-required="true"></div>
+            </div>
+          </div>
+          <div class="form-group" ng-class="{'has-error':frmOp.newPassConfirm.$invalid&&!frmOp.newPassConfirm.$error.required}">
+            <div class="row">
+              <label class="control-label col-md-4" for="newPassConfirm">Confirmar Contraseña</label>
+              <div class="col-md-8"><input type="password" class="form-control" id="newPassConfirm" name="newPassConfirm" placeholder="Confirme Contraseña Nueva" ng-model="confirmPassword" ng-required="true" pw-check="newPassword"></div>
+                <div role="alert">
+                        <span class="error" ng-show="frmOp.newPassConfirm.$error.pwmatch">
+                            Las contraseñas no coinciden</span>
+                </div>
+            </div>
+          </div>
+          <div class="form-group col-md-12">
+            <input type="button" class="btn btn_c1" data-dismiss="modal" value="Actualizar" ng-disabled="frmOp.$invalid">
+          </div>
+        </div>
+      </div>
+    </div>
+    </form>
+  </section>
