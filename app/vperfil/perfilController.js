@@ -48,6 +48,14 @@ app.controller('perfilController', ['$scope','CONFIG', 'perfilFactory', '$http',
       });
     };
 
+    $scope.setPWD = function (usuario) {
+      perfilFactory.setContrasena(usuario).then(function (data) {
+          $scope.mensajesalida = data;
+      }).catch(function (error) {
+          console.log('Error:' + error);
+      });
+    };
+
 
 }])
 
@@ -148,6 +156,28 @@ app.factory("perfilFactory", ["$http", "$q", "CONFIG","$cookies", function($http
                 url: CONFIG.APISOSTOS +'/usuario_preguntaseguridad/upd',
                 headers: {'Content-Type': 'application/json'},
                 data: msg
+            })
+            .then(function(res)
+            {
+                deferred.resolve(res);
+            })
+            .then(function(error)
+            {
+                deferred.reject(error);
+            })
+            return deferred.promise;
+		},
+        setContrasena: function(obj)
+		{
+            var deferred;
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            deferred = $q.defer();
+            $http({
+                method: 'POST',
+                skipAuthorization: true,
+                url: CONFIG.APISOSTOS +'/usuario/updpassword',
+                headers: {'Content-Type': 'application/json'},
+                data: obj
             })
             .then(function(res)
             {

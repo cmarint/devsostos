@@ -7,19 +7,20 @@
           <div class="form-group">
             <div class="row">
               <label class="control-label col-md-4" for="oldPass">Contraseña Actual</label>
-              <div class="col-md-8"><input type="password" class="form-control" id="oldPass" placeholder="Ingrese Contraseña Actual" ng-model="oldPassword" ng-required="true"></div>
+              <input type="hidden" ng-model="usuario.id_Usuario" value="0" />
+              <div class="col-md-8"><input type="password" class="form-control" id="oldPass" placeholder="Ingrese Contraseña Actual" ng-model="usuario.password_Old" ng-required="true"></div>
             </div>
           </div>
           <div class="form-group">
             <div class="row">
               <label class="control-label col-md-4" for="newPass">Nueva Contraseña</label>
-              <div class="col-md-8"><input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Ingrese Contraseña Nueva" ng-model="newPassword" ng-required="true"></div>
+              <div class="col-md-8"><input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Ingrese Contraseña Nueva" ng-model="usuario.password_New_1" ng-required="true"></div>
             </div>
           </div>
           <div class="form-group" ng-class="{'has-error':frmOp.newPassConfirm.$invalid&&!frmOp.newPassConfirm.$error.required}">
             <div class="row">
               <label class="control-label col-md-4" for="newPassConfirm">Confirmar Contraseña</label>
-              <div class="col-md-8"><input type="password" class="form-control" id="newPassConfirm" name="newPassConfirm" placeholder="Confirme Contraseña Nueva" ng-model="confirmPassword" ng-required="true" pw-check="newPassword"></div>
+              <div class="col-md-8"><input type="password" class="form-control" id="newPassConfirm" name="newPassConfirm" placeholder="Confirme Contraseña Nueva" ng-model="usuario.password_New_2" ng-required="true" pw-check="newPassword"></div>
                 <div role="alert">
                         <span class="error" ng-show="frmOp.newPassConfirm.$error.pwmatch">
                             Las contraseñas no coinciden</span>
@@ -27,43 +28,15 @@
             </div>
           </div>
           <div class="form-group col-md-12">
-            <input type="button" class="btn btn_c1" data-dismiss="modal" value="Actualizar" ng-disabled="frmOp.$invalid">
+            <input type="button" class="btn btn_c1" data-dismiss="modal" value="Actualizar" ng-disabled="frmOp.$invalid" ng-click="setPWD(usuario)">
           </div>
+
+            <div class="alert alert-danger" role="alert" ng-show="mensajesalida.data.detailsResponse.message != ''">
+                {{mensajesalida.data.detailsResponse.message}}
+            </div>
+
         </div>
       </div>
     </div>
     </form>
-  </section> 
-<!--
-<div class="container">
-
-<div class="row">
-  <div class="col-md-3"></div>
-  <div class="col-md-6">
-    <h3>Cambiar Contraseña</h3>
-  <form>
-      <div class="form-group">
-        <label for="oldPass">Contraseña Actual</label>
-          <input type="password" class="form-control" id="oldPass" placeholder="Ingrese Contraseña Actual">
-      </div>
-      <div class="form-group">
-        <label for="newPass">Nueva Contraseña</label>
-          <input type="password" class="form-control" id="newPass" placeholder="Ingrese Contraseña Nueva">
-      </div>
-      <div class="form-group">
-        <label for="newPassConfirm">Confirmar Contraseña</label>
-          <input type="password" class="form-control" id="newPassConfirm" placeholder="Confirme Contraseña Nueva">
-      </div>
-    </form>
-    </div>
-    <div class="col-md-3"></div>
-</div>
-<div class="row">
-  <div class="col-md-3"></div>
-  <div class="col-md-6">
-  <button type="button" class="btn btn-success" data-dismiss="modal">Actualizar</button>
-  </div>
-  <div class="col-md-3"></div>
-</div>
-</div>
--->
+  </section>
