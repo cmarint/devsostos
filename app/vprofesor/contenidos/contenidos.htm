@@ -1,17 +1,33 @@
+<any ng-init="getAll()">
 <section class="ng-scope m-cont">
-<div class="container ng-scope" ng-init="getAll()">
+<div class="container ng-scope">
     <h2>Mis Contenidos</h2>
-     <div class="bjd">
-        <button class="btn " data-toggle="modal" data-target="#m-agr-estb" type="button">
-          <i class="fa fa-plus-circle"></i> Agregar
-        </button>
-        <button class="btn" data-toggle="modal" data-target="#m-edi-estb" ng-click="editEST()">
-          <i class="fa fa-pencil"></i> Editar
-        </button>
-         <button class="btn" data-toggle="modal" data-target="#m-eliminar">
-          <i class="fa fa-trash"></i> Eliminar
-        </button>
-      </div>
+
+
+    <div class="row row-center">
+        <div class="col-md-4">
+           <div class="list-group">
+                 <li class="list-group-item active"><b>Lista de Temas</b></li>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-warning">tema 1</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-warning">tema 2</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-warning">tema 3</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-warning">tema 4</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-warning">tema 5</a>
+            </div>
+        </div>
+         <div class="col-md-4">
+            <div class="list-group">
+                 <li class="list-group-item active"><b>Lista de Subtemas</b></li>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-warning">Subtema 1</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-warning">Subtema 2</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-warning">Subtema 3</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-warning">Subtema 4</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-warning">Subtema 5</a>
+
+
+            </div>
+        </div>
+    </div>
     <!--  <div class="row row-centered">
         <div class="col-md-6 col-centered">
             <div ui-grid="gridOptions" ui-grid-pagination ui-grid-edit ui-grid-selection class="grid"></div>
@@ -125,3 +141,4 @@
     </div>
   </div>
 <!-- Fin Modal Agregar -->
+</any>

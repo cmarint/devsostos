@@ -18,24 +18,27 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
         getTodosPrima: function()
         {
             var datos = {
-        "estado_Asignatura": "A",
-        "id_Institucion": 367,
-        "nombre_Institucion": "L. POLI. ANTONIO VARAS DE LA BARRA",
-        "id_Nivel": 2,
-        "nombre_Nivel": "1° B",
-        "id_Asignatura": 5,
-        "nombre_Asignatura": "Inglés Básico",
-        "periodo_Asignatura": "2018-Prim",
-        "id_Profesor": 1,
-        "nombre_Usuario": "Profesor 1",
-        "id_Usuario": 2,
-        "email_Usuario": "info@sostos.cl"
+            /*"estado_Asignatura": "A",
+            "id_Institucion": 367,
+            "nombre_Institucion": "L. POLI. ANTONIO VARAS DE LA BARRA",
+            "id_Nivel": 2,
+            "nombre_Nivel": "1° B",
+            "id_Asignatura": 5,
+            "nombre_Asignatura": "Inglés Básico",
+            "periodo_Asignatura": "2018-Prim",*/
+            "id_Profesor": 1,
+            "id_Usuario": 2/*,
+            "nombre_Usuario": "Profesor 1",
+            "id_Usuario": 2,
+            "email_Usuario": "info@sostos.cl"*/
             };
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            deferred = $q.defer();
+            var url = CONFIG.APISOSTOS + '/asignatura/profesorasignaturafind';
+            return $http.post(url,datos);
+            /*deferred = $q.defer();
             $http({
                 method: 'POST',
-                skipAuthorization: true,
+                //skipAuthorization: true,
                 url: CONFIG.APISOSTOS + '/asignatura/profesorasignaturafind',
                 data: datos
             }).then(function(res) {
@@ -43,37 +46,19 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
             }).then(function(error){
                 deferred.reject(error);
             })
-            return deferred.promise;
+            return deferred.promise;*/
         },
         getIns: function()
         {
+            var url = CONFIG.APISOSTOS + '/institucion/get';
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            deferred = $q.defer();
-            $http({
-                method: 'GET',
-                skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/institucion/get'
-            }).then(function(res) {
-                deferred.resolve(res);
-            }).then(function(error){
-                deferred.reject(error);
-            })
-            return deferred.promise;
+            return $http.get(url);
         },
         getNiv: function()
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            deferred = $q.defer();
-            $http({
-                method: 'GET',
-                skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/nivel/get'
-            }).then(function(res) {
-                deferred.resolve(res);
-            }).then(function(error){
-                deferred.reject(error);
-            })
-            return deferred.promise;
+            var url = CONFIG.APISOSTOS + '/nivel/get';
+            return $http.get(url);
         },
         setAsi: function(registro)
         {
@@ -113,17 +98,10 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(id);
-            deferred = $q.defer();
-            $http({
-                method: 'GET',
-                //skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/asignatura/del/' + id
-            }).then(function(res) {
-                deferred.resolve(res);
-            }).then(function(error){
-                deferred.reject(error);
-            })
-            return deferred.promise;
+            var url = CONFIG.APISOSTOS + '/asignatura/del/' + id;
+            return $http.get(url);
+
+
         }
 
     }
@@ -167,6 +145,7 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
   $scope.gridOptions.columnDefs[1].visible = false;
   $scope.gridOptions.columnDefs[3].visible = false;
 
+
   $scope.getAll = function () {
       apiAsignaturaFactory.getTodos().then(function (data) {
 
@@ -177,48 +156,40 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
       });
   };
 
-
-
  $scope.getAllPrima = function () {
       apiAsignaturaFactory.getTodosPrima().then(function (data) {
-          $scope.gridOptions.data = data.data;
+         $scope.gridOptions.data = data.data;
       }).then(function (data) {
-           $timeout(function() {
-            $scope.getCombo();
-           }, 500);
+          $timeout(function() {
+                $scope.getComboIns();
+            }, 2000);
+          $timeout(function() {
+                $scope.getComboNiv();
+            }, 2000);
       });
   };
 
-//Institución
-  $scope.getCombo = function () {
+  //Institución
+  $scope.getComboIns = function () {
       apiAsignaturaFactory.getIns().then(function (data) {
-          // $timeout(function() {
-            $scope.combo = data.data;
-          // }, 1000);
-      }).then(function (resp) {
-          console.log($scope.combo);
+          $scope.cmbIns = data.data;
       });
   }
 
-  $scope.logeo = function () {
-       console.log('Log Combo');
-       console.log($scope.combo);
-  }
 
 //Nivel
-  $scope.getComboNivel = function () {
+  $scope.getComboNiv = function () {
       apiAsignaturaFactory.getNiv().then(function (data) {
-          $scope.comboNiv = data.data;
+          $scope.cmbNiv = data.data;
       });
   }
 
 
   $scope.editASI = function(){
       var registro = $scope.gridApi.selection.getSelectedRows();
-      //$scope.getCombo();
       if (registro != '') {
           $scope.registroEdit = registro[0];
-          $scope.getComboNivel();
+         // $scope.getComboNivel();
       }
   }
 
@@ -226,7 +197,7 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
   $scope.delASI = function(){
       var registro = $scope.gridApi.selection.getSelectedRows();
       if (registro != '') {
-          apiAsignaturaFactory.delAsi(registro[0].id).then(function (data){
+          apiAsignaturaFactory.delAsi(registro[0].id_Asignatura).then(function (data){
             angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
                 $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
             });
@@ -256,3 +227,4 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
 
 
 });
+

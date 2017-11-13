@@ -1,4 +1,4 @@
-var app = angular.module('appSostos', ['ngRoute','ngSanitize','angular-jwt', 'angular-storage','xlsx-model','ngTouch','ui.grid','ui.grid.selection','ui.grid.pagination','ui.grid.cellNav','ngCookies']);
+var app = angular.module('appSostos', ['ngRoute','ngSanitize','angular-jwt', 'angular-storage','xlsx-model','ngTouch','ui.grid','ui.grid.selection','ui.grid.pagination','ui.grid.cellNav','ngCookies','angularModalService']);
 
 app.constant('CONFIG', {
     APISOSTOS: "http://168.232.165.85:8080/sostos_frontend_api",
@@ -207,7 +207,6 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
 
 app.controller('logoutController', function($scope, $rootScope, CONFIG, apiMenuFactory, $location, store, $http, $cookies, $window) {
           console.log('Saliendo......');
-          store.remove('token');
           $cookies.remove('sostos.tkn');
           $http.defaults.headers.common.Authorization = null;
           $window.location.href = CONFIG.SOSTOSWEBURL;
