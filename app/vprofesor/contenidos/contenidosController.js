@@ -64,7 +64,7 @@ app.controller('contenidosController', function ($scope, i18nService, CONFIG, ap
 
   i18nService.setCurrentLang('es');
 
-  /*$scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
+  $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
     if( col.filters[0].term ){
       return 'header-filtered';
     } else {
@@ -83,12 +83,8 @@ app.controller('contenidosController', function ($scope, i18nService, CONFIG, ap
     paginationPageSize: 10,
     columnDefs: [
           { field: 'id', enableFiltering: false, minWidth: 80, width: 80, enableColumnResizing: false },
-          { field: 'id_Institucion', minWidth: 80, width: 110, enableColumnResizing: false },
-          { field: 'nombre_Institucion', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 300, enableColumnResizing: false },
-          { field: 'id_Nivel', minWidth: 80, width: 110, enableColumnResizing: false },
-          { field: 'nombre_Nivel', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 250, enableColumnResizing: false },
-          { field: 'nombre', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 250, enableColumnResizing: false },
-          { field: 'periodo', headerCellClass: $scope.highlightFilteredHeader, minWidth: 100, width: 120, enableColumnResizing: false },
+          { field: 'id_Tema_Padre', minWidth: 80, width: 110, enableColumnResizing: false },
+          { field: 'nombre', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 300, enableColumnResizing: false },
           { field: 'estado', headerCellClass: $scope.highlightFilteredHeader, minWidth: 80, width: 80, enableColumnResizing: false }
       ]
       ,onRegisterApi: function (gridApi) {
@@ -101,17 +97,33 @@ app.controller('contenidosController', function ($scope, i18nService, CONFIG, ap
 
   $scope.getAll = function () {
       apiTemaFactory.getTodos().then(function (data) {
-<<<<<<< HEAD
-          //var res = getNestedChildren(data, "0");
-          console.log(data);
+          var parentId = "";
 
-          //$scope.nested_array_stingified = JSON.stringify($scope.res);
+          //$scope.gridOptions.data = data.data.trxObject;
+          var datos = data.data.trxObject;
+          var datos2 = data.data.trxObject;
+          var arbol = [];
+          angular.forEach(datos, function (value, key) {
+                if (value.id_Tema_Padre == null) {
+                    //console.log('Padre Id' + value.id);
+                    parentId = value.id;
+                    parentName = value.nombre;
 
-          //$scope.gridOptions.data = data.data;
+                    var hijos = [];
+                    angular.forEach(datos2, function (value, key) {
+                         if (angular.equals(value.id_Tema_Padre, parentId)) {
+                            hijos.push({id: value.id, nombre: value.nombre});
+                            //console.log('Id' + value.id + ' Hijo de' + value.id_Tema_Padre);
+                         }
+                    })
+                    arbol.push({id: parentId, nombre: parentName, hijos: hijos});
+                }
 
-=======
-          $scope.gridOptions.data = data.data;
->>>>>>> origin/master
+                //console.log(key + ": " + value.id + ": " + value.id_Tema_Padre);
+          });
+          //console.log(arbol);
+          $scope.arbolito = arbol;
+
       }).then(function (data) {
            //$scope.getCombo();
       });
