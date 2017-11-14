@@ -1,23 +1,14 @@
-app.factory('apiTemaFactory', function($http, $q, CONFIG, store){
+app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
     return {
         getTodos: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
-            deferred = $q.defer();
-            $http({
-                method: 'GET',
-                skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/tema/get'
-            }).then(function(res) {
-                deferred.resolve(res);
-            }).then(function(error){
-                deferred.reject(error);
-            })
-            return deferred.promise;
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/profesor/tema/find';
+            return $http.post(url,{});
         },
         setTem: function(registro)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -34,7 +25,7 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store){
         },
         addTem: function(registro)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -51,7 +42,7 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store){
         },
         delTem: function(id)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(id);
             deferred = $q.defer();
             $http({
@@ -73,7 +64,7 @@ app.controller('contenidosController', function ($scope, i18nService, CONFIG, ap
 
   i18nService.setCurrentLang('es');
 
-  $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
+  /*$scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
     if( col.filters[0].term ){
       return 'header-filtered';
     } else {
@@ -105,12 +96,12 @@ app.controller('contenidosController', function ($scope, i18nService, CONFIG, ap
       }
   };
   $scope.gridOptions.columnDefs[1].visible = false;
-  $scope.gridOptions.columnDefs[3].visible = false;
+  $scope.gridOptions.columnDefs[3].visible = false;*/
 
   $scope.getAll = function () {
       apiTemaFactory.getTodos().then(function (data) {
-          var res = getNestedChildren(data, "0");
-          console.log(res);
+          //var res = getNestedChildren(data, "0");
+          console.log(data);
 
           //$scope.nested_array_stingified = JSON.stringify($scope.res);
 

@@ -1,0 +1,42 @@
+<div>
+
+          <h4>Editar Curso</h4>
+
+
+            <div class="form-group col-md-12">
+              <div class="row">
+                    <label class="control-label col-md-8" for="nombreIns">Institución</label>
+                    <select id="nombreIns" ng-model="registroEdit.id_Institucion" class="form-control" ng-options="colegio.id as colegio.nombre for colegio in ma.combo">
+                  </select>
+              </div>
+             <div class="row">
+                    <label class="control-label col-md-8" for="nombreNiv">Nivel</label>
+                    <select id="nombreNiv" ng-model="registroEdit.id_Nivel" class="form-control" ng-options="nivel.id as nivel.nombre for nivel in comboNiv | filter: { id_Institucion:registroEdit.id_Institucion}">
+                  </select>
+              </div>
+              <div class="row">
+                <label class="control-label col-md-8" for="nombre">Nombre</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" id="nombre" placeholder="Nombre" ng-model="registroEdit.nombre" ng-required="required">
+                </div>
+              </div>
+              <div class="row">
+                <label class="control-label col-md-8" for="periodo">Periodo</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" id="periodo" placeholder="Nombre" ng-model="registroEdit.periodo" ng-required="required">
+                </div>
+              </div>
+              <div class="row">
+                   <label class="control-label col-md-8" for="respuesta">Estado</label>
+                    <div class="col-md-8">
+                        <input type="checkbox" ng-model="registroEdit.estado" ng-true-value="'A'" ng-false-value="'I'">
+                        <strong ng-if="registroEdit.estado == 'A'"> Activo</strong><strong ng-if="registroEdit.estado == 'I'"> Inactivo</strong>
+                   </div>
+              </div>
+            </div>
+
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="updASI(registroEdit)">
+
+
+
+</div>
