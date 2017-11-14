@@ -95,11 +95,13 @@ app.controller('contenidosController', function ($scope, i18nService, CONFIG, ap
       $scope.gridApi = gridApi;
       }
   };
+  /*
   $scope.gridOptions.columnDefs[1].visible = false;
   $scope.gridOptions.columnDefs[3].visible = false;*/
 
   $scope.getAll = function () {
       apiTemaFactory.getTodos().then(function (data) {
+<<<<<<< HEAD
           //var res = getNestedChildren(data, "0");
           console.log(data);
 
@@ -107,6 +109,9 @@ app.controller('contenidosController', function ($scope, i18nService, CONFIG, ap
 
           //$scope.gridOptions.data = data.data;
 
+=======
+          $scope.gridOptions.data = data.data;
+>>>>>>> origin/master
       }).then(function (data) {
            //$scope.getCombo();
       });
@@ -171,21 +176,4 @@ app.controller('contenidosController', function ($scope, i18nService, CONFIG, ap
 });
 
 
-
-
-
-function getNestedChildren(arr, parent) {
-    var out = []
-    for (var i in arr) {
-      if (arr[i].parent_id == parent) {
-        var children = getNestedChildren(arr, arr[i].id)
-
-        if (children.length) {
-          arr[i].children = children
-        }
-        out.push(arr[i])
-      }
-    }
-    return out
-};
 
