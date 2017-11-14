@@ -121,7 +121,7 @@ app.controller('contenidosController', function ($scope, i18nService, CONFIG, ap
 
                 //console.log(key + ": " + value.id + ": " + value.id_Tema_Padre);
           });
-          //console.log(arbol);
+          console.log(arbol);
           $scope.arbolito = arbol;
 
       }).then(function (data) {
