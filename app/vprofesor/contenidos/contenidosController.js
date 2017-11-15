@@ -60,46 +60,14 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
     }
 });
 
-app.controller('contenidosController', function ($scope, i18nService, CONFIG, apiTemaFactory, uiGridConstants) {
+app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory, $filter) {
 
-  i18nService.setCurrentLang('es');
-
-  $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
-    if( col.filters[0].term ){
-      return 'header-filtered';
-    } else {
-      return '';
-    }
-  };
-
-  $scope.gridOptions = {
-    enableFiltering: true,
-    enableRowSelection: true,
-    enableRowHeaderSelection: false,
-    enablePaginationControls: false,
-    multiSelect: false,
-    enableSorting: true,
-    paginationPageSizes: [10, 30, 60],
-    paginationPageSize: 10,
-    columnDefs: [
-          { field: 'id', enableFiltering: false, minWidth: 80, width: 80, enableColumnResizing: false },
-          { field: 'id_Tema_Padre', minWidth: 80, width: 110, enableColumnResizing: false },
-          { field: 'nombre', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 300, enableColumnResizing: false },
-          { field: 'estado', headerCellClass: $scope.highlightFilteredHeader, minWidth: 80, width: 80, enableColumnResizing: false }
-      ]
-      ,onRegisterApi: function (gridApi) {
-      $scope.gridApi = gridApi;
-      }
-  };
-  /*
-  $scope.gridOptions.columnDefs[1].visible = false;
-  $scope.gridOptions.columnDefs[3].visible = false;*/
 
   $scope.getAll = function () {
       apiTemaFactory.getTodos().then(function (data) {
           var parentId = "";
 
-          //$scope.gridOptions.data = data.data.trxObject;
+          $scope.comboTemas = $filter('filter')(data.data.trxObject,{id_Tema_Padre: null});
           var datos = data.data.trxObject;
           var datos2 = data.data.trxObject;
           var arbol = [];
