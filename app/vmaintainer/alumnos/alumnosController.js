@@ -17,7 +17,7 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, $cookies){
         },
         getMisAlumnos: function()
         {
-            var url = CONFIG.APISOSTOS + '/alumno/profesoralumnofind';
+            var url = CONFIG.APISOSTOS + '/profesor/alumno/find';
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             return $http.post(url,{});
         }

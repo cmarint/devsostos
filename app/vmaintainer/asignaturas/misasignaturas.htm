@@ -58,7 +58,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">×</button>
-          <h4 class="modal-title">Editar Curso</h4>
+          <h4 class="modal-title">Editar Asignatura</h4>
         </div>
         <div class="modal-body">
           <div class="form-horizontal" role="form">
@@ -76,20 +76,20 @@
               <div class="row">
                 <label class="control-label col-md-8" for="nombre">Nombre</label>
                 <div class="col-md-8">
-                  <input type="text" class="form-control" id="nombre" placeholder="Nombre" ng-model="registroEdit.nombre_Asignatura" ng-required="required">
+                  <input type="text" class="form-control" id="nombre" placeholder="Nombre" ng-model="registroEdit.nombre" ng-required="required">
                 </div>
               </div>
               <div class="row">
                 <label class="control-label col-md-8" for="periodo">Periodo</label>
                 <div class="col-md-8">
-                  <input type="text" class="form-control" id="periodo" placeholder="Nombre" ng-model="registroEdit.periodo_Asignatura" ng-required="required">
+                  <input type="text" class="form-control" id="periodo" placeholder="Nombre" ng-model="registroEdit.periodo" ng-required="required">
                 </div>
               </div>
               <div class="row">
                    <label class="control-label col-md-8" for="respuesta">Estado</label>
                     <div class="col-md-8">
-                        <input type="checkbox" ng-model="registroEdit.estado_Asignatura" ng-true-value="'A'" ng-false-value="'I'">
-                        <strong ng-if="registroEdit.estado_Asignatura == 'A'"> Activo</strong><strong ng-if="registroEdit.estado_Asignatura == 'I'"> Inactivo</strong>
+                        <input type="checkbox" ng-model="registroEdit.estado" ng-true-value="'A'" ng-false-value="'I'">
+                        <strong ng-if="registroEdit.estado == 'A'"> Activo</strong><strong ng-if="registroEdit.estado == 'I'"> Inactivo</strong>
                    </div>
               </div>
             </div>
@@ -115,13 +115,13 @@
           <div class="form-horizontal" role="form">
             <div class="form-group col-md-12">
               <div class="row">
-                    <label class="control-label col-md-8" for="nombInstitucionadd">Cole</label>
-                    <select ng-model="institucion1" id="nombInstitucionadd" class="form-control" ng-options="cole as cole.nombre for cole in combo">
+                    <label class="control-label col-md-8" for="nombInstitucionadd">Institución</label>
+                    <select ng-model="datos.id_Institucion" id="nombInstitucionadd" class="form-control" ng-options="colegio.id as colegio.nombre for colegio in cmbIns">
                    </select>
               </div>
                <div class="row">
                     <label class="control-label col-md-8" for="nombNivel">Nivel</label>
-                    <select ng-model="datos.id_Nivel" id="nombNivel" class="form-control" ng-options="nivel.id as nivel.nombre for nivel in comboNiv | filter: { id_Institucion:institucion.id}">
+                    <select ng-model="datos.id_Nivel" id="nombNivel" class="form-control" ng-options="nivel.id as nivel.nombre for nivel in cmbNiv | filter: { id_Institucion:asignatura.id_Institucion}">
                    </select>
               </div>
               <div class="row">

@@ -31,7 +31,7 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
             $http({
                 method: 'POST',
                 //skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/tema/add',
+                url: CONFIG.APISOSTOS + '/profesor/tema/add',
                 data: regjson
             }).then(function(res) {
                 deferred.resolve(res);
@@ -48,7 +48,7 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
             $http({
                 method: 'GET',
                 //skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/tema/del/' + id
+                url: CONFIG.APISOSTOS + '/profesor/tema/del/' + id
             }).then(function(res) {
                 deferred.resolve(res);
             }).then(function(error){
@@ -87,9 +87,8 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
                     arbol.push({id: parentId, nombre: parentName, hijos: hijos});
                 }
 
-                //console.log(key + ": " + value.id + ": " + value.id_Tema_Padre);
           });
-          console.log(arbol);
+          //console.log(arbol);
           $scope.arbolito = arbol;
 
       }).then(function (data) {
@@ -121,18 +120,14 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
       }
   }
 
+  $scope.delTMP = function(id) {
+    $scope.id_del = id;
+  }
 
   $scope.delTEM = function(){
-      var registro = $scope.gridApi.selection.getSelectedRows();
-      if (registro != '') {
-          apiTemaFactory.delTem(registro[0].id).then(function (data){
-            angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
-                $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
-            });
-          })
-      } else {
-          alert('Debe seleccionar un registro');
-      }
+          apiTemaFactory.delTem($scope.id_del).then(function (data){
+              $scope.getAll();
+          });
   }
 
   $scope.updTEM = function(registro){
@@ -148,7 +143,7 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
 
   $scope.addTEM = function(registro){
       apiTemaFactory.addTem(registro).then(function (data) {
-          $scope.gridOptions.data.push(data.data);
+          $scope.getAll();
       })
   }
 

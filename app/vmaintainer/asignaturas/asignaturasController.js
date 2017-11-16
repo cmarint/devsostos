@@ -17,36 +17,10 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
         },
         getTodosPrima: function()
         {
-            var datos = {
-            /*"estado_Asignatura": "A",
-            "id_Institucion": 367,
-            "nombre_Institucion": "L. POLI. ANTONIO VARAS DE LA BARRA",
-            "id_Nivel": 2,
-            "nombre_Nivel": "1° B",
-            "id_Asignatura": 5,
-            "nombre_Asignatura": "Inglés Básico",
-            "periodo_Asignatura": "2018-Prim",*/
-            "id_Profesor": 1,
-            "id_Usuario": 2/*,
-            "nombre_Usuario": "Profesor 1",
-            "id_Usuario": 2,
-            "email_Usuario": "info@sostos.cl"*/
-            };
+            var datos = {};
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            var url = CONFIG.APISOSTOS + '/asignatura/profesorasignaturafind';
+            var url = CONFIG.APISOSTOS + '/profesor/asignatura/find';
             return $http.post(url,datos);
-            /*deferred = $q.defer();
-            $http({
-                method: 'POST',
-                //skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/asignatura/profesorasignaturafind',
-                data: datos
-            }).then(function(res) {
-                deferred.resolve(res);
-            }).then(function(error){
-                deferred.reject(error);
-            })
-            return deferred.promise;*/
         },
         getIns: function()
         {
@@ -64,18 +38,8 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
-            deferred = $q.defer();
-            $http({
-                method: 'POST',
-                //skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/asignatura/upd',
-                data: regjson,
-            }).then(function(res) {
-                deferred.resolve(res);
-            }).then(function(error){
-                deferred.reject(error);
-            })
-            return deferred.promise;
+            var url = CONFIG.APISOSTOS + '/profesor/asignatura/upd';
+            return $http.post(url,regjson);
         },
         addAsi: function(registro)
         {
@@ -85,7 +49,7 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
             $http({
                 method: 'POST',
                 //skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/asignatura/add',
+                url: CONFIG.APISOSTOS + '/profesor/asignatura/add',
                 data: regjson
             }).then(function(res) {
                 deferred.resolve(res);
@@ -98,7 +62,7 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(id);
-            var url = CONFIG.APISOSTOS + '/asignatura/del/' + id;
+            var url = CONFIG.APISOSTOS + '/profesor/asignatura/del/' + id;
             return $http.get(url);
 
 
@@ -134,9 +98,9 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
           { field: 'nombre_Institucion', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 300, enableColumnResizing: false },
           { field: 'id_Nivel', minWidth: 80, width: 110, enableColumnResizing: false },
           { field: 'nombre_Nivel', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 250, enableColumnResizing: false },
-          { field: 'nombre_Asignatura', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 250, enableColumnResizing: false },
-          { field: 'periodo_Asignatura', headerCellClass: $scope.highlightFilteredHeader, minWidth: 100, width: 120, enableColumnResizing: false },
-          { field: 'estado_Asignatura', headerCellClass: $scope.highlightFilteredHeader, minWidth: 80, width: 80, enableColumnResizing: false }
+          { field: 'nombre', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 250, enableColumnResizing: false },
+          { field: 'periodo', headerCellClass: $scope.highlightFilteredHeader, minWidth: 100, width: 120, enableColumnResizing: false },
+          { field: 'estado', headerCellClass: $scope.highlightFilteredHeader, minWidth: 80, width: 80, enableColumnResizing: false }
       ]
       ,onRegisterApi: function (gridApi) {
       $scope.gridApi = gridApi;
@@ -158,7 +122,7 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
 
  $scope.getAllPrima = function () {
       apiAsignaturaFactory.getTodosPrima().then(function (data) {
-         $scope.gridOptions.data = data.data;
+         $scope.gridOptions.data = data.data.trxObject;
       }).then(function (data) {
           $timeout(function() {
                 $scope.getComboIns();
@@ -197,7 +161,7 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
   $scope.delASI = function(){
       var registro = $scope.gridApi.selection.getSelectedRows();
       if (registro != '') {
-          apiAsignaturaFactory.delAsi(registro[0].id_Asignatura).then(function (data){
+          apiAsignaturaFactory.delAsi(registro[0].id).then(function (data){
             angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
                 $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
             });
@@ -212,8 +176,8 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
         //borro
         $scope.gridOptions.data = [];
       }).then(function (data) {
-        apiAsignaturaFactory.getTodos().then(function (data) {
-            $scope.gridOptions.data = data.data;
+        apiAsignaturaFactory.getTodosPrima().then(function (data) {
+            $scope.gridOptions.data = data.data.trxObject;
         })
       })
   }
