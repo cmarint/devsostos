@@ -61,7 +61,6 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
         delAsi: function(id)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            var regjson = angular.toJson(id);
             var url = CONFIG.APISOSTOS + '/profesor/asignatura/del/' + id;
             return $http.get(url);
 
@@ -160,12 +159,19 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
 
   $scope.delASI = function(){
       var registro = $scope.gridApi.selection.getSelectedRows();
+      var detailsResponse = null;
       if (registro != '') {
           apiAsignaturaFactory.delAsi(registro[0].id).then(function (data){
-            angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
-                $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
-            });
-          })
+            detailsResponse = data.data.detailsResponse;
+            if (detailsResponse.code == 0) {
+                angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
+                    $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
+                });
+            } else {
+                alert('No es posible eliminar porque existe información relacionada');
+            }
+
+          });
       } else {
           alert('Debe seleccionar un registro');
       }
@@ -184,7 +190,11 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
 
   $scope.addASI = function(registro){
       apiAsignaturaFactory.addAsi(registro).then(function (data) {
-          $scope.gridOptions.data.push(data.data);
+          //borro
+          $scope.gridOptions.data = [];
+           apiAsignaturaFactory.getTodosPrima().then(function (data) {
+            $scope.gridOptions.data = data.data.trxObject;
+            })
       })
   }
 
