@@ -1,0 +1,63 @@
+<any ng-init="getCombosTema()">
+<section class="ng-scope m-cont">
+<div class="container ng-scope">
+    <h2>Mis Preguntas y Respuestas</h2>
+
+    <div class="bjd">
+        <div class="row">
+            <div class="col-md-4">
+            <h3>Tema</h3>
+            <select ng-model="datos.id_Tema_Padre" class="form-control" ng-options="tema.id as tema.nombre for tema in comboTemas">
+            </select>
+            </div>
+            <div class="col-md-4">
+            <h3>Sub-Tema</h3>
+            <select ng-model="datos.id" class="form-control" ng-options="stema.id as stema.nombre for stema in comboSubTemas | filter: { id_Tema_Padre:datos.id_Tema_Padre}" ng-change="getPreguntas(datos.id)">
+            </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading"><strong>Preguntas</strong></div>
+              <div class="panel-body">
+                <div class="row" ng-repeat="reg in preguntaList">
+                        <div class="input-group" >
+                        <input type="hidden" ng-model="reg.id">
+                        <input type="text" ng-model="reg.descripcion" class="form-control" ng-required="true">
+                        <button class="btn " data-toggle="modal" type="button" ng-click="getRespuesta(reg.id)" ng-show="reg.id != null">
+                            <i class="fa fa-pencil"></i>Respuestas
+                        </button>
+                        </div>
+                        <br>
+                </div>
+                <button class="btn " data-toggle="modal" type="button" ng-click="addPregunta()">
+                    <i class="fa fa-plus"></i>Agregar
+                </button>
+                <button class="btn " data-toggle="modal" type="button" ng-click="grabaPregunta()">
+                    <i class="fa fa-save"></i>Grabar
+                </button>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading"><strong>Respuestas</strong></div>
+              <div class="panel-body">
+                  <div class="row" ng-repeat="regR in listadoRespuesta">
+                        <div class="input-group" >
+                        <input type="text" ng-model="regR.descripcion" class="form-control" ng-required="true">
+                        <input type="checkbox" ng-model="regR.correcta" ng-true-value="'A'" ng-false-value="'N'">
+                        <strong ng-if="regR.correcta == 'S'"> Correcta</strong><strong ng-if="regR.correcta == 'N'"> Incorrecta</strong>
+                        </div>
+                        <br>
+                    </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+</any>
+

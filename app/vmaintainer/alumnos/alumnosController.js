@@ -37,11 +37,10 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
     paginationPageSizes: [10, 30, 60],
     paginationPageSize: 10,
     columnDefs: [
-          { field: 'id', minWidth: 80, width: 80, enableColumnResizing: false },
+          { field: 'id_Alumno', minWidth: 80, width: 80, enableColumnResizing: false },
           { field: 'nombre_Asignatura', minWidth: 200, width: 300, enableColumnResizing: false },
-          { field: 'username', minWidth: 80, width: 110, enableColumnResizing: false },
-          { field: 'nombre', minWidth: 200, width: 250, enableColumnResizing: false },
-          { field: 'rut', minWidth: 200, width: 250, enableColumnResizing: false }
+          { field: 'username_Alumno', minWidth: 80, width: 110, enableColumnResizing: false },
+          { field: 'rut_Alumno', minWidth: 200, width: 250, enableColumnResizing: false }
       ]
       ,onRegisterApi: function (gridApi) {
       $scope.gridApi = gridApi;
@@ -51,7 +50,7 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
   //$scope.gridOptions.columnDefs[3].visible = false;
   $scope.getAll = function () {
       apiAlumnoFactory.getMisAlumnos().then(function (data) {
-          $scope.gridOptions.data = data.data;
+          $scope.gridOptions.data = data.data.trxObject;
       }).then(function (data) {
            //$scope.getCombo();
       });
