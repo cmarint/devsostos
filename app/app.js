@@ -1,4 +1,4 @@
-var app = angular.module('appSostos', ['ngRoute','ngSanitize','angular-jwt', 'angular-storage','xlsx-model','ngTouch','ui.grid','ui.grid.selection','ui.grid.pagination','ui.grid.cellNav','ngCookies']);
+var app = angular.module('appSostos', ['ngRoute','ngSanitize','angular-jwt', 'angular-storage','xlsx-model','ngTouch','ui.grid','ui.grid.selection','ui.grid.pagination','ui.grid.cellNav','ngCookies','dndLists']);
 
 app.constant('CONFIG', {
     APISOSTOS: "http://168.232.165.85:8080/sostos_frontend_api",
@@ -135,11 +135,11 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     controller: 'misasignaturasController',
     authorization: true
   })
-  /*.when('/mntmispruebas', {
-    templateUrl : 'app/vmaintainer/pruebas/mispruebas.htm',
+  .when('/mispruebas', {
+    templateUrl : 'app/vprofesor/pruebas/mispruebas.htm',
     controller: 'pruebasController',
     authorization: true
-  })*/
+  })
 
 
   //Comun perfiles

@@ -244,6 +244,7 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
   $scope.getPreguntas = function(id_tema) {
         if (id_tema != null)
         {
+              $scope.temaActual = id_tema;
               apiTemaFactory.getPruebas(id_tema).then(function (data) {
                 //$scope.preguntaList = data.data.trxObject;
 
@@ -256,7 +257,7 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
    $scope.getRespuesta = function(id_pregunta) {
         if (id_pregunta != null)
         {
-
+                  $scope.preguntaActual = id_pregunta;
                   $scope.listadoRespuesta = $filter('filter')($scope.listadoR,{id_Pregunta: id_pregunta});
                 //$scope.preguntaList = data.data.trxObject;
 
@@ -268,6 +269,27 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
                 if (($scope.preguntaList) && ($scope.preguntaList.length > 0)) {
 
                     $scope.preguntaList.push({
+                        "id": null,
+                        "id_Tema": 4,
+                        "estado": "A",
+                        "descripcion": ""
+                    })
+                } else {
+                    $scope.preguntaList = [{
+                        "id": null,
+                        "id_Tema": 4,
+                        "estado": "A",
+                        "descripcion": ""
+                    }];
+                }
+      //$scope.preguntaList = data.data.trxObject;
+
+  }
+
+  $scope.addRespuesta = function() {
+                if (($scope.listadoRespuesta) && ($scope.listadoRespuesta.length > 0)) {
+
+                    $scope.listadoRespuesta.push({
                     "id": null,
                     "estado": "A",
                     "id_Pregunta": null,
@@ -275,7 +297,7 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
                     "correcta": "N"
                     })
                 } else {
-                    $scope.preguntaList = [{
+                    $scope.listadoRespuesta = [{
                     "id": null,
                     "estado": "A",
                     "id_Pregunta": null,

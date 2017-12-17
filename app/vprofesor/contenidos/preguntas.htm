@@ -32,10 +32,10 @@
                         </div>
                         <br>
                 </div>
-                <button class="btn " data-toggle="modal" type="button" ng-click="addPregunta()">
+                <button class="btn " data-toggle="modal" type="button" ng-click="addPregunta()" ng-show="temaActual != null">
                     <i class="fa fa-plus"></i>Agregar
                 </button>
-                <button class="btn " data-toggle="modal" type="button" ng-click="grabaPregunta()">
+                <button class="btn " data-toggle="modal" type="button" ng-click="grabaPregunta()" ng-show="temaActual != null">
                     <i class="fa fa-save"></i>Grabar
                 </button>
               </div>
@@ -48,12 +48,17 @@
                   <div class="row" ng-repeat="regR in listadoRespuesta">
                         <div class="input-group" >
                         <input type="text" ng-model="regR.descripcion" class="form-control" ng-required="true">
-                        <input type="checkbox" ng-model="regR.correcta" ng-true-value="'A'" ng-false-value="'N'">
-                        <strong ng-if="regR.correcta == 'S'"> Correcta</strong><strong ng-if="regR.correcta == 'N'"> Incorrecta</strong>
+                        <input type="checkbox" ng-model="regR.correcta" ng-true-value="'S'" ng-false-value="'N'" ng-checked="regR.correcta == 'S'"><strong>Correcta</strong>
                         </div>
                         <br>
                     </div>
               </div>
+                <button class="btn " data-toggle="modal" type="button" ng-click="addRespuesta()" ng-show="preguntaActual != null">
+                    <i class="fa fa-plus"></i>Agregar
+                </button>
+                <button class="btn " data-toggle="modal" type="button" ng-click="grabaRespuesta()" ng-show="preguntaActual != null">
+                    <i class="fa fa-save"></i>Grabar
+                </button>
             </div>
         </div>
     </div>
