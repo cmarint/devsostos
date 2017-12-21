@@ -1,0 +1,44 @@
+<section class="ng-scope m-curs">
+<div class="container ng-scope">
+    <h2>Nueva Prueba</h2>
+    <div class="bjd">
+        <div class="row">
+            <div class="col-md-4">
+            <h3>Tema</h3>
+            <select ng-model="datos.id_Tema_Padre" class="form-control" ng-options="tema.id as tema.nombre for tema in comboTemas">
+            </select>
+            </div>
+            <div class="col-md-4">
+            <h3>Sub-Tema</h3>
+            <select ng-model="datos.id" class="form-control" ng-options="stema.id as stema.nombre for stema in comboSubTemas | filter: { id_Tema_Padre:datos.id_Tema_Padre}" ng-change="getPreguntas(datos.id)">
+            </select>
+            </div>
+            <div class="col-md-4">
+            <h3>Fecha Planificada</h3>
+            <input type="date" name="fecha" ng-model="datos.fecha" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-warning" role="alert">
+        <strong>Informacion:</strong> Para crear la prueba, debes arrastrar las preguntas a la caja de Prueba.
+    </div>
+    <div class="simpleDemo row">
+        <div class="col-md-12">
+            <div class="row">
+                <div ng-repeat="(listName, list) in models.lists" class="col-md-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{listName}}</h3>
+                        </div>
+                        <div class="panel-body" ng-include="'app/vprofesor/pruebas/listas/listas.html'"></div>
+                    </div>
+                </div>
+            </div>
+            <div view-source="simple"></div>
+        </div>
+    </div>
+    <button class="btn btn-primary btn-lg btn-block" type="button">
+        <i class="fa fa-save"></i>Grabar Prueba
+    </button>
+</div>
+</section>

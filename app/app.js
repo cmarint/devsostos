@@ -140,6 +140,11 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     controller: 'pruebasController',
     authorization: true
   })
+  .when('/mispruebas/pruebanueva', {
+    templateUrl : 'app/vprofesor/pruebas/pruebanueva.htm',
+    controller: 'pruebasController',
+    authorization: true
+  })
 
 
   //Comun perfiles
@@ -171,8 +176,10 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
 
 
 
- app.controller('mainController', function($scope, $rootScope) {
-     $scope.msg = 'Home';
+ app.controller('mainController', function($scope, $rootScope, $cookies, jwtHelper) {
+     var token = $cookies.get('sostos.tkn');
+     var tokenPayload = jwtHelper.decodeToken(token);
+     $scope.nombre = tokenPayload.sub;
  });
 
  app.controller('chatController', function($scope, $rootScope) {
@@ -200,10 +207,14 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     }
   });
 
- app.controller('navController', function($scope, $rootScope, CONFIG, apiMenuFactory, $location, $cookies) {
+ app.controller('navController', function($scope, $rootScope, CONFIG, apiMenuFactory, $location, $cookies,jwtHelper) {
       $scope.getAll = function () {
        apiMenuFactory.getTodos().then(function (data) {
             $scope.lista = data.data;
+            var token = $cookies.get('sostos.tkn');
+            var tokenPayload = jwtHelper.decodeToken(token);
+            $scope.nombre = tokenPayload.sub;
+           //console.log(tokenPayload.sub);
         });
       };
 
