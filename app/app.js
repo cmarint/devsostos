@@ -2,7 +2,8 @@ var app = angular.module('appSostos', ['ngRoute','ngSanitize','angular-jwt', 'an
 
 app.constant('CONFIG', {
     APISOSTOS: "http://168.232.165.85:8080/sostos_frontend_api",
-    SOSTOSWEBURL: "http://168.232.165.85/sostosweb/"
+    SOSTOSWEBURL: "http://168.232.165.85/sostosweb/",
+    PAYSOSTOS: "http://168.232.165.85:8080/sostos_frontend_api/pay"
 })
 
 app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies', function($rootScope, jwtHelper, store, $location,$routeParams,$cookies) {
@@ -18,7 +19,11 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
         //console.log('token:' + token);
         //var token = store.get("token") || null;
 
-       //var tokenPayload = jwtHelper.decodeToken(token);
+        var tokenPayload = jwtHelper.decodeToken(token);
+
+        if (tokenPayload.Estado === 'P') {
+            $location.url('/suscripcion',true);
+        }
 
         if(!token) {
             $rootScope.isUserLoggedIn = false;
@@ -64,6 +69,11 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     templateUrl : 'app/vlogin/login.htm',
     controller 	: 'loginController',
     authorization: false
+  })
+  .when('/suscripcion', {
+    templateUrl : 'app/vsuscripcion/suscripcion.htm',
+    controller 	: 'suscripcionController',
+    authorization: true
   })
   .when('/home', {
     templateUrl : 'app/vhome/home.htm',
@@ -209,13 +219,17 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
 
  app.controller('navController', function($scope, $rootScope, CONFIG, apiMenuFactory, $location, $cookies,jwtHelper) {
       $scope.getAll = function () {
-       apiMenuFactory.getTodos().then(function (data) {
-            $scope.lista = data.data;
-            var token = $cookies.get('sostos.tkn');
-            var tokenPayload = jwtHelper.decodeToken(token);
-            $scope.nombre = tokenPayload.sub;
-           //console.log(tokenPayload.sub);
-        });
+         var token = $cookies.get('sostos.tkn');
+         var tokenPayload = jwtHelper.decodeToken(token);
+         $scope.nombre = tokenPayload.sub;
+         if (tokenPayload.Estado === 'A')
+          {
+               apiMenuFactory.getTodos().then(function (data) {
+                    $scope.lista = data.data;
+                    $scope.nombre = tokenPayload.sub;
+                   //console.log(tokenPayload.sub);
+                });
+          }
       };
 
       $scope.logOut = function () {
