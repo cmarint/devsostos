@@ -1,10 +1,10 @@
 app.factory('inicioFactory', function ($http, CONFIG) {
     var url = CONFIG.PAYSOSTOS;
     return {
-        pay: function (tbkData,token) {
+        pay: function (token) {
         	 $http.defaults.headers.common.Authorization = token;
 
-            return $http.post(url + '/connectOneClick', tbkData);
+            return $http.post(url + '/connectOneClick', {});
         },
         processpay: function (tbkToken,token) {
         	 $http.defaults.headers.common.Authorization  = token;
@@ -19,13 +19,13 @@ app.controller('suscripcionController', function ($scope, CONFIG, $http, $locati
     oInicio.Fact = inicioFactory;
 
     ////PayTBK
-    $scope.PayTBK = function (tbkData) {
+    $scope.PayTBK = function () {
         //$cookies.put('tokenSosto',oInicio.token);
         var token = 'Bearer ' + $cookies.get('sostos.tkn');
-         console.log('datos:' + angular.toJson(tbkData) + '|' + 'token:' + token);
-        oInicio.Fact.pay(angular.toJson(tbkData),token).then(function (data) {
+        oInicio.Fact.pay(token).then(function (data) {
 
-        	redirectPost(data.url,data.token);
+            console.log(data);
+        	redirectPost(data.data.url,data.data.token);
 
         })
         .catch(function (data) {
