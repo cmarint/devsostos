@@ -65,11 +65,12 @@ app.factory("perfilFactory", ["$http", "$q", "CONFIG","$cookies", function($http
 		getPer: function()
 		{
             var deferred;
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',
                 skipAuthorization: false,
-                url: CONFIG.APISOSTOS +'/usuario/get/1',
+                url: CONFIG.APISOSTOS +'/usuario/my/get',
                 headers: {'Content-Type': 'application/json'}
             })
             .then(function(res)
