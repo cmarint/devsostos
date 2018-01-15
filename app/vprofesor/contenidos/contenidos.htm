@@ -7,7 +7,7 @@
         <button class="btn " data-toggle="modal" data-target="#m-agr-tema" type="button">
           <i class="fa fa-plus-circle"></i> Agregar Tema / Subtema
         </button>
-        <button class="btn " data-toggle="modal" type="button" ng-click="preguntasPage()">
+        <button class="btn " data-toggle="modal" type="button" ng-click="preguntasPage(null,null)">
           <i class="fa fa-plus-circle"></i> Preguntas / Respuestas
         </button>
     </div>
@@ -37,11 +37,14 @@
             <ul>
                 <li ng-repeat="nodohijo in nodo.hijos">
                 	<span><i class="fa fa-file" aria-hidden="true"></i> {{nodohijo.nombre}}</span>
-                    <button class="btn " type="button" data-toggle="modal" data-target="#m-eliminar" ng-click="delTMP(nodohijo.id);">
+                    <button class="btn " type="button" data-toggle="modal" data-target="#m-edi_estb" ng-click="delTMP(nodohijo.id);">
                         <i class="fa fa-pencil" aria-hidden="true"></i> Editar
                     </button>
-                    <button class="btn " type="button" data-toggle="modal" data-target="#m-eliminar" ng-click="delTMP(nodohijo.id);">
+                    <button class="btn " type="button" data-toggle="modal" data-target="#m-edi-estb" ng-click="delTMP(nodohijo.id);">
                         <i class="fa fa-trash" aria-hidden="true"></i> Eliminar
+                    </button>
+                    <button class="btn " type="button" data-toggle="modal" data-target="#m-preguntas" ng-click="preguntasPage(nodo.id, nodohijo.id);">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Preguntas
                     </button>
                     <ul>
                         <!--<li>
@@ -54,7 +57,7 @@
     </ul>
 </div>
 
-
+</div>
 </section>
 
 <!-- Modal Eliminar -->

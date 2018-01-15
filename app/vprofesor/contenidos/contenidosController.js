@@ -1,12 +1,15 @@
 app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
     return {
-        getTodos: function()
+        getTema: function(id)
         {
+            var obj;
+            if (id == null) { obj={}; } else { obj={id: id}; }
+
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/find';
-            return $http.post(url,{});
+            return $http.post(url, obj);
         },
-        getPruebas: function(id_tema)
+        getPreguntas: function(id_tema)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/find';
@@ -66,11 +69,13 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
     }
 });
 
-app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory, $filter, $location) {
+app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory, $filter, $location, $routeParams) {
 
+  $scope.idPadre = $routeParams.idpadre;
+  $scope.idTema = $routeParams.idtema;
 
   $scope.getAll = function () {
-      apiTemaFactory.getTodos().then(function (data) {
+      apiTemaFactory.getTema(null).then(function (data) {
           var parentId = "";
 
           $scope.comboTemas = $filter('filter')(data.data.trxObject,{id_Tema_Padre: null});
@@ -103,6 +108,12 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
       });
   };
 
+  $scope.getTemaById = function (id) {
+      apiTemaFactory.getTema(id).then(function (data) {
+          $scope.nombreTema = data.data.trxObject[0].nombre;
+      })
+  }
+
 //Institución
   $scope.getCombo = function () {
       apiTemaFactory.getIns().then(function (data) {
@@ -118,7 +129,7 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
   }
 
   $scope.getCombosTema = function () {
-      apiTemaFactory.getTodos().then(function (data) {
+      apiTemaFactory.getTema(null).then(function (data) {
           $scope.comboTemas = $filter('filter')(data.data.trxObject,{id_Tema_Padre: null});
           $scope.comboSubTemas = $filter('filter')(data.data.trxObject,{id_Tema_Padre: ''});;
       });
@@ -161,42 +172,16 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
       })
   }
 
-  $scope.preguntasPage = function() {
-      $location.path('/miscontenidos/preguntas',true);
+  $scope.preguntasPage = function(idPadre, id) {
+      if (id == null) {
+          $location.path('/miscontenidos/preguntas',true);
+      } else {
+          $location.path('/miscontenidos/preguntas/' + idPadre + '/' + id,true);
+      }
+
   }
 
-  $scope.listado = [
-      {
-            "id": 1,
-            "id_Tema": 4,
-            "estado": "A",
-            "descripcion": "Pregunta 1"
-        },
-      {
-            "id": 2,
-            "id_Tema": 4,
-            "estado": "A",
-            "descripcion": "Pregunta 2"
-        },
-      {
-            "id": 3,
-            "id_Tema": 4,
-            "estado": "A",
-            "descripcion": "Pregunta 3"
-        },
-      {
-            "id": 4,
-            "id_Tema": 4,
-            "estado": "A",
-            "descripcion": "Pregunta 4"
-        },
-      {
-            "id": 5,
-            "id_Tema": 4,
-            "estado": "A",
-            "descripcion": "Pregunta 5"
-        }
-  ];
+
   $scope.listadoR = [
         {
             "id": 1,
@@ -241,17 +226,32 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
             "correcta": "N"
         }
     ];
+
   $scope.getPreguntas = function(id_tema) {
-        if (id_tema != null)
-        {
-              $scope.temaActual = id_tema;
-              apiTemaFactory.getPruebas(id_tema).then(function (data) {
-                //$scope.preguntaList = data.data.trxObject;
-
+      if (id_tema != null) {
+          $scope.temaActual = id_tema;
+              apiTemaFactory.getPreguntas(id_tema).then(function (data) {
+                $scope.preguntaList = data.data.trxObject;
             })
-        }
-      $scope.preguntaList = $scope.listado;
+           $scope.idTema = null;
+           $scope.idPadre = null;
+           $scope.nombreTema = null;
+      } else {
 
+          if ($scope.idTema != null) {
+              $scope.temaActual = $scope.idTema;
+              apiTemaFactory.getPreguntas($scope.idTema).then(function (data) {
+                $scope.preguntaList = data.data.trxObject;
+                })
+
+              $scope.getTemaById($scope.temaActual);
+          }
+
+      }
+
+
+
+    //$scope.preguntaList = $scope.listado;
   }
 
    $scope.getRespuesta = function(id_pregunta) {
@@ -259,7 +259,6 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
         {
                   $scope.preguntaActual = id_pregunta;
                   $scope.listadoRespuesta = $filter('filter')($scope.listadoR,{id_Pregunta: id_pregunta});
-                //$scope.preguntaList = data.data.trxObject;
 
         }
 
@@ -272,14 +271,14 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
                         "id": null,
                         "id_Tema": 4,
                         "estado": "A",
-                        "descripcion": ""
+                        "descripcion": null
                     })
                 } else {
                     $scope.preguntaList = [{
                         "id": null,
                         "id_Tema": 4,
                         "estado": "A",
-                        "descripcion": ""
+                        "descripcion": null
                     }];
                 }
       //$scope.preguntaList = data.data.trxObject;
