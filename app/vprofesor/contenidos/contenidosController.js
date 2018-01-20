@@ -3,7 +3,7 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
         getTema: function(id)
         {
             var obj;
-            if (id == null) { obj={}; } else { obj={id: id}; }
+            if (id == null) { obj={}; } else { obj={ "id": id}; }
 
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/find';
@@ -15,6 +15,24 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/find';
             return $http.post(url,{});
         },
+        addPregunta: function(id_tema, obj)
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/add';
+            return $http.post(url,obj);
+        },
+        delPregunta: function(id_tema, obj)
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/del/' + obj.id;
+            return $http.get(url,obj);
+        },
+        updPregunta: function(id_tema, obj)
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/upd';
+            return $http.post(url,obj);
+        },
         setTem: function(registro)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
@@ -23,7 +41,7 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
             $http({
                 method: 'POST',
                 //skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/tema/upd',
+                url: CONFIG.APISOSTOS + '/profesor/tema/upd',
                 data: regjson,
             }).then(function(res) {
                 deferred.resolve(res);
@@ -69,7 +87,7 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
     }
 });
 
-app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory, $filter, $location, $routeParams) {
+app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory, $filter, $location, $routeParams, $timeout) {
 
   $scope.idPadre = $routeParams.idpadre;
   $scope.idTema = $routeParams.idtema;
@@ -110,6 +128,7 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
 
   $scope.getTemaById = function (id) {
       apiTemaFactory.getTema(id).then(function (data) {
+          $scope.registroEdit = data.data.trxObject[0];
           $scope.nombreTema = data.data.trxObject[0].nombre;
       })
   }
@@ -135,16 +154,6 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
       });
   }
 
-
-  $scope.editTEM = function(){
-      var registro = $scope.gridApi.selection.getSelectedRows();
-      //$scope.getCombo();
-      if (registro != '') {
-          $scope.registroEdit = registro[0];
-          $scope.getComboNivel();
-      }
-  }
-
   $scope.delTMP = function(id) {
     $scope.id_del = id;
   }
@@ -157,12 +166,9 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
 
   $scope.updTEM = function(registro){
       apiTemaFactory.setTem(registro).then(function (data) {
-        //borro
-        $scope.gridOptions.data = [];
+            $scope.getAll();
       }).then(function (data) {
-        apiTemaFactory.getTodos().then(function (data) {
-            $scope.gridOptions.data = data.data;
-        })
+        //
       })
   }
 
@@ -182,50 +188,6 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
   }
 
 
-  $scope.listadoR = [
-        {
-            "id": 1,
-            "estado": "A",
-            "id_Pregunta": 1,
-            "descripcion": "Respuesta a Pregunta 1",
-            "correcta": "S"
-        },
-        {
-            "id": 2,
-            "estado": "A",
-            "id_Pregunta": 1,
-            "descripcion": "Respuesta B a Pregunta 1",
-            "correcta": "N"
-        },
-      {
-            "id": 3,
-            "estado": "A",
-            "id_Pregunta": 2,
-            "descripcion": "Respuesta a Pregunta 1",
-            "correcta": "N"
-        },
-        {
-            "id": 4,
-            "estado": "A",
-            "id_Pregunta": 2,
-            "descripcion": "Respuesta B a Pregunta 1",
-            "correcta": "N"
-        },
-        {
-            "id": 5,
-            "estado": "A",
-            "id_Pregunta": 2,
-            "descripcion": "Respuesta c a Pregunta 1",
-            "correcta": "S"
-        },
-        {
-            "id": 6,
-            "estado": "A",
-            "id_Pregunta": 2,
-            "descripcion": "Respuesta d a Pregunta 1",
-            "correcta": "N"
-        }
-    ];
 
   $scope.getPreguntas = function(id_tema) {
       if (id_tema != null) {
@@ -242,9 +204,11 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
               $scope.temaActual = $scope.idTema;
               apiTemaFactory.getPreguntas($scope.idTema).then(function (data) {
                 $scope.preguntaList = data.data.trxObject;
-                })
+                }).then(function (data) {
+                  $scope.getTemaById($scope.idTema);
+              })
 
-              $scope.getTemaById($scope.temaActual);
+
           }
 
       }
@@ -265,24 +229,31 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
   }
 
   $scope.addPregunta = function() {
-                if (($scope.preguntaList) && ($scope.preguntaList.length > 0)) {
 
-                    $scope.preguntaList.push({
+                if (($scope.preguntaListNew) && ($scope.preguntaListNew.length > 0)) {
+
+                    $scope.preguntaListNew.push({
                         "id": null,
-                        "id_Tema": 4,
+                        "id_Tema": $scope.temaActual,
                         "estado": "A",
                         "descripcion": null
                     })
                 } else {
-                    $scope.preguntaList = [{
+                    $scope.preguntaListNew = [{
                         "id": null,
-                        "id_Tema": 4,
+                        "id_Tema": $scope.temaActual,
                         "estado": "A",
                         "descripcion": null
                     }];
                 }
       //$scope.preguntaList = data.data.trxObject;
 
+  }
+
+  $scope.delPregunta = function(id) {
+      apiTemaFactory.delPregunta($scope.temaActual, {"id": id}).then(function (data) {
+          $scope.getPreguntas(null);
+      })
   }
 
   $scope.addRespuesta = function() {
@@ -308,14 +279,47 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
 
   }
 
-  $scope.grabaPregunta = function(registro) {
-      var log = [];
-      angular.forEach($scope.preguntaList, function(value, key) {
-        this.push({ "id": value.id, "descripcion": value.descripcion });
-      }, log);
-      console.log(log);
+  $scope.updPregunta = function(obj) {
+      apiTemaFactory.updPregunta($scope.idTema, obj).then(function (data) {
+            console.log('UPD: ' + data);
+        })
   }
 
+  $scope.grabaPregunta = function() {
+      var log = [];
+      var logn = [];
+     /* var cont = 0;
+      angular.forEach($scope.preguntaList, function(value, key) {
+          if (cont < 4) {
+              apiTemaFactory.updPregunta(value.id_Tema, { "id": value.id, "descripcion": value.descripcion, "estado": value.estado }).then(function (data) {
+              console.log('UPD: ' + data);
+              })
+          }
+
+          cont++;
+      })*/
+
+      //Preguntas nuevas
+      angular.forEach($scope.preguntaListNew, function(value, key) {
+           $timeout( function(){
+             apiTemaFactory.addPregunta(value.id_Tema, { "descripcion": value.descripcion, "estado": value.estado } ).then(function (data) {
+
+          })
+        }, 1000 );
+
+      })
+      $timeout( function(){
+            $scope.getPreguntas(null);
+        }, 2000 );
+
+  }
+
+    $scope.addPReguntaSola = function (obj)
+    {
+        apiTemaFactory.addPregunta($scope.idTema, obj ).then(function (data) {
+               $scope.getPreguntas(null);
+          })
+    }
 
 
 });

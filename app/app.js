@@ -140,6 +140,11 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
     controller: 'contenidosController',
     authorization: true
   })
+ .when('/miscontenidos/preguntas/:idpadre/:idtema', {
+    templateUrl : 'app/vprofesor/contenidos/preguntas.htm',
+    controller: 'contenidosController',
+    authorization: true
+  })
  .when('/mntmisasignaturas', {
     templateUrl : 'app/vmaintainer/asignaturas/misasignaturas.htm',
     controller: 'misasignaturasController',
@@ -153,6 +158,11 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
   .when('/mispruebas/pruebanueva', {
     templateUrl : 'app/vprofesor/pruebas/pruebanueva.htm',
     controller: 'pruebasController',
+    authorization: true
+  })
+  .when('/mismensajes', {
+    templateUrl : 'app/vprofesor/mensajes/mismensajes.htm',
+    controller: 'mensajesController',
     authorization: true
   })
 

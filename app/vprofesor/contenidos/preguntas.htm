@@ -1,10 +1,13 @@
-<any ng-init="getCombosTema()">
+<any ng-controller="contenidosController" ng-init="getCombosTema();getPreguntas(null);">
 <section class="ng-scope m-cont">
 <div class="container ng-scope">
     <h2>Mis Preguntas y Respuestas</h2>
 
     <div class="bjd">
-        <div class="row">
+        <div class="row" ng-if="nombreTema != null">
+            <div class="col-md-12"><h3>Tema Seleccionado: {{ nombreTema }}</h3></div>
+        </div>
+        <div class="row" ng-if="nombreTema == null">
             <div class="col-md-4">
             <h3>Tema</h3>
             <select ng-model="datos.id_Tema_Padre" class="form-control" ng-options="tema.id as tema.nombre for tema in comboTemas">
@@ -12,7 +15,7 @@
             </div>
             <div class="col-md-4">
             <h3>Sub-Tema</h3>
-            <select ng-model="datos.id" class="form-control" ng-options="stema.id as stema.nombre for stema in comboSubTemas | filter: { id_Tema_Padre:datos.id_Tema_Padre}" ng-change="getPreguntas(datos.id)">
+            <select ng-model="datos.id_subtema" class="form-control" ng-options="stema.id as stema.nombre for stema in comboSubTemas | filter: { id_Tema_Padre:datos.id_Tema_Padre}" ng-change="getPreguntas(datos.id_subtema)">
             </select>
             </div>
         </div>
@@ -22,22 +25,37 @@
             <div class="panel panel-default">
               <div class="panel-heading"><strong>Preguntas</strong></div>
               <div class="panel-body">
+                <form id="frm0" name="frm0">
                 <div class="row" ng-repeat="reg in preguntaList">
+                    <div class="col-md-8">
                         <div class="input-group" >
                         <input type="hidden" ng-model="reg.id">
-                        <input type="text" ng-model="reg.descripcion" class="form-control" ng-required="true">
-                        <button class="btn " data-toggle="modal" type="button" ng-click="getRespuesta(reg.id)" ng-show="reg.id != null">
-                            <i class="fa fa-pencil"></i>Respuestas
+                        <input type="text" ng-model="reg.descripcion" class="form-control" ng-required="true" placeholder="Ingrese Pregunta" ng-blur="updPregunta(reg)">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn " type="button" ng-click="getRespuesta(reg.id)" ng-show="reg.id != null" data-toggle="tooltip" data-placement="top" title="Respuestas">
+                            <i class="fa fa-file-text" aria-hidden="true"></i>
                         </button>
+                        <button class="btn " type="button" ng-click="delPregunta(reg.id)" ng-show="reg.id != null" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row" ng-repeat="regn in preguntaListNew">
+                        <div class="input-group" >
+                        <input type="hidden" ng-model="regn.id">
+                        <input type="text" ng-model="regn.descripcion" class="form-control" ng-required="true" placeholder="Ingrese Pregunta" ng-required="true" ng-blur="addPreguntaSola(regn)">
                         </div>
                         <br>
                 </div>
                 <button class="btn " data-toggle="modal" type="button" ng-click="addPregunta()" ng-show="temaActual != null">
                     <i class="fa fa-plus"></i>Agregar
                 </button>
-                <button class="btn " data-toggle="modal" type="button" ng-click="grabaPregunta()" ng-show="temaActual != null">
+                <button class="btn " data-toggle="modal" type="button" ng-click="grabaPregunta()" ng-show="((temaActual != null) && (preguntaListNew.length > 0))" ng-disabled="!frm0.$valid">
                     <i class="fa fa-save"></i>Grabar
                 </button>
+                </form>
               </div>
             </div>
         </div>
