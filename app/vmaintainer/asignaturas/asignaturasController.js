@@ -181,6 +181,7 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
       apiAsignaturaFactory.setAsi(registro).then(function (data) {
         //borro
         $scope.gridOptions.data = [];
+        alert('Registro Editado Correctamente');
       }).then(function (data) {
         apiAsignaturaFactory.getTodosPrima().then(function (data) {
             $scope.gridOptions.data = data.data.trxObject;
@@ -194,7 +195,9 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
           $scope.gridOptions.data = [];
            apiAsignaturaFactory.getTodosPrima().then(function (data) {
             $scope.gridOptions.data = data.data.trxObject;
-            })
+            }).then(function (data) {
+               alert('Registro Agregado Correctamente');
+           })
       })
   }
 

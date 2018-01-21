@@ -1,4 +1,4 @@
-var app = angular.module('appSostos', ['ngRoute','ngSanitize','angular-jwt', 'angular-storage','xlsx-model','ngTouch','ui.grid','ui.grid.selection','ui.grid.pagination','ui.grid.cellNav','ngCookies','dndLists','ng-rut']);
+var app = angular.module('appSostos', ['ngRoute','ngSanitize','angular-jwt', 'angular-storage','xlsx-model','ngTouch','ui.grid','ui.grid.selection','ui.grid.pagination','ui.grid.cellNav','ngCookies','dndLists','ng-rut','ngPassword']);
 
 app.constant('CONFIG', {
     APISOSTOS: "http://168.232.165.85:8080/sostos_frontend_api",
@@ -16,22 +16,26 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
    {
         var token = $cookies.get('sostos.tkn') || null;
         //console.log('getAll:' + $cookies.getAll());
-        //console.log('token:' + token);
+
         //var token = store.get("token") || null;
 
         var tokenPayload = jwtHelper.decodeToken(token);
+        console.log('token:' + tokenPayload.Estado);
 
         if (tokenPayload.Estado === 'P') {
             $location.url('/suscripcion',true);
         }
 
-        if(!token) {
+
+
+        if(tokenPayload.Estado === null) {
+            console.log('entro');
             $rootScope.isUserLoggedIn = false;
             //$location.path("/");
-            $location.url('/',true);
+            $location.url('http://168.232.165.85/sostosweb/',true);
         }
         else {
-            $rootScope.isUserLoggedIn = true ; //Cambiar a false
+            $rootScope.isUserLoggedIn = true ;
         }
 
         var bool = jwtHelper.isTokenExpired(token);
@@ -40,7 +44,7 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
         if(bool === true) {
             $rootScope.isUserLoggedIn = false;
             //$location.path("/");
-            $location.url('/',true);
+            $location.url('http://168.232.165.85/sostosweb/',true);
         }
     });
 
@@ -258,20 +262,31 @@ app.controller('logoutController', function($scope, $rootScope, CONFIG, apiMenuF
           //$location.url("/",true);
  });
 
-app.directive('pwCheck', [function () {
-    return {
-      require: 'ngModel',
-      link: function (scope, elem, attrs, ctrl) {
-        var firstPassword = '#' + attrs.pwCheck;
-        $(elem).add(firstPassword).on('keyup', function () {
-          scope.$apply(function () {
-            var v = elem.val()===$(firstPassword).val();
-            ctrl.$setValidity('pwmatch', v);
-          });
-        });
-      }
+app.directive('fileReader', function() {
+  return {
+    scope: {
+      fileReader:"="
+    },
+    link: function(scope, element) {
+      $(element).on('change', function(changeEvent) {
+        var files = changeEvent.target.files;
+        if (files.length) {
+          var r = new FileReader();
+          r.onload = function(e) {
+              var contents = e.target.result;
+              scope.$apply(function () {
+                scope.fileReader = contents;
+                scope.testing = contents;
+              });
+          };
+
+          r.readAsText(files[0]);
+        }
+      });
     }
-  }]);
+  };
+});
+
 
 
 

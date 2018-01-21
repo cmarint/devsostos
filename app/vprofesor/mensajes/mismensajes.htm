@@ -1,0 +1,20 @@
+<any ng-init="getAsignaturas()">
+<section class="ng-scope m-asig">
+<div class="container ng-scope">
+    <h2>Mensaje Alumnos</h2>
+     <div class="bjd">
+        <button class="btn " data-toggle="modal" data-target="#m-agr-estb" type="button">
+          <i class="fa fa-plus-circle"></i> Enviar
+        </button>
+      </div>
+      <div class="row row-centered">
+        <div class="col-md-12 col-centered">
+            {{listaAsignatura}}
+            <textarea ng-model="datos.mensaje" cols="6" rows="10" class="form-control"></textarea>
+        </div>
+      </div>
+
+</div>
+</section>
+</any>
+

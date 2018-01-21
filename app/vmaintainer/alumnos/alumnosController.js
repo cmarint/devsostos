@@ -50,7 +50,7 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, $cookies){
     }
 });
 
-app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAlumnoFactory, uiGridConstants) {
+app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAlumnoFactory, uiGridConstants,$timeout) {
 
   i18nService.setCurrentLang('es');
   $scope.gridOptions = {
@@ -114,16 +114,50 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
 
   $scope.updALU = function(id,registro){
       apiAlumnoFactory.setAlumno(id, registro).then(function (data) {
-          $scope.getAll(id);
+          if (data.data.detailsResponse.code == "00") {
+              alert('Registro Editado Correctamente');
+              $scope.getAll(id);
+          } else {
+              alert('Error al editar registro');
+          }
+      }).catch(function (error) {
+          alert('Error al editar registro');
       })
   }
 
   $scope.addALU = function(id, registro){
       apiAlumnoFactory.addAlumno(id, registro).then(function (data) {
-           $scope.getAll(id);
-          //$scope.gridOptions.data.push(data.data);
+          if (data.data.detailsResponse.code == "00") {
+              alert('Registro Agregado Correctamente');
+              $scope.getAll(id);
+          } else {
+              alert('Error al agregar registro');
+          }
+      }).catch(function (error) {
+          alert('Error al agregar registro');
       })
   }
+
+
+  $scope.procesarCSV = function (id, allText) {
+      var allTextLines = allText.split(/\r\n|\n/);
+    var headers = allTextLines[0].split(',');
+    var lines = [];
+
+    for ( var i = 1; i < allTextLines.length; i++) {
+        var data = allTextLines[i].split(',');
+        var registro = { "nombre": data[0], "rut": data[1], "email": data[2], "estado": data[3]};
+         $timeout( function(){
+            apiAlumnoFactory.addAlumno(id, registro).then(function (data) {
+                console.log(data);
+            })
+        }, 3000 );
+
+
+    }
+
+  }
+
 
 
 });

@@ -3,6 +3,7 @@
     <form name="frmOp" role="form">
     <div class="container ng-scope">
       <div class="col-md-6 col-center">
+        <form name="frmOp">
         <div class="form-horizontal ng-pristine ng-valid" method="post" role="form">
           <div class="form-group">
             <div class="row">
@@ -20,9 +21,9 @@
           <div class="form-group" ng-class="{'has-error':frmOp.newPassConfirm.$invalid&&!frmOp.newPassConfirm.$error.required}">
             <div class="row">
               <label class="control-label col-md-4" for="newPassConfirm">Confirmar Contraseña</label>
-              <div class="col-md-8"><input type="password" class="form-control" id="newPassConfirm" name="newPassConfirm" placeholder="Confirme Contraseña Nueva" ng-model="usuario.password_New_2" ng-required="true" pw-check="newPassword"></div>
+              <div class="col-md-8"><input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirme Contraseña Nueva" ng-model="usuario.password_New_2" ng-required="true"  match-password="newPassword"></div>
                 <div role="alert">
-                        <span class="error" ng-show="frmOp.newPassConfirm.$error.pwmatch">
+                        <span class="text-danger" ng-show="frmOp.confirmPassword.$invalid&&!frmOp.confirmPassword.$error.required">
                             Las contraseñas no coinciden</span>
                 </div>
             </div>
@@ -36,6 +37,7 @@
             </div>
 
         </div>
+        </form>
       </div>
     </div>
     </form>

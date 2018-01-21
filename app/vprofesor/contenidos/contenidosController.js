@@ -166,7 +166,12 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
 
   $scope.updTEM = function(registro){
       apiTemaFactory.setTem(registro).then(function (data) {
-            $scope.getAll();
+         if (data.data.detailsResponse.code == "00") {
+              alert('Registro Editado Correctamente');
+              $scope.getAll();
+          } else {
+              alert('Error al editar registro');
+          }
       }).then(function (data) {
         //
       })
@@ -174,7 +179,13 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
 
   $scope.addTEM = function(registro){
       apiTemaFactory.addTem(registro).then(function (data) {
-          $scope.getAll();
+          if (data.data.detailsResponse.code == "00") {
+              alert('Registro Agregado Correctamente');
+              $scope.getAll();
+          } else {
+              alert('Error al agregar registro');
+          }
+
       })
   }
 
