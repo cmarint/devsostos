@@ -115,7 +115,9 @@ app.controller('categoriasController', function ($scope, i18nService, CONFIG, ap
 
   $scope.updCAT = function(registro){
       apiCateFactory.setCat(registro).then(function (data) {
-          console.log(data.data);
+           alert('Registro Actualizado Correctamente');
+      }).catch(function (error) {
+          alert('Error al Editar registro');
       })
   }
 
@@ -123,8 +125,11 @@ app.controller('categoriasController', function ($scope, i18nService, CONFIG, ap
       //registro.estado = registro.flag ? 'A' : 'I';
       //delete registro.flag;
       apiCateFactory.addCat(registro).then(function (data) {
+          alert('Registro Agregado Correctamente');
           $scope.gridOptions.data.push(data.data);
           //console.log(data.data);
+      }).catch(function (error) {
+          alert('Error al agregar registro');
       })
   }
 

@@ -156,19 +156,24 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
   
   $scope.updNIV = function(registro){
       apiCursoFactory.setNiv(registro).then(function (data) {
-        //borro
+        alert('Registro Actualizado Correctamente');
         $scope.gridOptions.data = [];
       }).then(function (data) {
         apiCursoFactory.getTodos().then(function (data) {
           $scope.gridOptions.data = data.data;
         })
-          console.log(data.data);
+
+      }).catch(function (error) {
+          alert('Error al Editar registro');
       })
   }
   
   $scope.addNIV = function(registro){
       apiCursoFactory.addNiv(registro).then(function (data) {
+          alert('Registro Agregado Correctamente');
           $scope.gridOptions.data.push(data.data);
+      }).catch(function (error) {
+          alert('Error al agregar registro');
       })
   }
 

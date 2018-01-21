@@ -127,7 +127,9 @@ app.controller('preguntasseguridadController', function ($scope, i18nService, CO
 
   $scope.updPSE = function(registro){
       apiPseFactory.setPse(registro).then(function (data) {
-          console.log(data.data);
+           alert('Registro actualizado Correctamente');
+      }).catch(function (error) {
+          alert('Error al editar registro');
       })
   }
 
@@ -135,8 +137,11 @@ app.controller('preguntasseguridadController', function ($scope, i18nService, CO
       //registro.estado = registro.flag ? 'A' : 'I';
       //delete registro.flag;
       apiPseFactory.addPse(registro).then(function (data) {
+          alert('Registro Agregado Correctamente');
           $scope.gridOptions.data.push(data.data);
           //console.log(data.data);
+      }).catch(function (error) {
+          alert('Error al agregar registro');
       })
   }
 
