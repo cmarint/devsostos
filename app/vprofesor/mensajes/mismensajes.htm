@@ -3,18 +3,22 @@
 <div class="container ng-scope">
     <h2>Mensaje Alumnos</h2>
      <div class="bjd">
-        <button class="btn " data-toggle="modal" data-target="#m-agr-estb" type="button">
+        <div class="col-md-4">
+        <label class="control-label col-md-8" for="asigna">Asignarturas</label>
+         <select ng-model="asignatura.id" name="asigna" class="form-control" ng-options="asignatura.id as asignatura.nombre for asignatura in combo" ng-change="getAlumnos(asignatura.id)"><option value="">--SELECCIONE ASIGNATURA--</option></select>
+        </div>
+        <button class="btn " data-toggle="modal" data-target="#m-agr-estb" type="button" ng-click="sendMail(datos)">
           <i class="fa fa-plus-circle"></i> Enviar
         </button>
       </div>
       <div class="row row-centered">
         <div class="col-md-12 col-centered">
-            {{listaAsignatura}}
             <textarea ng-model="datos.mensaje" cols="6" rows="10" class="form-control"></textarea>
         </div>
       </div>
 
 </div>
 </section>
+    {{alumnos}}
 </any>
 
