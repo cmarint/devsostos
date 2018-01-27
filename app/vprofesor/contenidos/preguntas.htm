@@ -1,13 +1,13 @@
-<any ng-controller="contenidosController" ng-init="getCombosTema();getPreguntas(null);">
+<any ng-controller="contenidosController" ng-init="getPreguntas(null);getComboCategoria()">
 <section class="ng-scope m-cont">
 <div class="container ng-scope">
     <h2>Mis Preguntas y Respuestas</h2>
 
     <div class="bjd">
-        <div class="row" ng-if="nombreTema != null">
+        <div class="row" ng-show="muestraTema">
             <div class="col-md-12"><h3>Tema Seleccionado: {{ nombreTema }}</h3></div>
         </div>
-        <div class="row" ng-if="nombreTema == null">
+        <div class="row" ng-show="!muestraTema">
             <div class="col-md-4">
             <h3>Tema</h3>
             <select ng-model="datos.id_Tema_Padre" class="form-control" ng-options="tema.id as tema.nombre for tema in comboTemas">
@@ -20,7 +20,79 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="!#seleccion" data-toggle="tab">Seleccion Multiple</a></li>
+        <li role="presentation"><a href="!#verdadero" data-toggle="tab">Verdadero o Falso</a></li>
+    </ul>
+    <!--// Preguntas Verdadero o Falso --->
+    <div class="tab-content ">
+        <div class="tab-pane active" id="seleccion">
+            <div class="row" id="">
+                <table class="table table-striped">
+          <thead>
+              Categoria: {{comboCategoria}}
+            <tr>
+              <th scope="col">Pregunta</th>
+              <th scope="col">Respuesta (1)</th>
+              <th scope="col">Respuesta (2)</th>
+              <th scope="col">Respuesta (3)</th>
+              <th scope="col">Respuesta (4)</th>
+              <th scope="col">Respuesta (5)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><input type="text" class="form-control"/><select ng-model="pregunta.id_categoria" class="form-control" ng-options="cate.id as cate.nombre for cate in comboCategoria">
+            </select></th>
+              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
+              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
+              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
+              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
+              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
+            </tr>
+            <tr>
+              <th scope="row"><input type="text" class="form-control"/><select ng-model="pregunta.id_categoria" class="form-control" ng-options="cate.id as cate.nombre for cate in comboCategoria">
+            </select></th>
+              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
+              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
+              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
+              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
+              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
+            </tr>
+          </tbody>
+        </table>
+            </div>
+        </div>
+        <div class="tab-pane" id="verdadero">
+            <div class="row">
+                <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Pregunta</th>
+              <th scope="col">Verdadero</th>
+              <th scope="col">Falso</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><input type="text" class="form-control"/></th>
+              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
+              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
+            </tr>
+            <tr>
+              <th scope="row"><input type="text" class="form-control"/></th>
+              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
+              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
+            </tr>
+          </tbody>
+        </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- div class="row">
         <div class="col-md-6">
             <div class="panel panel-default">
               <div class="panel-heading"><strong>Preguntas</strong></div>
@@ -79,7 +151,7 @@
                 </button>
             </div>
         </div>
-    </div>
+    </div-->
 </div>
 </section>
 </any>
