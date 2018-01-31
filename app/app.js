@@ -141,12 +141,12 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
   })
  .when('/miscontenidos/preguntas', {
     templateUrl : 'app/vprofesor/contenidos/preguntas.htm',
-    controller: 'contenidosController',
+    controller: 'preguntasController',
     authorization: true
   })
  .when('/miscontenidos/preguntas/:idpadre/:idtema', {
     templateUrl : 'app/vprofesor/contenidos/preguntas.htm',
-    controller: 'contenidosController',
+    controller: 'preguntasController',
     authorization: true
   })
  .when('/mntmisasignaturas', {
@@ -180,6 +180,11 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
   .when('/preguntasseg', {
     templateUrl : 'app/vperfil/preguntas.htm',
     controller: 'perfilController',
+    authorization: true
+  })
+  .when('/recuperarpass', {
+    templateUrl : 'app/vperfil/recuperarpass.htm',
+    controller: 'recuperarpassController',
     authorization: true
   })
   .when('/clave', {

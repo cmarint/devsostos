@@ -1,4 +1,4 @@
-<any ng-controller="contenidosController" ng-init="getPreguntas(null);getComboCategoria()">
+<any ng-controller="preguntasController" ng-init="getPreguntas();getComboCategoria()">
 <section class="ng-scope m-cont">
 <div class="container ng-scope">
     <h2>Mis Preguntas y Respuestas</h2>
@@ -7,7 +7,7 @@
         <div class="row" ng-show="muestraTema">
             <div class="col-md-12"><h3>Tema Seleccionado: {{ nombreTema }}</h3></div>
         </div>
-        <div class="row" ng-show="!muestraTema">
+        <!-- div class="row" ng-show="!muestraTema">
             <div class="col-md-4">
             <h3>Tema</h3>
             <select ng-model="datos.id_Tema_Padre" class="form-control" ng-options="tema.id as tema.nombre for tema in comboTemas">
@@ -18,74 +18,55 @@
             <select ng-model="datos.id_subtema" class="form-control" ng-options="stema.id as stema.nombre for stema in comboSubTemas | filter: { id_Tema_Padre:datos.id_Tema_Padre}" ng-change="getPreguntas(datos.id_subtema)">
             </select>
             </div>
-        </div>
+        </div -->
     </div>
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="!#seleccion" data-toggle="tab">Seleccion Multiple</a></li>
         <li role="presentation"><a href="!#verdadero" data-toggle="tab">Verdadero o Falso</a></li>
     </ul>
-    <!--// Preguntas Verdadero o Falso --->
+    <!--// Preguntas Seleccion Multiple --->
     <div class="tab-content ">
         <div class="tab-pane active" id="seleccion">
             <div class="row" id="">
                 <table class="table table-striped">
-          <thead>
-              Categoria: {{comboCategoria}}
-            <tr>
-              <th scope="col">Pregunta</th>
-              <th scope="col">Respuesta (1)</th>
-              <th scope="col">Respuesta (2)</th>
-              <th scope="col">Respuesta (3)</th>
-              <th scope="col">Respuesta (4)</th>
-              <th scope="col">Respuesta (5)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row"><input type="text" class="form-control"/><select ng-model="pregunta.id_categoria" class="form-control" ng-options="cate.id as cate.nombre for cate in comboCategoria">
-            </select></th>
-              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
-              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
-              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
-              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
-              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
-            </tr>
-            <tr>
-              <th scope="row"><input type="text" class="form-control"/><select ng-model="pregunta.id_categoria" class="form-control" ng-options="cate.id as cate.nombre for cate in comboCategoria">
-            </select></th>
-              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
-              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
-              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
-              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
-              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
-            </tr>
-          </tbody>
-        </table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Pregunta</th>
+                      <th scope="col">Respuesta (1)</th>
+                      <th scope="col">Respuesta (2)</th>
+                      <th scope="col">Respuesta (3)</th>
+                      <th scope="col">Respuesta (4)</th>
+                      <th scope="col">Respuesta (5)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     <tr ng-repeat="reg in preguntaList" ng-show="reg.pregunta.tipo_Pregunta == 'SM'">
+                         <th>{{ reg.pregunta.descripcion_Pregunta }}</th>
+                         <td ng-repeat="reg2 in reg.respuestas">{{ reg2.descripcion_Respuesta }} <i class="fa fa-check-circle" aria-hidden="true" ng-show="reg2.correcta_Respuesta == 'S'"></i></td>
+                     </tr>
+                  </tbody>
+                </table>
             </div>
         </div>
         <div class="tab-pane" id="verdadero">
             <div class="row">
+                <div class="col-md-8">
                 <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Pregunta</th>
-              <th scope="col">Verdadero</th>
-              <th scope="col">Falso</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row"><input type="text" class="form-control"/></th>
-              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
-              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
-            </tr>
-            <tr>
-              <th scope="row"><input type="text" class="form-control"/></th>
-              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
-              <td><div class="input-group"><span class="input-group-addon"><input title="Respuesta Correcta?" type="checkbox" aria-label="..."></span><input type="text" class="form-control" aria-label="..."></div></td>
-            </tr>
-          </tbody>
-        </table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Pregunta</th>
+                      <th scope="col">Verdadero</th>
+                      <th scope="col">Falso</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="reg3 in preguntaList" ng-show="reg3.pregunta.tipo_Pregunta == 'VF'">
+                      <th scope="row">{{ reg3.pregunta.descripcion_Pregunta }}</th>
+                      <td ng-repeat="reg4 in reg3.respuestas">{{ reg4.descripcion_Respuesta }} <i class="fa fa-check-circle" aria-hidden="true" ng-show="reg4.correcta_Respuesta == 'S'"></i></td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
             </div>
         </div>
     </div>

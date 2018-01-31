@@ -55,56 +55,8 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/upd';
             return $http.post(url,obj);
         },
-        setTem: function(registro)
-        {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            var regjson = angular.toJson(registro);
-            deferred = $q.defer();
-            $http({
-                method: 'POST',
-                //skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/profesor/tema/upd',
-                data: regjson,
-            }).then(function(res) {
-                deferred.resolve(res);
-            }).then(function(error){
-                deferred.reject(error);
-            })
-            return deferred.promise;
-        },
-        addTem: function(registro)
-        {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            var regjson = angular.toJson(registro);
-            deferred = $q.defer();
-            $http({
-                method: 'POST',
-                //skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/profesor/tema/add',
-                data: regjson
-            }).then(function(res) {
-                deferred.resolve(res);
-            }).then(function(error){
-                deferred.reject(error);
-            })
-            return deferred.promise;
-        },
-        delTem: function(id)
-        {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            var regjson = angular.toJson(id);
-            deferred = $q.defer();
-            $http({
-                method: 'GET',
-                //skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/profesor/tema/del/' + id
-            }).then(function(res) {
-                deferred.resolve(res);
-            }).then(function(error){
-                deferred.reject(error);
-            })
-            return deferred.promise;
-        },
+
+
          getCategorias: function()
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
@@ -124,45 +76,11 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
     }
 });
 
-app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory, $filter, $location, $routeParams, $timeout) {
+app.controller('preguntasController', function ($scope, CONFIG, apiTemaFactory, $filter, $location, $routeParams, $timeout) {
 
   $scope.idPadre = $routeParams.idpadre;
   $scope.idTema = $routeParams.idtema;
   $scope.muestraTema = false;
-
-  $scope.getAll = function () {
-      apiTemaFactory.getTema(null).then(function (data) {
-          var parentId = "";
-
-          $scope.comboTemas = $filter('filter')(data.data.trxObject,{id_Tema_Padre: null});
-          $scope.comboSubTemas = data.data.trxObject;
-          var datos = data.data.trxObject;
-          var datos2 = data.data.trxObject;
-          var arbol = [];
-          angular.forEach(datos, function (value, key) {
-                if (value.id_Tema_Padre == null) {
-                    //console.log('Padre Id' + value.id);
-                    parentId = value.id;
-                    parentName = value.nombre;
-
-                    var hijos = [];
-                    angular.forEach(datos2, function (value, key) {
-                         if (angular.equals(value.id_Tema_Padre, parentId)) {
-                            hijos.push({id: value.id, nombre: value.nombre});
-                            //console.log('Id' + value.id + ' Hijo de' + value.id_Tema_Padre);
-                         }
-                    })
-                    arbol.push({id: parentId, nombre: parentName, hijos: hijos});
-                }
-
-          });
-          //console.log(arbol);
-          $scope.arbolito = arbol;
-
-      }).then(function (data) {
-           //$scope.getCombo();
-      });
-  };
 
   $scope.getTemaById = function (id) {
       apiTemaFactory.getTema(id).then(function (data) {
@@ -172,20 +90,6 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
       })
   }
 
-//Institución
-  $scope.getCombo = function () {
-      apiTemaFactory.getIns().then(function (data) {
-          $scope.combo = data.data;
-      });
-  }
-
-//Nivel
-  $scope.getComboNivel = function () {
-      apiTemaFactory.getNiv().then(function (data) {
-          $scope.comboNiv = data.data;
-      });
-  }
-
   $scope.getCombosTema = function () {
       apiTemaFactory.getTema(null).then(function (data) {
           $scope.comboTemas = $filter('filter')(data.data.trxObject,{id_Tema_Padre: null});
@@ -193,40 +97,6 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
       });
   }
 
-  $scope.delTMP = function(id) {
-    $scope.id_del = id;
-  }
-
-  $scope.delTEM = function(){
-          apiTemaFactory.delTem($scope.id_del).then(function (data){
-              $scope.getAll();
-          });
-  }
-
-  $scope.updTEM = function(registro){
-      apiTemaFactory.setTem(registro).then(function (data) {
-         if (data.data.detailsResponse.code == "00") {
-              alert('Registro Editado Correctamente');
-              $scope.getAll();
-          } else {
-              alert('Error al editar registro');
-          }
-      }).then(function (data) {
-        //
-      })
-  }
-
-  $scope.addTEM = function(registro){
-      apiTemaFactory.addTem(registro).then(function (data) {
-          if (data.data.detailsResponse.code == "00") {
-              alert('Registro Agregado Correctamente');
-              $scope.getAll();
-          } else {
-              alert('Error al agregar registro');
-          }
-
-      })
-  }
 
 
   $scope.preguntasPage = function(idPadre, id, nombre) {
