@@ -201,7 +201,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
 
 
 
- app.controller('mainController', function($scope, $rootScope, $cookies, jwtHelper) {
+ app.controller('mainController', function($scope, $rootScope, $cookies, jwtHelper, $location) {
      var token = $cookies.get('sostos.tkn');
      var tokenPayload = jwtHelper.decodeToken(token);
      $scope.nombre = tokenPayload.sub;
