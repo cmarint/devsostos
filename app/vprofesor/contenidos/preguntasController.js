@@ -1,14 +1,12 @@
-app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
+app.factory('apiPreguntaFactory', function($http, $q, CONFIG, store, $cookies){
     return {
         getTema: function(id)
         {
             var obj;
             if (id == null) { obj={}; } else { obj={ "id": id}; }
 
-            /*$http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            var url = CONFIG.APISOSTOS + '/profesor/tema/find';
-            return $http.post(url, obj);*/
-             deferred = $q.defer();
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            deferred = $q.defer();
             $http({
                 method: 'POST',
                 //skipAuthorization: true,
@@ -37,19 +35,19 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/preguntasrespuestas/find';
             return $http.post(url, obj);
         },
-        addPregunta: function(id_tema, obj)
+        addPreguntaRespuestas: function(id_tema, obj)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/add';
+            var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/preguntasrespuestas/add';
             return $http.post(url,obj);
         },
-        delPregunta: function(id_tema, obj)
+        delPreguntaRespuestas: function(id_tema, obj)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/del/' + obj.id;
+            var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/preguntasrespuestas/del';
             return $http.get(url,obj);
         },
-        updPregunta: function(id_tema, obj)
+        updPreguntaRespuesta: function(id_tema, obj)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/upd';
@@ -76,14 +74,15 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
     }
 });
 
-app.controller('preguntasController', function ($scope, CONFIG, apiTemaFactory, $filter, $location, $routeParams, $timeout) {
+app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFactory, $filter, $location, $routeParams, $timeout) {
 
   $scope.idPadre = $routeParams.idpadre;
   $scope.idTema = $routeParams.idtema;
   $scope.muestraTema = false;
 
+
   $scope.getTemaById = function (id) {
-      apiTemaFactory.getTema(id).then(function (data) {
+      apiPreguntaFactory.getTema(id).then(function (data) {
           //console.log(data.data.trxObject[0]);
           //$scope.registroEdit = data.data.trxObject;
           $scope.nombreTema = data.data.trxObject[0].nombre;
@@ -91,7 +90,7 @@ app.controller('preguntasController', function ($scope, CONFIG, apiTemaFactory, 
   }
 
   $scope.getCombosTema = function () {
-      apiTemaFactory.getTema(null).then(function (data) {
+      apiPreguntaFactory.getTema(null).then(function (data) {
           $scope.comboTemas = $filter('filter')(data.data.trxObject,{id_Tema_Padre: null});
           $scope.comboSubTemas = $filter('filter')(data.data.trxObject,{id_Tema_Padre: ''});;
       });
@@ -109,24 +108,64 @@ app.controller('preguntasController', function ($scope, CONFIG, apiTemaFactory, 
           $scope.muestraTema = true;
               $scope.temaActual = $scope.idTema;
               //apiTemaFactory.getPreguntas($scope.idTema).then(function (data) {
-              apiTemaFactory.getPreguntasRespuestas($scope.idTema, null).then(function (data) {
+              apiPreguntaFactory.getPreguntasRespuestas($scope.idTema, null).then(function (data) {
                 $scope.preguntaList = data.data.trxObject;
                   $scope.getTemaById($scope.idTema);
                 }).then(function (data) {
+                  $scope.datos = { "pregunta":
+                                  { "tipo_Pregunta": "SM" },
+                                  "respuestas": [
+                                      { "descripcion_Respuesta": "", "correcta_Respuesta": "N" },
+                                      { "descripcion_Respuesta": "", "correcta_Respuesta": "N" },
+                                      { "descripcion_Respuesta": "", "correcta_Respuesta": "N" },
+                                      { "descripcion_Respuesta": "", "correcta_Respuesta": "N" },
+                                      { "descripcion_Respuesta": "", "correcta_Respuesta": "N" }]
+                                 };
+
+                    console.log($scope.datos);
                   //$scope.getTemaById($scope.idTema);
               })
 
   }
 
 
+    $scope.tipoPregunta = function () {
+        if ($scope.datos.pregunta.tipo_Pregunta == 'SM') {
+            $scope.datos = { "pregunta":
+                                  { "tipo_Pregunta": "SM" },
+                                  "respuestas": [
+                                      { "descripcion_Respuesta": "", "correcta_Respuesta": "N" },
+                                      { "descripcion_Respuesta": "", "correcta_Respuesta": "N" },
+                                      { "descripcion_Respuesta": "", "correcta_Respuesta": "N" },
+                                      { "descripcion_Respuesta": "", "correcta_Respuesta": "N" },
+                                      { "descripcion_Respuesta": "", "correcta_Respuesta": "N" }]
+                                 };
+        } else {
+           $scope.datos = { "pregunta":
+                                  { "tipo_Pregunta": "VF" },
+                                  "respuestas": [
+                                      { "descripcion_Respuesta": "Verdadero", "correcta_Respuesta": "N" },
+                                      { "descripcion_Respuesta": "Falso", "correcta_Respuesta": "N" }
+                                    ]
+                                 };
+        }
+    }
 
 
     $scope.getComboCategoria = function () {
-      apiTemaFactory.getCategorias().then(function (data) {
+      apiPreguntaFactory.getCategorias().then(function (data) {
           $scope.comboCategoria = data.data;
-          //console.log(data);
+          console.log(data);
       });
    }
+
+    $scope.addPreguntaRespuestas = function (obj) {
+        var arreglo = [];
+        arreglo.push(obj);
+        apiPreguntaFactory.addPreguntaRespuestas($scope.idTema ,arreglo).then(function (data) {
+            $scope.getPreguntas();
+        })
+    }
 
 });
 

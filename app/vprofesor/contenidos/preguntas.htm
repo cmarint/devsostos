@@ -4,21 +4,12 @@
     <h2>Mis Preguntas y Respuestas</h2>
 
     <div class="bjd">
+        <button class="btn " data-toggle="modal" data-target="#m-agr-preg" type="button">
+          <i class="fa fa-plus-circle"></i> Agregar Pregunta y Respuestas
+        </button>
         <div class="row" ng-show="muestraTema">
             <div class="col-md-12"><h3>Tema Seleccionado: {{ nombreTema }}</h3></div>
         </div>
-        <!-- div class="row" ng-show="!muestraTema">
-            <div class="col-md-4">
-            <h3>Tema</h3>
-            <select ng-model="datos.id_Tema_Padre" class="form-control" ng-options="tema.id as tema.nombre for tema in comboTemas">
-            </select>
-            </div>
-            <div class="col-md-4">
-            <h3>Sub-Tema</h3>
-            <select ng-model="datos.id_subtema" class="form-control" ng-options="stema.id as stema.nombre for stema in comboSubTemas | filter: { id_Tema_Padre:datos.id_Tema_Padre}" ng-change="getPreguntas(datos.id_subtema)">
-            </select>
-            </div>
-        </div -->
     </div>
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="!#seleccion" data-toggle="tab">Seleccion Multiple</a></li>
@@ -40,6 +31,7 @@
                     </tr>
                   </thead>
                   <tbody>
+
                      <tr ng-repeat="reg in preguntaList" ng-show="reg.pregunta.tipo_Pregunta == 'SM'">
                          <th>{{ reg.pregunta.descripcion_Pregunta }}</th>
                          <td ng-repeat="reg2 in reg.respuestas">{{ reg2.descripcion_Respuesta }} <i class="fa fa-check-circle" aria-hidden="true" ng-show="reg2.correcta_Respuesta == 'S'"></i></td>
@@ -70,70 +62,60 @@
             </div>
         </div>
     </div>
-
-
-
-    <!-- div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-default">
-              <div class="panel-heading"><strong>Preguntas</strong></div>
-              <div class="panel-body">
-                <form id="frm0" name="frm0">
-                <div class="row" ng-repeat="reg in preguntaList">
-                    <div class="col-md-8">
-                        <div class="input-group" >
-                        <input type="hidden" ng-model="reg.id">
-                        <input type="text" ng-model="reg.descripcion" class="form-control" ng-required="true" placeholder="Ingrese Pregunta" ng-blur="updPregunta(reg)">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <button class="btn " type="button" ng-click="getRespuesta(reg.id)" ng-show="reg.id != null" data-toggle="tooltip" data-placement="top" title="Respuestas">
-                            <i class="fa fa-file-text" aria-hidden="true"></i>
-                        </button>
-                        <button class="btn " type="button" ng-click="delPregunta(reg.id)" ng-show="reg.id != null" data-toggle="tooltip" data-placement="top" title="Eliminar">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="row" ng-repeat="regn in preguntaListNew">
-                        <div class="input-group" >
-                        <input type="hidden" ng-model="regn.id">
-                        <input type="text" ng-model="regn.descripcion" class="form-control" ng-required="true" placeholder="Ingrese Pregunta" ng-required="true" ng-blur="addPreguntaSola(regn)">
-                        </div>
-                        <br>
-                </div>
-                <button class="btn " data-toggle="modal" type="button" ng-click="addPregunta()" ng-show="temaActual != null">
-                    <i class="fa fa-plus"></i>Agregar
-                </button>
-                <button class="btn " data-toggle="modal" type="button" ng-click="grabaPregunta()" ng-show="((temaActual != null) && (preguntaListNew.length > 0))" ng-disabled="!frm0.$valid">
-                    <i class="fa fa-save"></i>Grabar
-                </button>
-                </form>
-              </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="panel panel-default">
-              <div class="panel-heading"><strong>Respuestas</strong></div>
-              <div class="panel-body">
-                  <div class="row" ng-repeat="regR in listadoRespuesta">
-                        <div class="input-group" >
-                        <input type="text" ng-model="regR.descripcion" class="form-control" ng-required="true">
-                        <input type="checkbox" ng-model="regR.correcta" ng-true-value="'S'" ng-false-value="'N'" ng-checked="regR.correcta == 'S'"><strong>Correcta</strong>
-                        </div>
-                        <br>
-                    </div>
-              </div>
-                <button class="btn " data-toggle="modal" type="button" ng-click="addRespuesta()" ng-show="preguntaActual != null">
-                    <i class="fa fa-plus"></i>Agregar
-                </button>
-                <button class="btn " data-toggle="modal" type="button" ng-click="grabaRespuesta()" ng-show="preguntaActual != null">
-                    <i class="fa fa-save"></i>Grabar
-                </button>
-            </div>
-        </div>
-    </div-->
 </div>
 </section>
+<!-- Modal Agregar Pregunta-->
+  <div id="m-agr-preg" class="modal fade" role="dialog" aria-hidden="true" style="display: none;" ng-init="datos = null">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Agregar Pregunta y Respuestas</h4>
+        </div>
+        <div class="modal-body">
+          <form name="frmOp">
+          <div class="form-horizontal" role="form">
+            <div class="form-group col-md-12">
+             <div class="row">
+                <!-- label class="control-label col-md-4" for="tipoPregunta">Tipo Pregunta</label -->
+                <div class="col-md-8">
+                    <label class="radio-inline"><input type="radio" name="optradio" value="SM" ng-model="datos.pregunta.tipo_Pregunta" ng-change="tipoPregunta()">Selecci&oacute;n M&uacute;ltiple</label>
+                    <label class="radio-inline"><input type="radio" name="optradio" value="VF" ng-model="datos.pregunta.tipo_Pregunta" ng-change="tipoPregunta()">Verdadero y Falso</label>
+                </div>
+              </div>
+             <div class="row">
+                <label class="control-label col-md-4" for="nomCate">Categor&iacute;a</label>
+                <div class="col-md-4">
+                   <select ng-model="datos.pregunta.id_Categoria" class="form-control" ng-options="cate.id as cate.nombre for cate in comboCategoria" ng-required="true">
+                    </select>
+                </div>
+              </div>
+              <div class="row">
+                <label class="control-label col-md-4" for="nombTema">Pregunta</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" id="nombTema" placeholder="Ingrese nombre de Tema" ng-model="datos.pregunta.descripcion_Pregunta" ng-required="true">
+                </div>
+              </div>
+              <div class="row" ng-repeat="re in datos.respuestas">
+                <label class="control-label col-md-4">Respuesta ({{$index + 1}})</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" placeholder="Ingrese Respuesta" ng-model="re.descripcion_Respuesta" ng-required="true">
+                  Correcta? <input type="checkbox" ng-model="re.correcta_Respuesta" ng-true-value="'S'" ng-false-value="'N'">
+                        <strong ng-if="re.correcta_Respuesta == 'S'"> Correcta</strong><strong ng-if="re.correcta_Respuesta == 'N'"> Incorrecta</strong>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="addPreguntaRespuestas(datos)" ng-disabled="!frmOp.$valid">
+            </div>
+          </div>
+         </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Fin Modal Agregar -->
 </any>
 

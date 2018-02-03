@@ -20,8 +20,9 @@ app.controller('suscripcionController', function ($scope, CONFIG, $http, $locati
 
     ////PayTBK
     $scope.PayTBK = function () {
-        //$cookies.put('tokenSosto',oInicio.token);
         var token = 'Bearer ' + $cookies.get('sostos.tkn');
+        //$cookiesProvider.defaults.path = '/';
+        //$cookies.put('tokenSosto',token);
         oInicio.Fact.pay(token).then(function (data) {
 
             console.log(data);

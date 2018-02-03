@@ -15,16 +15,12 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
    $rootScope.$on('$routeChangeStart', function (event, next)
    {
         var token = $cookies.get('sostos.tkn') || null;
-        //console.log('getAll:' + $cookies.getAll());
-
-        //var token = store.get("token") || null;
-
         var tokenPayload = jwtHelper.decodeToken(token);
-        console.log('token:' + tokenPayload.Estado);
+        //console.log('token:' + tokenPayload.Estado);
 
-        if (tokenPayload.Estado === 'P') {
+        /*if (tokenPayload.Estado === 'P') {
             $location.url('/suscripcion',true);
-        }
+        }*/
 
 
 
@@ -209,6 +205,10 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
      var token = $cookies.get('sostos.tkn');
      var tokenPayload = jwtHelper.decodeToken(token);
      $scope.nombre = tokenPayload.sub;
+
+        if (tokenPayload.Estado === 'P') {
+            $location.url('/suscripcion',true);
+        }
  });
 
  app.controller('chatController', function($scope, $rootScope) {
