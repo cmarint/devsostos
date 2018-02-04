@@ -45,12 +45,12 @@ app.factory('apiPreguntaFactory', function($http, $q, CONFIG, store, $cookies){
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/preguntasrespuestas/del';
-            return $http.get(url,obj);
+            return $http.post(url,obj);
         },
-        updPreguntaRespuesta: function(id_tema, obj)
+        updPreguntaRespuestas: function(id_tema, obj)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/upd';
+            var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/preguntasrespuestas/upd';
             return $http.post(url,obj);
         },
 
@@ -122,7 +122,7 @@ app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFacto
                                       { "descripcion_Respuesta": "", "correcta_Respuesta": "N" }]
                                  };
 
-                    console.log($scope.datos);
+                    //console.log($scope.datos);
                   //$scope.getTemaById($scope.idTema);
               })
 
@@ -155,7 +155,7 @@ app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFacto
     $scope.getComboCategoria = function () {
       apiPreguntaFactory.getCategorias().then(function (data) {
           $scope.comboCategoria = data.data;
-          console.log(data);
+          //console.log(data);
       });
    }
 
@@ -165,6 +165,34 @@ app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFacto
         apiPreguntaFactory.addPreguntaRespuestas($scope.idTema ,arreglo).then(function (data) {
             $scope.getPreguntas();
         })
+    }
+
+    $scope.delPreguntaRespuestas = function (obj) {
+        var arreglo = [];
+        var respuestas = [];
+        angular.forEach(obj.respuestas, function (value, key) {
+                respuestas.push({ "id_Respuesta": value.id_Respuesta });
+        })
+        arreglo.push( { "pregunta": { "id_Pregunta": obj.pregunta.id_Pregunta }, "respuestas": respuestas} );
+        //console.log(arreglo);
+
+
+        apiPreguntaFactory.delPreguntaRespuestas($scope.idTema ,arreglo).then(function (data) {
+            $scope.getPreguntas();
+        })
+    }
+
+    $scope.editTemporal = function (obj) {
+        $scope.editar = obj;
+    }
+
+    $scope.updPreguntaRespuestas = function (obj) {
+        var arreglo = [];
+        arreglo.push(obj);
+        apiPreguntaFactory.updPreguntaRespuestas($scope.idTema ,arreglo).then(function (data) {
+            $scope.getPreguntas();
+        })
+
     }
 
 });

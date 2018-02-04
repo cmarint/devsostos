@@ -22,6 +22,7 @@
                 <table class="table table-striped">
                   <thead>
                     <tr>
+                      <th scope="col"></th>
                       <th scope="col">Pregunta</th>
                       <th scope="col">Respuesta (1)</th>
                       <th scope="col">Respuesta (2)</th>
@@ -33,7 +34,20 @@
                   <tbody>
 
                      <tr ng-repeat="reg in preguntaList" ng-show="reg.pregunta.tipo_Pregunta == 'SM'">
-                         <th>{{ reg.pregunta.descripcion_Pregunta }}</th>
+                         <td>
+                             <div class="btn-group">
+                              <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Acciones <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a href="" ng-click="delPreguntaRespuestas(reg)">Eliminar</a></li>
+                                <li><a href="" data-toggle="modal" data-target="#m-edi-preg" ng-click="editTemporal(reg)">Editar</a></li>
+                              </ul>
+                            </div>
+                         </td>
+                         <th>
+                             {{ reg.pregunta.descripcion_Pregunta }}
+                         </th>
                          <td ng-repeat="reg2 in reg.respuestas">{{ reg2.descripcion_Respuesta }} <i class="fa fa-check-circle" aria-hidden="true" ng-show="reg2.correcta_Respuesta == 'S'"></i></td>
                      </tr>
                   </tbody>
@@ -46,6 +60,7 @@
                 <table class="table table-striped">
                   <thead>
                     <tr>
+                      <th scope="col"></th>
                       <th scope="col">Pregunta</th>
                       <th scope="col">Verdadero</th>
                       <th scope="col">Falso</th>
@@ -53,6 +68,17 @@
                   </thead>
                   <tbody>
                     <tr ng-repeat="reg3 in preguntaList" ng-show="reg3.pregunta.tipo_Pregunta == 'VF'">
+                       <td>
+                             <div class="btn-group">
+                              <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Acciones <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a href="" ng-click="delPreguntaRespuestas(reg3)">Eliminar</a></li>
+                                <li><a href="" data-toggle="modal" data-target="#m-edi-preg" ng-click="editTemporal(reg3)">Editar</a></li>
+                              </ul>
+                            </div>
+                         </td>
                       <th scope="row">{{ reg3.pregunta.descripcion_Pregunta }}</th>
                       <td ng-repeat="reg4 in reg3.respuestas">{{ reg4.descripcion_Respuesta }} <i class="fa fa-check-circle" aria-hidden="true" ng-show="reg4.correcta_Respuesta == 'S'"></i></td>
                     </tr>
@@ -104,8 +130,6 @@
                         <strong ng-if="re.correcta_Respuesta == 'S'"> Correcta</strong><strong ng-if="re.correcta_Respuesta == 'N'"> Incorrecta</strong>
                 </div>
               </div>
-
-
             </div>
             <div class="modal-footer">
               <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="addPreguntaRespuestas(datos)" ng-disabled="!frmOp.$valid">
@@ -117,5 +141,58 @@
     </div>
   </div>
 <!-- Fin Modal Agregar -->
+<!-- Modal Editar Pregunta-->
+  <div id="m-edi-preg" class="modal fade" role="dialog" aria-hidden="true" style="display: none;" ng-init="datos = null">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Editar Pregunta y Respuestas</h4>
+        </div>
+        <div class="modal-body">
+          <form name="frmOp1">
+          <div class="form-horizontal" role="form">
+            <div class="form-group col-md-12">
+             <div class="row">
+                <!-- label class="control-label col-md-4" for="tipoPregunta">Tipo Pregunta</label -->
+                <div class="col-md-8">
+                    <label class="control-label col-md-8" ng-show="editar.pregunta.tipo_Pregunta == 'SM'">Selecci&oacute;n M&uacute;ltiple</label>
+                    <label class="control-label col-md-8" ng-show="editar.pregunta.tipo_Pregunta == 'VF'">Verdadero y Falso</label>
+                </div>
+              </div>
+             <div class="row">
+                <label class="control-label col-md-4" for="nomCate">Categor&iacute;a</label>
+                <div class="col-md-4">
+                   <select ng-model="editar.pregunta.id_Categoria" class="form-control" ng-options="cate.id as cate.nombre for cate in comboCategoria" ng-required="true">
+                    </select>
+                </div>
+              </div>
+              <div class="row">
+                <label class="control-label col-md-4" for="nombTema">Pregunta</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" id="nombTema" placeholder="Ingrese nombre de Tema" ng-model="editar.pregunta.descripcion_Pregunta" ng-required="true">
+                </div>
+              </div>
+              <div class="row" ng-repeat="re in editar.respuestas">
+                <label class="control-label col-md-4">Respuesta ({{$index + 1}})</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" placeholder="Ingrese Respuesta" ng-model="re.descripcion_Respuesta" ng-required="true">
+                  Correcta? <input type="checkbox" ng-model="re.correcta_Respuesta" ng-true-value="'S'" ng-false-value="'N'">
+                        <strong ng-if="re.correcta_Respuesta == 'S'"> Correcta</strong><strong ng-if="re.correcta_Respuesta == 'N'"> Incorrecta</strong>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="updPreguntaRespuestas(editar)" ng-disabled="!frmOp1.$valid">
+            </div>
+          </div>
+         </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Fin Modal Editar -->
 </any>
 
