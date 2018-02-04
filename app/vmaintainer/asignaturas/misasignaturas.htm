@@ -122,11 +122,11 @@
                           <div class="form-group col-xs-6">
                             <div class="inner-addon right-addon">
                               <i class="glyphicon glyphicon-search"></i>
-                              <input type="text" class="form-control" placeholder="Buscar Institucion" ng-model="searchText.nombre">
+                              <input type="text" class="form-control" placeholder="Buscar Institucion" ng-model="searchText.nombre"> {{datos.id_Institucion }}
                             </div>
                           </div>
 
-                    <select ng-model="datos.id_Institucion" id="nombInstitucionadd" class="form-control" ng-options="colegio.id as colegio.nombre for colegio in cmbIns | filter: searchText.nombre " size="3" style="width:300px;">
+                    <select ng-model="datos.id_Institucion" id="nombInstitucionadd" class="form-control" ng-options="colegio.id as colegio.nombre for colegio in cmbIns | filter: searchText.nombre " size="3" style="width:300px;" ng-required="true">
                    </select>
               </div>
                <div class="row">
