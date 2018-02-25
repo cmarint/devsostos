@@ -16,31 +16,22 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
    {
         var token = $cookies.get('sostos.tkn') || null;
         var tokenPayload = jwtHelper.decodeToken(token);
-        //console.log('token:' + tokenPayload.Estado);
-
-        /*if (tokenPayload.Estado === 'P') {
-            $location.url('/suscripcion',true);
-        }*/
-
-
 
         if(tokenPayload.Estado === null) {
             console.log('entro');
             $rootScope.isUserLoggedIn = false;
-            //$location.path("/");
-            $location.url('http://168.232.165.85/sostosweb/',true);
+            $location.url('/logout',true);
         }
         else {
             $rootScope.isUserLoggedIn = true ;
         }
 
         var bool = jwtHelper.isTokenExpired(token);
-        //console.log('bool:' + bool);
+
 
         if(bool === true) {
             $rootScope.isUserLoggedIn = false;
-            //$location.path("/");
-            $location.url('http://168.232.165.85/sostosweb/',true);
+            $location.url('/logout',true);
         }
     });
 
@@ -50,19 +41,6 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
 
 
 app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
-
-  /*jwtOptionsProvider.config({
-      tokenGetter: ['options', function(options) {
-        //console.log(tknService.url.toString);
-        return $cookies.get('sostos.tkn');
-        //return localStorage.getItem('token');
-      }],
-      whiteListedDomains: ['168.232.165.85', 'localhost'] //,
-      //authPrefix: 'Bearer '
-    });
-    $httpProvider.interceptors.push('jwtInterceptor');
-		*/
-
 
   $routeProvider
   .when('/', {

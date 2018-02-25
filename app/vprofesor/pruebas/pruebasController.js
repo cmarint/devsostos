@@ -6,11 +6,24 @@ app.factory('apiPruebaFactory', function($http, $q, CONFIG, store, $cookies){
             var url = CONFIG.APISOSTOS + '/profesor/prueba/find';
             return $http.post(url,{});
         },
-        getPruebas: function(id_tema)
+        getAsignaturas: function()
+        {
+            var datos = {};
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/profesor/asignatura/find';
+            return $http.post(url,datos);
+        },
+        getTemas: function(id_tema)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/find';
+            var url = CONFIG.APISOSTOS + '/profesor/tema/find';
             return $http.post(url,{});
+        },
+        addPruebaAutomatica: function(obj) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/profesor/prueba/crear';
+            return $http.post(url, obj);
+
         }
 
     }
@@ -40,7 +53,12 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
     columnDefs: [
 
           { field: 'id', minWidth: 80, width: 110, enableColumnResizing: false },
-          { field: 'descripcion', minWidth: 80, width: 110, enableColumnResizing: false },
+          { field: 'descripcion', minWidth: 200, width: 200, enableColumnResizing: false },
+          { field: 'exigencia', minWidth: 90, width: 90, enableColumnResizing: false },
+          { field: 'puntajeMax', minWidth: 90, width: 90, enableColumnResizing: false },
+          { field: 'notaMin', minWidth: 90, width: 90, enableColumnResizing: false },
+         { field: 'notaMax', minWidth: 90, width: 90, enableColumnResizing: false },
+         { field: 'notaAprob', minWidth: 90, width: 90, enableColumnResizing: false },
           { field: 'fecha', minWidth: 100, width: 120, enableColumnResizing: false },
           { field: 'estado', minWidth: 80, width: 80, enableColumnResizing: false }
       ]
@@ -50,13 +68,24 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
   };
 
 
+   $scope.comboAsignatura = function () {
+       apiPruebaFactory.getAsignaturas().then(function (data){
+           $scope.ComboAsignatura = data.data.trxObject;
+       })
+   }
 
+   $scope.comboTema = function () {
+       apiPruebaFactory.getTemas().then(function (data){
+           $scope.ComboTema = data.data.trxObject;
+       })
+   }
 
 
 
     $scope.getAll = function() {
         apiPruebaFactory.getTodos().then(function(data) {
              $scope.gridOptions.data = data.data.trxObject;
+
         })
     }
 
@@ -108,6 +137,19 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
 
     $scope.nuevaPrueba = function() {
         $location.path('/mispruebas/pruebanueva',true);
+    }
+
+    $scope.grabaPruebaAuto = function (obj) {
+        var arreglo = obj.temas;
+        obj.id_Forma = 1;
+        obj.temas = [];
+        angular.forEach(arreglo, function (value, key) {
+            obj.temas.push({ "id": value });
+        })
+        apiPruebaFactory.addPruebaAutomatica(obj).then(function (data) {
+            console.log(data);
+        })
+
     }
 
 

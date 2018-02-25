@@ -1,25 +1,137 @@
-<section class="ng-scope m-curs">
+<section class="ng-scope m-curs" ng-init="comboAsignatura();comboTema();">
 <div class="container ng-scope">
-    <h2>Nueva Prueba</h2>
+    <h2>Prueba Nueva (Autom&aacute;tica)</h2>
     <div class="bjd">
         <div class="row">
-            <div class="col-md-4">
-            <h3>Tema</h3>
-            <select ng-model="datos.id_Tema_Padre" class="form-control" ng-options="tema.id as tema.nombre for tema in comboTemas">
-            </select>
+            <div class="col-md-6">
+               <h3>Descripci&oacute;n</h3>
+               <input class="form-control" name="descripcion" type="text" ng-model="datos.descripcion">
             </div>
-            <div class="col-md-4">
-            <h3>Sub-Tema</h3>
-            <select ng-model="datos.id" class="form-control" ng-options="stema.id as stema.nombre for stema in comboSubTemas | filter: { id_Tema_Padre:datos.id_Tema_Padre}" ng-change="getPreguntas(datos.id)">
-            </select>
-            </div>
-            <div class="col-md-4">
-            <h3>Fecha Planificada</h3>
-            <input type="date" name="fecha" ng-model="datos.fecha" class="form-control">
+            <div class="col-md-6">
+                <h3>Asignatura</h3>
+                 <select ng-model="datos.id_Asignatura" class="form-control" ng-options="asig.id as asig.nombre for asig in ComboAsignatura">
+                </select>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+            <h3>Tema</h3>
+                          <div class="form-group col-xs-12">
+                            <div class="inner-addon right-addon">
+                              <i class="glyphicon glyphicon-search"></i>
+                              <input type="text" class="form-control" placeholder="Buscar Tema" ng-model="searchText.nombre">
+                            </div>
+                            <select ng-model="datos.temas" id="nomTema" class="form-control" ng-options="tema.id as tema.nombre for tema in ComboTema | filter: searchText.nombre " size="3" style="width:300px;" ng-required="true" multiple>
+                            </select>
+                          </div>
+
+
+
+            </div>
+            <div class="col-md-6">
+            <h3>Fecha Planificada</h3>
+            <input type="date" name="fecha" ng-model="datos.fecha" class="form-control">
+            <input type="hidden" ng-model="datos.id_Forma">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-2">
+                <label class="control-label" for="notaMin">Nota Minima</label>
+                <input type="number" class="form-control" ng-model="datos.notaMin">
+            </div>
+            <div class="col-md-2">
+                <label class="control-label" for="notaMax">Nota Maxima</label>
+                <input type="number" class="form-control" ng-model="datos.notaMax">
+            </div>
+            <div class="col-md-2">
+                <label class="control-label" for="notaMin">Aprobacion</label>
+                <input type="number" class="form-control" ng-model="datos.notaAprob">
+            </div>
+            <div class="col-md-2">
+                <label class="control-label" for="notaMin">Exigencia</label>
+                <input type="number" class="form-control" ng-model="datos.exigencia">
+            </div>
+            <div class="col-md-2">
+                <label class="control-label" for="notaMin">Puntaje Maximo</label>
+                <input type="number" class="form-control" ng-model="datos.puntajeMax">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">Preguntas VF</div>
+              <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label" for="vfBaja">Cantidad Bajas</label>
+                        <input type="number" class="form-control" ng-model="datos.cant_VF_Baja">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label" for="vfMedia">Cantidad Medias</label>
+                        <input type="number" class="form-control" ng-model="datos.cant_VF_Media">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label" for="vfAlta">Cantidad Altas</label>
+                        <input type="number" class="form-control" ng-model="datos.cant_VF_Alta">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label" for="vfPuntajeBaja">Puntaje Bajas</label>
+                        <input type="number" class="form-control" ng-model="datos.punt_VF_Baja">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label" for="vfPuntajeMedia">Puntaje Medias</label>
+                        <input type="number" class="form-control" ng-model="datos.punt_VF_Media">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label" for="vfPuntajeAlta">Puntaje Altas</label>
+                        <input type="number" class="form-control" ng-model="datos.punt_VF_Alta">
+                    </div>
+                  </div>
+              </div>
+            </div>
+           </div>
+         <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">Preguntas Seleccion Multiple</div>
+              <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label" for="smBaja">Cantidad Bajas</label>
+                        <input type="number" class="form-control" ng-model="datos.cant_SM_Baja">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label" for="smMedia">Cantidad Medias</label>
+                        <input type="number" class="form-control" ng-model="datos.cant_SM_Media">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label" for="smAlta">Cantidad Altas</label>
+                        <input type="number" class="form-control" ng-model="datos.cant_SM_Alta">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label" for="smPuntajeBaja">Puntaje Bajas</label>
+                        <input type="number" class="form-control" ng-model="datos.punt_SM_Baja">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label" for="smPuntajeMedia">Puntaje Medias</label>
+                        <input type="number" class="form-control" ng-model="datos.punt_SM_Media">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label" for="smPuntajeAlta">Puntaje Altas</label>
+                        <input type="number" class="form-control" ng-model="datos.punt_SM_Alta">
+                    </div>
+                  </div>
+              </div>
+            </div>
+           </div>
+        </div>
     </div>
-    <div class="alert alert-warning" role="alert">
+    <!-- div class="alert alert-warning" role="alert">
         <strong>Informacion:</strong> Para crear la prueba, debes arrastrar las preguntas a la caja de Prueba.
     </div>
     <div class="simpleDemo row">
@@ -36,8 +148,8 @@
             </div>
             <div view-source="simple"></div>
         </div>
-    </div>
-    <button class="btn btn-primary btn-lg btn-block" type="button">
+    </div -->
+    <button class="btn btn-primary btn-lg btn-block" type="button" ng-click="grabaPruebaAuto(datos)">
         <i class="fa fa-save"></i>Grabar Prueba
     </button>
 </div>
