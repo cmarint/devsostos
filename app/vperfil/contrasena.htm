@@ -15,7 +15,12 @@
           <div class="form-group">
             <div class="row">
               <label class="control-label col-md-4" for="newPass">Nueva Contraseña</label>
-              <div class="col-md-8"><input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Ingrese Contraseña Nueva" ng-model="usuario.password_New_1" ng-required="true"></div>
+              <div class="col-md-8"><input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Ingrese Contraseña Nueva" ng-model="usuario.password_New_1" ng-required="true" ng-pattern="/^(?=.*?[a-z])(?=.*?[0-9]).{2,10}$/">
+                  <span class="text-danger" ng-show="frmOp.newPassword.$invalid">
+                            <small>Debe contener letras y números (Max 10 car.), Ej: QWE123asd </small></span>
+                </div>
+
+
             </div>
           </div>
           <div class="form-group" ng-class="{'has-error':frmOp.newPassConfirm.$invalid&&!frmOp.newPassConfirm.$error.required}">
