@@ -119,14 +119,15 @@
               <div class="row">
                 <label class="control-label col-md-4" for="nombTema">Pregunta</label>
                 <div class="col-md-8">
-                  <input type="text" class="form-control" id="nombTema" placeholder="Ingrese nombre de Tema" ng-model="datos.pregunta.descripcion_Pregunta" ng-required="true">
+                  <textarea cols="6" rows="4" class="form-control" id="nombTema" placeholder="Ingrese nombre de Tema" ng-model="datos.pregunta.descripcion_Pregunta" ng-required="true"></textarea>
+                  <!-- input type="text" class="form-control" id="nombTema" placeholder="Ingrese nombre de Tema" ng-model="datos.pregunta.descripcion_Pregunta" ng-required="true" -->
                 </div>
               </div>
               <div class="row" ng-repeat="re in datos.respuestas">
                 <label class="control-label col-md-4">Respuesta ({{$index + 1}})</label>
                 <div class="col-md-8">
-                  <input type="text" class="form-control" placeholder="Ingrese Respuesta" ng-model="re.descripcion_Respuesta" ng-required="true">
-                  Correcta? <input type="checkbox" ng-model="re.correcta_Respuesta" ng-true-value="'S'" ng-false-value="'N'">
+                  <input type="text" class="form-control" placeholder="Ingrese Respuesta" ng-model="re.descripcion_Respuesta" ng-required="true" >
+                  Correcta? <input type="checkbox" ng-model="re.correcta_Respuesta" ng-true-value="'S'" ng-false-value="'N'" ng-click="updateSelection($index,datos.respuestas)">
                         <strong ng-if="re.correcta_Respuesta == 'S'"> Correcta</strong><strong ng-if="re.correcta_Respuesta == 'N'"> Incorrecta</strong>
                 </div>
               </div>

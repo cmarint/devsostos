@@ -195,6 +195,14 @@ app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFacto
 
     }
 
+   $scope.updateSelection = function(position, itens) {
+        angular.forEach(itens, function(subscription, index) {
+            if (position != index)
+                subscription.correcta_Respuesta = 'N';
+            }
+        );
+    }
+
 });
 
 
