@@ -6,6 +6,8 @@ app.constant('CONFIG', {
     PAYSOSTOS: "http://168.232.165.85:8080/sostos_frontend_api/pay"
 })
 
+
+
 app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies', function($rootScope, jwtHelper, store, $location,$routeParams,$cookies) {
 
    //$rootScope.isUserLoggedIn = false ; //Cambiar a false
@@ -40,7 +42,31 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
 }]);
 
 
-app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
+app.config(['$routeProvider', '$httpProvider', 'jwtInterceptorProvider', 'jwtOptionsProvider',function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
+
+var myInterceptor = function($q, $rootScope) {
+      return {
+        request: function(config) {
+          $rootScope.loading = true;
+          //console.log('requst started...');
+          return config;
+        },
+
+        response: function(result) {
+          $rootScope.loading = false;
+          //console.log('data for ' + result.data.name + ' received');
+          //console.log('request completed');
+          return result;
+        },
+        responseError: function(rejection) {
+          $rootScope.loading = false;
+          //console.log('Failed with', rejection.status, 'status');
+          return $q.reject(rejection);
+        }
+      }
+};
+
+ $httpProvider.interceptors.push(myInterceptor);
 
   $routeProvider
   .when('/', {
@@ -174,7 +200,7 @@ app.config(function($routeProvider, $httpProvider, jwtInterceptorProvider, jwtOp
   .otherwise({
     redirectTo: '/'
   });
-});
+}]);
 
 
 
@@ -269,8 +295,6 @@ app.directive('fileReader', function() {
     }
   };
 });
-
-
 
 
 

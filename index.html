@@ -60,6 +60,10 @@
     </header>
     <!-- Fin Sección Menú -->
 
+    <div ng-if="loading">
+        Cargando...
+    </div>
+
     <!-- Sección contenido -->
     <div id="main">
         <div ng-view></div>
@@ -132,5 +136,11 @@
     });
   </script>
 
+
+
+
+
+
 </body>
 </html>
+

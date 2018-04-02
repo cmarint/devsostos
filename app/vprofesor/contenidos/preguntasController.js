@@ -121,6 +121,7 @@ app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFacto
                                       { "descripcion_Respuesta": "", "correcta_Respuesta": "N" },
                                       { "descripcion_Respuesta": "", "correcta_Respuesta": "N" }]
                                  };
+                  $scope.datos.pregunta.id_Categoria = 1;
 
                     //console.log($scope.datos);
                   //$scope.getTemaById($scope.idTema);
@@ -140,6 +141,7 @@ app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFacto
                                       { "descripcion_Respuesta": "", "correcta_Respuesta": "N" },
                                       { "descripcion_Respuesta": "", "correcta_Respuesta": "N" }]
                                  };
+            $scope.datos.pregunta.id_Categoria = 1;
         } else {
            $scope.datos = { "pregunta":
                                   { "tipo_Pregunta": "VF" },
@@ -148,6 +150,7 @@ app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFacto
                                       { "descripcion_Respuesta": "Falso", "correcta_Respuesta": "N" }
                                     ]
                                  };
+            $scope.datos.pregunta.id_Categoria = 1;
         }
     }
 
