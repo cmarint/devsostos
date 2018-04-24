@@ -24,6 +24,12 @@ app.factory('apiPruebaFactory', function($http, $q, CONFIG, store, $cookies){
             var url = CONFIG.APISOSTOS + '/profesor/prueba/crear';
             return $http.post(url, obj);
 
+        },
+        setVariante: function(id_prueba, num_var)
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/profesor/pruebavariante/crear';
+            return $http.post(url,{ "id_Prueba": id_prueba,"cant_Variante": num_var});
         }
 
     }
@@ -89,54 +95,27 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
         })
     }
 
-    $scope.models = {
-        selected: null,
-        lists: {"Preguntas": [], "Prueba": []}
-    };
 
 
-    $scope.models.lists.Preguntas = [
-          {
-                "id": 1,
-                "id_Tema": 4,
-                "estado": "A",
-                "descripcion": "Pregunta 1"
-            },
-          {
-                "id": 2,
-                "id_Tema": 4,
-                "estado": "A",
-                "descripcion": "Pregunta 2"
-            },
-          {
-                "id": 3,
-                "id_Tema": 4,
-                "estado": "A",
-                "descripcion": "Pregunta 3"
-            },
-          {
-                "id": 4,
-                "id_Tema": 4,
-                "estado": "A",
-                "descripcion": "Pregunta 4"
-            },
-          {
-                "id": 5,
-                "id_Tema": 4,
-                "estado": "A",
-                "descripcion": "Pregunta 5"
-            }
-            ];
+    $scope.selectPrueba = function(){
+        $scope.datos = { id_prueba: "", num_var: ""};
+        var registro = $scope.gridApi.selection.getSelectedRows();
+        if (registro != '') {
+            $scope.datos = { id_prueba: registro[0].id, num_var: ""};
+            //alert(registro[0].id);
+        } else {
+            alert('Debe Seleccionar un Registro');
+        }
+    }
 
-
-    // Model to JSON for demo purpose
-    $scope.$watch('models', function(model) {
-        $scope.modelAsJson = angular.toJson(model, true);
-    }, true);
 
 
     $scope.nuevaPrueba = function() {
         $location.path('/mispruebas/pruebanueva',true);
+    }
+
+    $scope.nuevaPruebaManual = function() {
+        $location.path('/mispruebas/pruebanuevamanual',true);
     }
 
     $scope.grabaPruebaAuto = function (obj) {
@@ -150,6 +129,13 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
             console.log(data);
         })
 
+    }
+
+    $scope.generaVariante = function(id_prueba, num_var) {
+        apiPruebaFactory.setVariante(id_prueba, num_var).then(function (data) {
+            alert('Variantes Creadas Correctamente');
+            $scope.getAll();
+        })
     }
 
 

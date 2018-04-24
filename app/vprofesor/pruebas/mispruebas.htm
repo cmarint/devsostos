@@ -3,7 +3,13 @@
     <h2>Mis Pruebas</h2>
     <div class="bjd">
         <button class="btn " data-toggle="modal" type="button" ng-click="nuevaPrueba()">
-          <i class="fa fa-plus-circle"></i> Nueva Prueba
+          <i class="fa fa-plus-circle"></i> Nueva Prueba Autom&aacute;tica
+        </button>
+        <button class="btn " data-toggle="modal" type="button" ng-click="nuevaPruebaManual()">
+          <i class="fa fa-plus-circle"></i> Nueva Prueba Manual
+        </button>
+        <button class="btn " data-toggle="modal" data-target="#m-agr-var" type="button" ng-click="selectPrueba()">
+          <i class="fa fa-plus-circle"></i> Variante
         </button>
     </div>
      <div class="row row-centered">
@@ -26,3 +32,42 @@
       </button>
 </div>
 </section>
+
+<div id="m-agr-var" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Genera Variante</h4>
+        </div>
+        <div class="modal-body">
+         <form name="frmOp1">
+          <div class="form-horizontal" role="form">
+            <div class="form-group col-md-12">
+              <div class="row">
+                   <div class="form-group col-xs-6">
+                    <label class="control-label col-md-6" for="prueba">Id de Prueba</label>
+
+                      <input type="text" class="form-control" id="prueba" ng-model="datos.id_prueba" ng-required="true" ng-disabled="true">
+
+                  </div>
+                   <div class="form-group col-xs-6">
+                       <label class="control-label col-md-6" for="variante">Cant. Variantes</label>
+
+                          <input type="text" class="form-control" id="variante" placeholder="Ingrese numero de variantes" ng-model="datos.num_var" ng-required="true" ng-maxlength="10" maxlength="10">
+
+                  </div>
+              </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="generaVariante(datos.id_prueba, datos.num_var)" ng-disabled="!frmOp1.$valid">
+            </div>
+          </div>
+         </form>
+        </div>
+      </div>
+    </div>
+  </div>

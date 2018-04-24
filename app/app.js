@@ -164,6 +164,11 @@ var myInterceptor = function($q, $rootScope) {
     controller: 'pruebasController',
     authorization: true
   })
+  .when('/mispruebas/pruebanuevamanual', {
+    templateUrl : 'app/vprofesor/pruebas/pruebanuevamanual.htm',
+    controller: 'pruebasController',
+    authorization: true
+  })
   .when('/mismensajes', {
     templateUrl : 'app/vprofesor/mensajes/mismensajes.htm',
     controller: 'mensajesController',
