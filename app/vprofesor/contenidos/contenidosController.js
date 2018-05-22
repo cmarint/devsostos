@@ -167,7 +167,7 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
   $scope.getTemaById = function (id) {
       apiTemaFactory.getTema(id).then(function (data) {
           //console.log(data.data.trxObject[0]);
-          //$scope.registroEdit = data.data.trxObject;
+          $scope.registroEdit = data.data.trxObject[0];
           $scope.nombreTema = data.data.trxObject[0].nombre;
       })
   }
@@ -207,7 +207,12 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
       apiTemaFactory.setTem(registro).then(function (data) {
          if (data.data.detailsResponse.code == "00") {
               alert('Registro Editado Correctamente');
-              $scope.getAll();
+              setTimeout(function(){
+                 $scope.arbolito = '';
+                 $scope.getAll();
+                 $scope.$digest();
+              }, 1000)
+
           } else {
               alert('Error al editar registro');
           }
@@ -220,7 +225,11 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
       apiTemaFactory.addTem(registro).then(function (data) {
           if (data.data.detailsResponse.code == "00") {
               alert('Registro Agregado Correctamente');
-              $scope.getAll();
+              setTimeout(function(){
+                 $scope.arbolito = '';
+                 $scope.getAll();
+                 $scope.$digest();
+              }, 1000)
           } else {
               alert('Error al agregar registro');
           }

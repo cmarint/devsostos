@@ -133,7 +133,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="addPreguntaRespuestas(datos)" ng-disabled="!frmOp.$valid">
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="addPreguntaRespuestas(datos)" ng-disabled="!frmOp.$valid||!tieneCorrecta">
             </div>
           </div>
          </form>

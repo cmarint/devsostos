@@ -16,7 +16,7 @@
     <div class="tree well">
     <ul>
         <li ng-repeat="nodo in arbolito">
-            <span><i class="fa fa-folder" aria-hidden="true"></i> {{nodo.nombre}}</span> <a href="">Editar</a>
+            <span><i class="fa fa-folder" aria-hidden="true"></i> {{nodo.nombre}}</span> <a href="" ng-click="getTemaById(nodo.id);" data-toggle="modal" data-target="#m-edi-estb">Editar</a>
             <ul>
                 <li ng-repeat="nodohijo in nodo.hijos">
                 	<span><i class="fa fa-file" aria-hidden="true"></i> {{nodohijo.nombre}}</span>
