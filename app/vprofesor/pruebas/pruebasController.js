@@ -30,7 +30,13 @@ app.factory('apiPruebaFactory', function($http, $q, CONFIG, store, $cookies){
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/pruebavariante/crear';
             return $http.post(url,{ "id_Prueba": id_prueba,"cant_Variante": num_var});
-        }
+        },
+        getPreguntas: function(id_tema)
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/find';
+            return $http.post(url,{});
+        },
 
     }
 });
@@ -138,7 +144,17 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
         })
     }
 
+    $scope.getPreguntas = function(id_tema) {
+              apiPruebaFactory.getPreguntas(id_tema).then(function (data) {
+                $scope.preguntaList = data.data.trxObject;
+              })
+    }
 
+    $scope.listaPreguntasPrueba = [];
+
+    $scope.addPreguntaPrueba = function(modelPregunta) {
+        $scope.listaPreguntasPrueba.push(modelPregunta);
+    }
 
 });
 
