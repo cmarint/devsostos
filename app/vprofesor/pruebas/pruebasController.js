@@ -37,6 +37,18 @@ app.factory('apiPruebaFactory', function($http, $q, CONFIG, store, $cookies){
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/find';
             return $http.post(url,{});
         },
+        printPrueba: function()
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/pdf/create';
+            return $http.post(url,{"id_PruebaVariante": 34} ,{ responseType: 'arraybuffer'});
+        },
+        getPruebaVariante: function(idPrueba)
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/profesor/' + idPrueba + '/pruebavariante/find';
+            return $http.post(url,{});
+        }
 
     }
 });
@@ -154,6 +166,34 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
 
     $scope.addPreguntaPrueba = function(modelPregunta) {
         $scope.listaPreguntasPrueba.push(modelPregunta);
+    }
+
+    $scope.printPrueba = function() {
+            var fileName = "prueba.pdf";
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+        apiPruebaFactory.printPrueba().then(function (data) {
+
+            var file = new Blob([data.data], {type: 'application/pdf'});
+            //console.log(data.data);
+             var fileURL = window.URL.createObjectURL(file);
+                a.href = fileURL;
+                a.download = fileName;
+                a.click();
+        })
+    }
+
+    $scope.listarVariantes = function() {
+        $scope.selectPrueba();
+        if ($scope.datos != "") {
+            apiPruebaFactory.getPruebaVariante($scope.datos.id_prueba).then(function (data) {
+                console.log(data);
+            })
+        } else {
+            alert('Debe seleccionar una prueba');
+        }
+
     }
 
 });
