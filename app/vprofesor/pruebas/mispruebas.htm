@@ -11,11 +11,8 @@
         <button class="btn " data-toggle="modal" data-target="#m-agr-var" type="button" ng-click="selectPrueba()">
           <i class="fa fa-plus-circle"></i> Variante
         </button>
-        <button class="btn " type="button" ng-click="printPrueba()">
-          <i class="fa fa-print"></i> Imprimir
-        </button>
-        <button class="btn " type="button" ng-click="listarVariantes()">
-          <i class="fa fa-print"></i> Variantes
+        <button class="btn " data-toggle="modal" data-target="#m-lst-var" type="button" ng-click="listarVariantes()">
+          <i class="fa fa-share-alt"></i> Variantes
         </button>
     </div>
      <div class="row row-centered">
@@ -38,6 +35,27 @@
       </button>
 </div>
 </section>
+
+<div id="m-lst-var" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Lista de Variantes de Prueba</h4>
+        </div>
+        <div class="modal-body">
+
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="vrt in listaVariantesPrueba">Identificador Variante: {{vrt.id_PruebaVariante}} | Cod. Variante: {{vrt.cod_PruebaVariante}} | Prueba: {{vrt.descripcion_Prueba}}
+               <button class="btn " type="button" ng-click="printPrueba(vrt.id_PruebaVariante)">
+                  <i class="fa fa-print"></i> Imprimir
+                </button>
+              </li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <div id="m-agr-var" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">

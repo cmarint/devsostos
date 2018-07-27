@@ -37,17 +37,23 @@ app.factory('apiPruebaFactory', function($http, $q, CONFIG, store, $cookies){
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/find';
             return $http.post(url,{});
         },
-        printPrueba: function()
+        printPrueba: function(id_variante)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/pdf/create';
-            return $http.post(url,{"id_PruebaVariante": 34} ,{ responseType: 'arraybuffer'});
+            return $http.post(url,{"id_PruebaVariante": id_variante} ,{ responseType: 'arraybuffer'});
         },
         getPruebaVariante: function(idPrueba)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/' + idPrueba + '/pruebavariante/find';
             return $http.post(url,{});
+        },
+        getVariantes: function(idPrueba)
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/profesor/pruebavariante/find';
+            return $http.post(url,{ "id_Prueba": idPrueba });
         }
 
     }
@@ -168,12 +174,12 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
         $scope.listaPreguntasPrueba.push(modelPregunta);
     }
 
-    $scope.printPrueba = function() {
+    $scope.printPrueba = function(id_variante) {
             var fileName = "prueba.pdf";
             var a = document.createElement("a");
             document.body.appendChild(a);
             a.style = "display: none";
-        apiPruebaFactory.printPrueba().then(function (data) {
+        apiPruebaFactory.printPrueba(id_variante).then(function (data) {
 
             var file = new Blob([data.data], {type: 'application/pdf'});
             //console.log(data.data);
@@ -184,8 +190,8 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
         })
     }
 
-    $scope.listarVariantes = function() {
-        $scope.selectPrueba();
+   /* $scope.listarVariantes = function() {
+        //$scope.selectPrueba();
         if ($scope.datos != "") {
             apiPruebaFactory.getPruebaVariante($scope.datos.id_prueba).then(function (data) {
                 console.log(data);
@@ -194,6 +200,18 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
             alert('Debe seleccionar una prueba');
         }
 
+    }*/
+
+    $scope.listaVariantesPrueba = null;
+    $scope.listarVariantes = function() {
+        $scope.selectPrueba();
+        if ($scope.datos != "") {
+            apiPruebaFactory.getVariantes($scope.datos.id_prueba).then(function (data) {
+                $scope.listaVariantesPrueba = data.data.trxObject;
+            })
+        } else {
+            alert('Debe seleccionar una prueba');
+        }
     }
 
 });
