@@ -1,27 +1,28 @@
 <section class="ng-scope m-alum" ng-init="comboAsignatura();comboTema();">
 <div class="container ng-scope">
     <h2>Prueba Nueva Manual</h2>
+    <form name="frm0">
     <div class="bjd">
         <div class="row">
             <div class="col-md-4">
                <h3>Descripci&oacute;n</h3>
-               <input class="form-control" name="descripcion" type="text" ng-model="datos.descripcion">
+               <input class="form-control" name="descripcion" type="text" ng-model="datos.descripcion"  ng-required="true">
             </div>
             <div class="col-md-4">
                 <h3>Asignatura</h3>
-                 <select ng-model="datos.id_Asignatura" class="form-control" ng-options="asig.id as asig.nombre for asig in ComboAsignatura">
+                 <select ng-model="datos.id_Asignatura" class="form-control" ng-options="asig.id as asig.nombre for asig in ComboAsignatura"  ng-required="true">
                 </select>
             </div>
             <div class="col-md-4">
                 <h3>Fecha Planificada</h3>
-                <input type="date" name="fecha" ng-model="datos.fecha" class="form-control">
+                <input type="date" name="fecha" ng-model="datos.fecha" class="form-control"  ng-required="true">
                 <input type="hidden" ng-model="datos.id_Forma">
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <label class="control-label" for="notaMin">Tema</label>
-                <select ng-model="datos.id_Tema" size="10" class="form-control" ng-options="tem.id as tem.nombre for tem in ComboTema" ng-change="getPreguntas(datos.id_Tema)">
+                <select ng-model="datos.id_Tema" size="10" class="form-control" ng-options="tem.id as tem.nombre for tem in ComboTema" ng-change="getPreguntas(datos.id_Tema)" ng-required="true">
                 </select>
             </div>
             <div class="col-md-6">
@@ -58,23 +59,23 @@
         <div class="row">
             <div class="col-md-2">
                 <label class="control-label" for="notaMin">Nota Minima</label>
-                <input type="number" class="form-control" ng-model="datos.notaMin">
+                <input type="number" class="form-control" placeholder="Ejemplo: 1,0" ng-model="datos.notaMin" ng-required="true">
             </div>
             <div class="col-md-2">
                 <label class="control-label" for="notaMax">Nota Maxima</label>
-                <input type="number" class="form-control" ng-model="datos.notaMax">
+                <input type="number" class="form-control" placeholder="Ejemplo: 7,0" ng-model="datos.notaMax" ng-required="true">
             </div>
             <div class="col-md-2">
                 <label class="control-label" for="notaMin">Aprobacion</label>
-                <input type="number" class="form-control" ng-model="datos.notaAprob">
+                <input type="number" class="form-control" placeholder="Ejemplo: 4,0" ng-model="datos.notaAprob" ng-required="true">
             </div>
             <div class="col-md-2">
                 <label class="control-label" for="notaMin">Exigencia</label>
-                <input type="number" class="form-control" ng-model="datos.exigencia">
+                <input type="number" class="form-control" placeholder="Ejemplo: 60" ng-model="datos.exigencia" ng-required="true">
             </div>
             <div class="col-md-2">
                 <label class="control-label" for="notaMin">Puntaje Maximo</label>
-                <input type="number" class="form-control" ng-model="datos.puntajeMax">
+                <input type="number" class="form-control" placeholder="Ejemplo: 100" ng-model="datos.puntajeMax" ng-required="true">
             </div>
         </div>
         <hr>
@@ -97,8 +98,9 @@
             <div view-source="simple"></div>
         </div>
     </div -->
-    <button class="btn btn-primary btn-lg btn-block" type="button" ng-click="grabaPruebaAuto(datos)">
+    <button class="btn btn-primary btn-lg btn-block" type="button" ng-click="grabaPruebaManual(datos)" ng-disabled="!frm0.$valid">
         <i class="fa fa-save"></i>Grabar Prueba
     </button>
+    </form>
 </div>
 </section>

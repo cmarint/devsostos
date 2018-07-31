@@ -54,6 +54,20 @@ app.factory('apiPruebaFactory', function($http, $q, CONFIG, store, $cookies){
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/pruebavariante/find';
             return $http.post(url,{ "id_Prueba": idPrueba });
+        },
+        addPruebaManual: function(obj) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/profesor/prueba/add';
+            return $http.post(url, obj);
+            /*
+            {
+                "estado": "A",
+                "id_Asignatura": 1,
+                "id_Profesor": 1,
+                "fecha": 1508904000000,
+                "id_Categoria": 1
+                }
+            */
         }
 
     }
@@ -212,6 +226,36 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
         } else {
             alert('Debe seleccionar una prueba');
         }
+    }
+
+    $scope.grabaPruebaManual = function(obj)
+    {
+        var objPrueba = { "estado": "A",
+                "id_Asignatura": obj.id_Asignatura,
+                "fecha": obj.fecha,
+                "id_Forma": 1,
+                "descripcion": obj.descripcion,
+                "exigencia": obj.exigencia,
+                "puntajeMax": obj.puntajeMax,
+                "notaMin": obj.notaMin,
+                "notaAprob": obj.notaAprob,
+                "notaMax": obj.notaMax };
+
+        //console.log(obj);
+        apiPruebaFactory.addPruebaManual(objPrueba).then(function (data) {
+            console.log(data);
+        })
+         /*
+         "exigencia", "puntajeMax", "notaMin", "estado", "id_Asignatura", "notaAprob", "id_Forma", "id", "fecha", "id_Profesor", "notaMax", "descripcion"
+            {
+                "estado": "A",
+                "id_Asignatura": 1,
+                "id_Profesor": 1,
+                "fecha": 1508904000000,
+                "id_Categoria": 1
+                }
+            */
+
     }
 
 });
