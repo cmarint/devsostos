@@ -1,4 +1,4 @@
-var app = angular.module('appSostos', ['ngRoute','ngSanitize','angular-jwt', 'angular-storage','xlsx-model','ngTouch','ui.grid','ui.grid.selection','ui.grid.pagination','ui.grid.cellNav','ngCookies','dndLists','ng-rut','ngPassword']);
+var app = angular.module('appSostos', ['ngRoute','ngSanitize','angular-jwt', 'angular-storage','xlsx-model','ngTouch','ui.grid','ui.grid.selection','ui.grid.pagination','ui.grid.cellNav','ngCookies','dndLists','ng-rut','ngPassword','naif.base64']);
 
 app.constant('CONFIG', {
     APISOSTOS: "http://168.232.165.85:8080/sostos_frontend_api",
@@ -172,6 +172,11 @@ var myInterceptor = function($q, $rootScope) {
   .when('/mismensajes', {
     templateUrl : 'app/vprofesor/mensajes/mismensajes.htm',
     controller: 'mensajesController',
+    authorization: true
+  })
+  .when('/misevaluaciones', {
+    templateUrl : 'app/vprofesor/evaluaciones/misevaluaciones.htm',
+    controller: 'evaluacionesController',
     authorization: true
   })
 
