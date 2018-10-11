@@ -124,12 +124,17 @@ var myInterceptor = function($q, $rootScope) {
   })
   .when('/mntasignaturas', {
     templateUrl : 'app/vmaintainer/asignaturas/asignaturas.htm',
-    controller: 'asignaturasController',
+    controller: 'misasignaturasController',
     authorization: true
   })
  .when('/mntcategorias', {
     templateUrl : 'app/vmaintainer/categorias/categorias.htm',
     controller: 'categoriasController',
+    authorization: true
+  })
+  .when('/mntusuarios', {
+    templateUrl : 'app/vmaintainer/usuarios/usuarios.htm',
+    controller: '',
     authorization: true
   })
 
