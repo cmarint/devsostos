@@ -134,7 +134,7 @@ var myInterceptor = function($q, $rootScope) {
   })
   .when('/mntusuarios', {
     templateUrl : 'app/vmaintainer/usuarios/usuarios.htm',
-    controller: '',
+    controller: 'usuariosController',
     authorization: true
   })
 
@@ -285,6 +285,72 @@ app.controller('logoutController', function($scope, $rootScope, CONFIG, apiMenuF
           $window.location.href = CONFIG.SOSTOSWEBURL;
           //$location.url("/",true);
  });
+
+
+/*** MANTENIMIENTO USUARIOS ****/
+app.controller('usuariosController', function($scope, $rootScope, CONFIG, store, $http, $cookies, $window, usuariosFactory, i18nService, uiGridConstants) {
+
+    i18nService.setCurrentLang('es');
+
+  $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
+    if( col.filters[0].term ){
+      return 'header-filtered';
+    } else {
+      return '';
+    }
+  };
+
+  $scope.gridOptions = {
+    enableFiltering: true,
+    enableRowSelection: true,
+    enableRowHeaderSelection: false,
+    enablePaginationControls: false,
+    multiSelect: false,
+    enableSorting: true,
+    paginationPageSizes: [10, 30, 60],
+    paginationPageSize: 10,
+    columnDefs: [
+          { field: 'id', enableFiltering: false, minWidth: 80, width: 80, enableColumnResizing: false },
+          { field: 'email', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 300, enableColumnResizing: false },
+          { field: 'nombre', minWidth: 80, width: 110, enableColumnResizing: false },
+          { field: 'username', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 250, enableColumnResizing: false },
+          { field: 'estado', headerCellClass: $scope.highlightFilteredHeader, minWidth: 80, width: 80, enableColumnResizing: false }
+      ]
+      ,onRegisterApi: function (gridApi) {
+      $scope.gridApi = gridApi;
+      }
+  };
+
+    $scope.getUsuarios = function() {
+        usuariosFactory.getTodos().then(function (data){
+             $scope.gridOptions.data = data.data;
+        })
+    }
+
+ });
+
+app.factory('usuariosFactory', function($http, $q, CONFIG, store, $cookies){
+    return {
+        getTodos: function()
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
+            deferred = $q.defer();
+            $http({
+                method: 'GET',
+                skipAuthorization: true,
+                url: CONFIG.APISOSTOS + '/usuario/get'
+            }).then(function(res) {
+                deferred.resolve(res);
+            }).then(function(error){
+                deferred.reject(error);
+            })
+            return deferred.promise;
+        }
+    }
+  });
+
+/*** MANTENIMIENTO USUARIOS ****/
 
 app.directive('fileReader', function() {
   return {
