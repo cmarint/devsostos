@@ -310,11 +310,11 @@ app.controller('usuariosController', function($scope, $rootScope, CONFIG, store,
     paginationPageSizes: [10, 30, 60],
     paginationPageSize: 10,
     columnDefs: [
-          { field: 'id', enableFiltering: false, minWidth: 80, width: 80, enableColumnResizing: false },
-          { field: 'email', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 300, enableColumnResizing: false },
-          { field: 'nombre', minWidth: 80, width: 110, enableColumnResizing: false },
-          { field: 'username', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 250, enableColumnResizing: false },
-          { field: 'estado', headerCellClass: $scope.highlightFilteredHeader, minWidth: 80, width: 80, enableColumnResizing: false }
+          { field: 'usuario.id', enableFiltering: false, minWidth: 80, width: 80, enableColumnResizing: false },
+          { field: 'usuario.email', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 300, enableColumnResizing: false },
+          { field: 'usuario.nombre', minWidth: 80, width: 110, enableColumnResizing: false },
+          { field: 'usuario.username', headerCellClass: $scope.highlightFilteredHeader, minWidth: 200, width: 250, enableColumnResizing: false },
+          { field: 'usuario.estado', headerCellClass: $scope.highlightFilteredHeader, minWidth: 80, width: 80, enableColumnResizing: false }
       ]
       ,onRegisterApi: function (gridApi) {
       $scope.gridApi = gridApi;
@@ -323,8 +323,22 @@ app.controller('usuariosController', function($scope, $rootScope, CONFIG, store,
 
     $scope.getUsuarios = function() {
         usuariosFactory.getTodos().then(function (data){
-             $scope.gridOptions.data = data.data;
+             $scope.gridOptions.data = data.data.trxObject;
+            console.log(data.data.trxObject);
+
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            $http.post(CONFIG.APISOSTOS + '/usuario/add', {"username": "usuario111", "nombre": "usuario111 apellido111", "email":"usuario111@gmail.com", "estado":"A", "password": "123456", "id": ""});
+
         })
+    }
+
+    $scope.editUSER = function(){
+      var registro = $scope.gridApi.selection.getSelectedRows();
+      if (registro != '') {
+          $scope.registroEdit = registro[0].usuario;
+          console.log($scope.registroEdit);
+         // $scope.getComboNivel();
+      }
     }
 
  });
@@ -337,9 +351,10 @@ app.factory('usuariosFactory', function($http, $q, CONFIG, store, $cookies){
             //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
-                method: 'GET',
+                method: 'POST',
                 skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/usuario/get'
+                url: CONFIG.APISOSTOS + '/usuario/rol/find',
+                data: {}
             }).then(function(res) {
                 deferred.resolve(res);
             }).then(function(error){
