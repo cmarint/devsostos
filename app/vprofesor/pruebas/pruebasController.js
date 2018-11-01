@@ -188,6 +188,11 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
         $scope.listaPreguntasPrueba.push(modelPregunta);
     }
 
+    $scope.delPreguntaPrueba = function(id) {
+        $scope.listaPreguntasPrueba.splice(id,1);
+        //console.log(id);
+    }
+
     $scope.printPrueba = function(id_variante) {
             var fileName = "prueba.pdf";
             var a = document.createElement("a");

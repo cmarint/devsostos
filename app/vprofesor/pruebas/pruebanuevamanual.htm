@@ -44,6 +44,7 @@
                       <th scope="col">Tema</th>
                       <th scope="col">Pregunta</th>
                       <th scope="col">Tipo</th>
+                      <th scope="col">Acción</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -51,6 +52,7 @@
                       <td align="left">{{regPrueba.nombre_Tema}}</td>
                       <td align="left">{{regPrueba.descripcion_Pregunta}}</td>
                       <td>{{regPrueba.tipo_Pregunta}}</td>
+                      <td><button class="btn btn-danger" ng-click="delPreguntaPrueba($index)">Eliminar</button></td>
                     </tr>
                   </tbody>
                 </table>
