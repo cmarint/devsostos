@@ -50,7 +50,7 @@ app.controller('usuariosController', function($scope, $rootScope, CONFIG, store,
                         usuariosFactory.profesorAdd(profe).then(function (data) {
                             //Profesor creado
                         })
-                    }, 1000);
+                    }, 2000);
 
                 }
                 if (rol == 3) { //Alumno
@@ -106,10 +106,10 @@ app.controller('usuariosController', function($scope, $rootScope, CONFIG, store,
   }
 
     $scope.comboRol = function(){
-        usuariosFactory.getRol().then(function (data){
-            $scope.cmbRol = data.data.trxObject;
-            console.log('valores combo' + $scope.cmbRol);
-        })
+        //usuariosFactory.getRol().then(function (data){
+            //$scope.cmbRol = data.data.trxObject;
+        //})
+        $scope.cmbRol = [{ "id": 2, "nombre": "PROFESOR"}];
     }
 
     $scope.limpiar = function(){
