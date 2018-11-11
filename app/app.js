@@ -15,7 +15,7 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
    //$cookies.remove('sostos.tkn');
    //store.remove('token');
 
-   /*$rootScope.$on('$routeChangeStart', function (event, next)
+   $rootScope.$on('$routeChangeStart', function (event, next)
    {
         var token = $cookies.get('sostos.tkn') || null;
         var tokenPayload = jwtHelper.decodeToken(token);
@@ -36,7 +36,7 @@ app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies
             $rootScope.isUserLoggedIn = false;
             $location.url('/logout',true);
         }
-    });*/
+    });
 
 
 
