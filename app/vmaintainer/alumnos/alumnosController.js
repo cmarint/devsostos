@@ -50,7 +50,24 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, $cookies){
     }
 });
 
-app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAlumnoFactory, uiGridConstants,$timeout) {
+app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies){
+    return {
+        getIns: function()
+        {
+            var url = CONFIG.APISOSTOS + '/institucion/get';
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            return $http.get(url);
+        },
+        getNiv: function()
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/nivel/get';
+            return $http.get(url);
+        }
+    }
+});
+
+app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAlumnoFactory, apiAsignaturaFactory, uiGridConstants,$timeout) {
 
   i18nService.setCurrentLang('es');
   $scope.gridOptions = {
@@ -73,6 +90,12 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
       $scope.gridApi = gridApi;
       }
   };
+
+  $scope.comboCursoInstitucion = function () {
+    apiAsignaturaFactory.getIns().then(function (data) {
+        $scope.comboIns = data.data.trxObject;
+    });
+}
 
 
   $scope.comboAsignatura = function () {

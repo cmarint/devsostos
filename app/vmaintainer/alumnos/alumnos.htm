@@ -19,6 +19,13 @@
          <label class="control-label col-md-8" for="asigna">Asignarturas</label>
          <select ng-model="asignatura.id" name="asigna" class="form-control" ng-options="asignatura.id as asignatura.nombre for asignatura in combo" ng-change="getAll(asignatura.id)"><option value="">--SELECCIONE ASIGNATURA--</option></select>
         </div>
+        <div class="col-md-6">
+          <label class="control-label col-md-8" for="asigna">Institución</label>
+          <select ng-model="institucion.id" name="asigna" class="form-control" ng-options="institucion.id as institucion.nombre for institucion in comboIns"><option value="">--SELECCIONE ASIGNATURA--</option></select>
+        </div>
+        
+        <br>
+        <br>
       </div>
        <br>
       <div class="row row-centered">
