@@ -1,6 +1,6 @@
 app.factory('apiAlumnoFactory', function($http, $q, CONFIG, $cookies){
     return {
-      
+
         getTodos: function()
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
@@ -40,9 +40,9 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, $cookies){
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             return $http.post(url, obj);
         },
-         getAsignaturas: function()
+         getAsignaturas: function( id )
         {
-            var datos = {};
+            var datos = { "id_Institucion": id };
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/asignatura/find';
             return $http.post(url,datos);
@@ -99,8 +99,8 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
 }
 
 
-  $scope.comboAsignatura = function () {
-      apiAlumnoFactory.getAsignaturas().then(function (data) {
+  $scope.comboAsignatura = function (id_Institucion) {
+      apiAlumnoFactory.getAsignaturas(id_Institucion).then(function (data) {
           $scope.combo = data.data.trxObject;
       });
   }
