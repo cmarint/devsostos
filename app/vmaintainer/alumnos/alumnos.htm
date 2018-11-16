@@ -1,5 +1,5 @@
 <section class="ng-scope m-alum">
-<div class="container ng-scope" ng-init="comboAsignatura(367)">
+<div class="container ng-scope" ng-init="comboCursoInstitucion()">
     <h2>Mis Alumnos</h2>
      <div class="bjd">
         <button class="btn " data-toggle="modal" data-target="#m-agr-estb" type="button">
@@ -16,13 +16,14 @@
         </button>
         <br>
         <div class="col-md-6">
+          <label class="control-label col-md-8" for="asigna">Institución</label>
+          <select ng-model="institucion.id" name="asigna" class="form-control" ng-options="institucion.id as institucion.nombre for institucion in comboIns" ng-change="comboAsignatura(institucion.id)"><option value="">--SELECCIONE INSTITUCIÓN--</option></select>
+        </div>
+        <div class="col-md-6">
          <label class="control-label col-md-8" for="asigna">Asignarturas</label>
          <select ng-model="asignatura.id" name="asigna" class="form-control" ng-options="asignatura.id as asignatura.nombre for asignatura in combo"  ng-change="getAll(asignatura.id)"><option value="">--SELECCIONE ASIGNATURA--</option></select>
         </div>
-        <div class="col-md-6">
-          <label class="control-label col-md-8" for="asigna">Institución</label>
-          <select ng-model="institucion.id" name="asigna" class="form-control" ng-options="institucion.id as institucion.nombre for institucion in comboIns"><option value="">--SELECCIONE ASIGNATURA--</option></select>
-        </div>
+
 
         <br>
         <br>
