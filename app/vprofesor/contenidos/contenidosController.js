@@ -199,7 +199,7 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
 
   $scope.delTEM = function(){
           apiTemaFactory.delTem($scope.id_del).then(function (data){
-            if (data.data.detailsResponse != "0") {
+            if (data.data.detailsResponse.code != 0) {
               alert('Existe un error al eliminar, contacte al Administrador');
             } else {
               $scope.getAll();
