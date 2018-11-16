@@ -95,7 +95,7 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
   $scope.comboCursoInstitucion = function () {
     apiAsignaturaFactory.getIns().then(function (data) {
         $scope.comboIns = data.data.trxObject;
-        console.log(data.data.trxObject);
+        console.log(data);
     });
   }
 
