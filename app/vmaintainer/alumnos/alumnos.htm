@@ -15,6 +15,7 @@
           <i class="fa fa-file-excel-o"></i> Importar
         </button>
         <br>
+        {{comboIns}}
         <div class="col-md-6">
           <label class="control-label col-md-8" for="asigna">Institución</label>
           <select ng-model="institucion.id" name="asigna" class="form-control" ng-options="institucion.id as institucion.nombre for institucion in comboIns" ng-change="comboAsignatura(institucion.id)"><option value="">--SELECCIONE INSTITUCIÓN--</option></select>
