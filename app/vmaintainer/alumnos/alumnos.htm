@@ -18,7 +18,13 @@
         <div class="row">
         <div class="col-md-4">
           <label class="control-label col-md-8" for="asigna">Institución</label>
-          <select ng-model="institucion.id" name="asigna" class="form-control" ng-options="institucion.id as institucion.nombre for institucion in comboIns" ng-change="comboAsignatura(institucion.id)"><option value="">--SELECCIONE INSTITUCIÓN--</option></select>
+          <select ng-model="institucion.id" name="asigna" class="form-control" ng-options="institucion.id as institucion.nombre for institucion in comboIns"><option value="">--SELECCIONE INSTITUCIÓN--</option></select>
+        </div>
+        <div class="col-md-4">
+          <label class="control-label col-md-3" for="nombNivel">Nivel</label>
+          <select ng-model="nivel.id" id="nombNivel" class="form-control" ng-options="nivel.id as nivel.nombre for nivel in cmbNiv | filter: { id_Institucion:institucion.id}" ng-change="comboAsignatura(institucion.id, nivel.id)" ng-required="true">
+            <option value="">--SELECCIONE NIVEL--</option>
+          </select>
         </div>
         <div class="col-md-4">
          <label class="control-label col-md-8" for="asigna">Asignarturas</label>
@@ -26,7 +32,7 @@
         </div>
        </div>
       </div>
-      
+
       <div class="row row-centered">
         <div class="col-md-12 col-centered">
             <div ui-grid="gridOptions" ui-grid-pagination ui-grid-edit ui-grid-selection class="grid"></div>

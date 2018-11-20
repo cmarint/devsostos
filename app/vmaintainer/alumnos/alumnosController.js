@@ -40,9 +40,9 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, $cookies){
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             return $http.post(url, obj);
         },
-         getAsignaturas: function( id )
+         getAsignaturas: function( id, id_niv )
         {
-            var datos = { "id_Institucion": id };
+            var datos = { "id_Institucion": id, "id_Nivel": id_niv };
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/asignatura/find';
             return $http.post(url,datos);
@@ -96,12 +96,21 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
     apiAsignaturaFactory.getIns().then(function (data) {
         $scope.comboIns = data.data;
         //console.log(data);
+        $timeout(function() {
+              $scope.getComboNiv();
+          }, 2000);
     });
   }
 
+  $scope.getComboNiv = function () {
+      apiAsignaturaFactory.getNiv().then(function (data) {
+          $scope.cmbNiv = data.data;
+      });
+  }
 
-  $scope.comboAsignatura = function (id_Institucion) {
-      apiAlumnoFactory.getAsignaturas(id_Institucion).then(function (data) {
+
+  $scope.comboAsignatura = function (id_Institucion, id_Nivel) {
+      apiAlumnoFactory.getAsignaturas(id_Institucion, id_Nivel).then(function (data) {
           $scope.combo = data.data.trxObject;
       });
   }
