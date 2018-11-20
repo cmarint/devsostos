@@ -1,13 +1,23 @@
 <any ng-init="getAsignaturas()">
 <section class="ng-scope m-asig">
-<div class="container ng-scope">
+<div class="container ng-scope" ng-init="comboCursoInstitucion()">
     <h2>Mensaje Alumnos</h2>
      <div class="bjd">
         <div class="row row-centered">
-        <div class="col-md-6 col-md-offset-3">
-        <label class="control-label col-md-8" for="asigna">Asignarturas</label>
-         <select ng-model="asignatura.id" name="asigna" class="form-control" ng-options="asignatura.id as asignatura.nombre for asignatura in combo" ng-change="getAlumnos(asignatura.id)"><option value="">--SELECCIONE ASIGNATURA--</option></select>
-        </div>
+          <div class="col-md-4">
+            <label class="control-label col-md-4" for="asigna">Institución</label>
+            <select ng-model="institucion.id" name="asigna" class="form-control" ng-options="institucion.id as institucion.nombre for institucion in comboIns"><option value="">--SELECCIONE INSTITUCIÓN--</option></select>
+          </div>
+          <div class="col-md-4">
+            <label class="control-label col-md-4" for="nombNivel">Nivel</label>
+            <select ng-model="nivel.id" id="nombNivel" class="form-control" ng-options="nivel.id as nivel.nombre for nivel in cmbNiv | filter: { id_Institucion:institucion.id}" ng-change="comboAsignatura(institucion.id, nivel.id)" ng-required="true">
+              <option value="">--SELECCIONE NIVEL--</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+           <label class="control-label col-md-4" for="asigna">Asignarturas</label>
+           <select ng-model="asignatura.id" name="asigna" class="form-control" ng-options="asignatura.id as asignatura.nombre for asignatura in combo"  ng-change="getAlumnos(asignatura.id)"><option value="">--SELECCIONE ASIGNATURA--</option></select>
+          </div>
         </div>
 
       </div>
@@ -25,4 +35,3 @@
 </div>
 </section>
 </any>
-

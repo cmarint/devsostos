@@ -1,5 +1,17 @@
 app.factory('mensajesFactory', function($http, $q, CONFIG, store, $cookies){
     return {
+        getIns: function()
+        {
+            var url = CONFIG.APISOSTOS + '/institucion/get';
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            return $http.get(url);
+        },
+        getNiv: function()
+        {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/nivel/get';
+            return $http.get(url);
+        },
         getAsignatura: function()
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
@@ -49,10 +61,26 @@ app.controller('mensajesController', function ($scope, CONFIG, mensajesFactory, 
         })
     }
 
-    $scope.getAsignaturas = function () {
-        mensajesFactory.getAsignatura().then(function (data) {
+    $scope.comboCursoInstitucion = function () {
+      mensajesFactory.getIns().then(function (data) {
+          $scope.comboIns = data.data;
+          //console.log(data);
+          $timeout(function() {
+                $scope.getComboNiv();
+            }, 2000);
+      });
+    }
+
+    $scope.getComboNiv = function () {
+        mensajesFactory.getNiv().then(function (data) {
+            $scope.cmbNiv = data.data;
+        });
+    }
+
+    $scope.comboAsignatura = function (id_Institucion, id_Nivel) {
+        mensajesFactory.getAsignaturas(id_Institucion, id_Nivel).then(function (data) {
             $scope.combo = data.data.trxObject;
-        })
+        });
     }
 
     $scope.sendMail = function (obj) {

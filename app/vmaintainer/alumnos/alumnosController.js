@@ -39,13 +39,6 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, $cookies){
             var url = CONFIG.APISOSTOS + '/profesor/asignatura/' + id + '/alumno/add';
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             return $http.post(url, obj);
-        },
-         getAsignaturas: function( id, id_niv )
-        {
-            var datos = { "id_Institucion": id, "id_Nivel": id_niv };
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            var url = CONFIG.APISOSTOS + '/profesor/asignatura/find';
-            return $http.post(url,datos);
         }
 
     }
@@ -64,6 +57,13 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/nivel/get';
             return $http.get(url);
+        },
+        getAsignaturas: function( id, id_niv )
+        {
+            var datos = { "id_Institucion": id, "id_Nivel": id_niv };
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/profesor/asignatura/find';
+            return $http.post(url,datos);
         }
     }
 });
@@ -110,7 +110,7 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
 
 
   $scope.comboAsignatura = function (id_Institucion, id_Nivel) {
-      apiAlumnoFactory.getAsignaturas(id_Institucion, id_Nivel).then(function (data) {
+      apiAsignaturaFactory.getAsignaturas(id_Institucion, id_Nivel).then(function (data) {
           $scope.combo = data.data.trxObject;
       });
   }
