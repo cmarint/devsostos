@@ -12,21 +12,12 @@ app.factory('mensajesFactory', function($http, $q, CONFIG, store, $cookies){
             var url = CONFIG.APISOSTOS + '/nivel/get';
             return $http.get(url);
         },
-        getAsignatura: function()
+        getAsignaturas: function( id, id_niv )
         {
+            var datos = { "id_Institucion": id, "id_Nivel": id_niv };
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            deferred = $q.defer();
-            $http({
-                method: 'POST',
-                skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/profesor/asignatura/find',
-                data: {}
-            }).then(function(res) {
-                deferred.resolve(res);
-            }).then(function(error){
-                deferred.reject(error);
-            })
-            return deferred.promise;
+            var url = CONFIG.APISOSTOS + '/profesor/asignatura/find';
+            return $http.post(url,datos);
         },
         getMisAlumnos: function(id)
         {
