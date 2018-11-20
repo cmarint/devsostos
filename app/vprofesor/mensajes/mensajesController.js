@@ -53,7 +53,7 @@ app.factory('mensajesFactory', function($http, $q, CONFIG, store, $cookies){
     }
 });
 
-app.controller('mensajesController', function ($scope, CONFIG, mensajesFactory, $filter, $location, $routeParams) {
+app.controller('mensajesController', function ($scope, CONFIG, mensajesFactory, $filter, $location, $routeParams, $timeout) {
 
     $scope.getAlumnos = function (id) {
         mensajesFactory.getMisAlumnos(id).then(function (data) {
