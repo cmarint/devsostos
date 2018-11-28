@@ -53,9 +53,9 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
           var url = CONFIG.APISOSTOS + '/profesor/asignatura/find';
           return $http.post(url,datos);
 
-            /*var url = CONFIG.APISOSTOS + '/institucion/get';
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            return $http.get(url);*/
+            //var url = CONFIG.APISOSTOS + '/institucion/get';
+            //$http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            //return $http.get(url);
         },
         getNiv: function()
         {
