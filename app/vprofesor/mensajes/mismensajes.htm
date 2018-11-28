@@ -6,7 +6,7 @@
         <div class="row row-centered">
           <div class="col-md-4">
             <label class="control-label col-md-4" for="asigna">Institución</label>
-            <select ng-model="institucion.id" name="asigna" class="form-control" ng-options="institucion.id as institucion.nombre for institucion in comboIns"><option value="">--SELECCIONE INSTITUCIÓN--</option></select>
+            <select ng-model="institucion.id" name="asigna" class="form-control" ng-options="institucion.id_Institucion as institucion.nombre_Institucion for institucion in comboIns | unique: 'nombre_Institucion'"><option value="">--SELECCIONE INSTITUCIÓN--</option></select>
           </div>
           <div class="col-md-4">
             <label class="control-label col-md-4" for="nombNivel">Nivel</label>
