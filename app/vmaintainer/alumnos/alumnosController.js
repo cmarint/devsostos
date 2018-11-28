@@ -46,7 +46,7 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, $cookies){
 
 app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies){
     return {
-        getIns: function()
+        getInst: function()
         {
           var datos = {};
           $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
@@ -98,7 +98,7 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
   };
 
   $scope.comboCursoInstitucion = function () {
-    apiAsignaturaFactory.getIns().then(function (data) {
+    apiAsignaturaFactory.getInst().then(function (data) {
         $scope.comboIns = data.data;
         console.log(data);
         $timeout(function() {
