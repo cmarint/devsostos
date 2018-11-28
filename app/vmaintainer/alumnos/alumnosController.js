@@ -100,7 +100,7 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
   $scope.comboCursoInstitucion = function () {
     apiAsignaturaFactory.getIns().then(function (data) {
         $scope.comboIns = data.data;
-        //console.log(data);
+        console.log(data);
         $timeout(function() {
               $scope.getComboNiv();
           }, 2000);
