@@ -9,7 +9,7 @@ app.controller('mensajesController', function ($scope, CONFIG, mensajesFactory, 
 
     $scope.comboCursoInstitucion = function () {
       mensajesFactory.getIns().then(function (data) {
-          $scope.comboIns = data.data;
+          $scope.comboIns = data.data.trxObject;
           //console.log(data);
           $timeout(function() {
                 $scope.getComboNiv();
