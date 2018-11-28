@@ -24,8 +24,8 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
 
   $scope.comboCursoInstitucion = function () {
     apiComboFactory.getInst().then(function (data) {
-        $scope.comboIns = data.data;
-        console.log(data);
+        $scope.comboIns = data.data.trxObject;
+        //console.log(data);
         $timeout(function() {
               $scope.getComboNiv();
           }, 2000);
