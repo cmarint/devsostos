@@ -44,7 +44,7 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, $cookies){
     }
 });
 
-app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies){
+app.factory('apiComboFactory', function($http, $q, CONFIG, store, $cookies){
     return {
         getInst: function()
         {
@@ -73,7 +73,7 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
     }
 });
 
-app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAlumnoFactory, apiAsignaturaFactory, uiGridConstants,$timeout) {
+app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAlumnoFactory, apiComboFactory, uiGridConstants,$timeout) {
 
   i18nService.setCurrentLang('es');
   $scope.gridOptions = {
@@ -98,7 +98,7 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
   };
 
   $scope.comboCursoInstitucion = function () {
-    apiAsignaturaFactory.getInst().then(function (data) {
+    apiComboFactory.getInst().then(function (data) {
         $scope.comboIns = data.data;
         console.log(data);
         $timeout(function() {
@@ -108,14 +108,14 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
   }
 
   $scope.getComboNiv = function () {
-      apiAsignaturaFactory.getNiv().then(function (data) {
+      apiComboFactory.getNiv().then(function (data) {
           $scope.cmbNiv = data.data;
       });
   }
 
 
   $scope.comboAsignatura = function (id_Institucion, id_Nivel) {
-      apiAsignaturaFactory.getAsignaturas(id_Institucion, id_Nivel).then(function (data) {
+      apiComboFactory.getAsignaturas(id_Institucion, id_Nivel).then(function (data) {
           $scope.combo = data.data.trxObject;
       });
   }
