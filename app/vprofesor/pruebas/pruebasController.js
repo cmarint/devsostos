@@ -86,7 +86,7 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
       };
 
     $scope.gridOptions = {
-    //enableFiltering: true,
+    enableFiltering: true,
     enableRowSelection: true,
     enableRowHeaderSelection: false,
     enablePaginationControls: false,
