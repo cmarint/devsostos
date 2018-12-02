@@ -96,10 +96,10 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
     paginationPageSize: 10,
     columnDefs: [
 
-          { field: 'id', minWidth: 80, width: 110, enableColumnResizing: false },
-          { field: 'descripcion', minWidth: 200, width: 200, enableColumnResizing: false },
-          { field: 'exigencia', minWidth: 90, width: 90, enableColumnResizing: false },
-          { field: 'puntajeMax', minWidth: 90, width: 90, enableColumnResizing: false },
+          { field: 'prueba.id', minWidth: 80, width: 110, enableColumnResizing: false },
+          { field: 'prueba.descripcion', minWidth: 200, width: 200, enableColumnResizing: false },
+          { field: 'prueba.exigencia', minWidth: 90, width: 90, enableColumnResizing: false },
+          { field: 'prueba.puntajeMax', minWidth: 90, width: 90, enableColumnResizing: false },
           { field: 'notaMin', minWidth: 90, width: 90, enableColumnResizing: false },
          { field: 'notaMax', minWidth: 90, width: 90, enableColumnResizing: false },
          { field: 'notaAprob', minWidth: 90, width: 90, enableColumnResizing: false },
@@ -264,7 +264,3 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
     }
 
 });
-
-
-
-
