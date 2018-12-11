@@ -95,18 +95,18 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
     paginationPageSizes: [10, 30, 60],
     paginationPageSize: 10,
     columnDefs: [
-          { field: 'asignatura.nombre_Institucion', minWidth: 200, width: 200, headerCellClass: $scope.highlightFilteredHeader, enableColumnResizing: true },
-          { field: 'asignatura.nombre_Nivel', minWidth: 100, width: 100, headerCellClass: $scope.highlightFilteredHeader, enableColumnResizing: true },
-          { field: 'asignatura.nombre', minWidth: 150, width: 150, headerCellClass: $scope.highlightFilteredHeader, enableColumnResizing: true },
-          { field: 'prueba.id', minWidth: 80, width: 110, enableColumnResizing: false },
-          { field: 'prueba.descripcion', minWidth: 200, width: 200, enableColumnResizing: false },
-          { field: 'prueba.exigencia', minWidth: 90, width: 90, enableColumnResizing: false },
+          { field: 'asignatura.nombre_Institucion', displayName: 'Institución', minWidth: 200, width: 200, headerCellClass: $scope.highlightFilteredHeader, enableColumnResizing: true },
+          { field: 'asignatura.nombre_Nivel', displayName: 'Nivel', minWidth: 100, width: 100, headerCellClass: $scope.highlightFilteredHeader, enableColumnResizing: true },
+          { field: 'asignatura.nombre', displayName: 'Asignatura', minWidth: 150, width: 150, headerCellClass: $scope.highlightFilteredHeader, enableColumnResizing: true },
+          { field: 'prueba.id', displayName: 'Identificador', minWidth: 80, width: 110, enableColumnResizing: false },
+          { field: 'prueba.descripcion', displayName: 'Descripción', minWidth: 200, width: 200, enableColumnResizing: false },
+          { field: 'prueba.exigencia', displayName: 'Exigencia', minWidth: 90, width: 90, enableColumnResizing: false },
         /*  { field: 'prueba.puntajeMax', minWidth: 90, width: 90, enableColumnResizing: false },
           { field: 'prueba.notaMin', minWidth: 90, width: 90, enableColumnResizing: false },
          { field: 'prueba.notaMax', minWidth: 90, width: 90, enableColumnResizing: false },
          { field: 'prueba.notaAprob', minWidth: 90, width: 90, enableColumnResizing: false },*/
-          { field: 'prueba.fecha', minWidth: 100, width: 120, enableColumnResizing: false },
-          { field: 'prueba.estado', minWidth: 80, width: 80, enableColumnResizing: false }
+          { field: 'prueba.fecha', displayName: 'Fecha', minWidth: 100, width: 120, enableColumnResizing: false },
+          { field: 'prueba.estado', displayName: 'Estado', minWidth: 80, width: 80, enableColumnResizing: false }
       ]
       ,onRegisterApi: function (gridApi) {
       $scope.gridApi = gridApi;
