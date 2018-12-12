@@ -16,14 +16,24 @@
       <li ng-class="{'active': $index == 0, '': $index > 0}" ng-repeat="nodo in arbolito"><a data-toggle="tab" href="!#{{nodo.id}}">{{nodo.nombre}}</a></li>
     </ul>
 
-    <div class="tab-content">
-      <div ng-repeat="nodo in arbolito" id="{{nodo.id}}" ng-class="{'tab-pane fade in active': $index == 0,'tab-pane fade': $index > 0}">
-          <div class="list-group">
-            <a ng-repeat="nodohijo in nodo.hijos" href="#" class="list-group-item">
-              {{nodohijo.nombre}}
-            </a>
+    <br>
+    <h3>1.- Debe seleccionar un eje temático</h3>
+    <p>Los ejes temáticos es una caractegoría para personalizar los contenidos de evaluación.</p>
+
+    <div class="col-md-4">
+        <div class="tab-content">
+          <div ng-repeat="nodo in arbolito" id="{{nodo.id}}" ng-class="{'tab-pane fade in active': $index == 0,'tab-pane fade': $index > 0}">
+              <div class="list-group">
+                <a ng-repeat="nodohijo in nodo.hijos" href="#" class="list-group-item">
+                  {{nodohijo.nombre}}
+                </a>
+              </div>
           </div>
-      </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+      acá van los temas...
     </div>
 
 
