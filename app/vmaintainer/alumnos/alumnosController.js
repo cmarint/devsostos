@@ -123,10 +123,10 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
     for ( var i = 1; i < allTextLines.length; i++) {
         var data = allTextLines[i].split(',');
         var registro = { "nombre": data[0], "rut": data[1], "email": data[2], "estado": data[3]};
-        console.log(registro);
+        //console.log(registro);
          $timeout( function(){
             $scope.addALUCSV(id, registro);
-        }, 3000 );
+        }, 8000 );
 
 
     }
