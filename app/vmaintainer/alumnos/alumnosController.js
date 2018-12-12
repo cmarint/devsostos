@@ -102,6 +102,18 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
       })
   }
 
+  $scope.addALUCSV = function(id, registro){
+      apiAlumnoFactory.addAlumno(id, registro).then(function (data) {
+          if (data.data.detailsResponse.code == "00") {
+              console.log('Registro Agregado Correctamente:' + registro);
+          } else {
+              console.log('Error al agregar registro' + registro);
+          }
+      }).catch(function (error) {
+          console.log('Error al agregar registro' + registro);
+      })
+  }
+
 
   $scope.procesarCSV = function (id, allText) {
       var allTextLines = allText.split(/\r\n|\n/);
@@ -112,11 +124,9 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
         var data = allTextLines[i].split(',');
         var registro = { "nombre": data[0], "rut": data[1], "email": data[2], "estado": data[3]};
         console.log(registro);
-        /* $timeout( function(){
-            apiAlumnoFactory.addAlumno(id, reg).then(function (data) {
-                console.log("id:" + id + " | registro:" + registro + " | data:" + data);
-            })
-        }, 3000 );*/
+         $timeout( function(){
+            $scope.addALUCSV(id, registro);
+        }, 3000 );
 
 
     }
