@@ -174,9 +174,23 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, $cookies){
         },
         addAlumno: function(id, obj)
         {
-            var url = CONFIG.APISOSTOS + '/profesor/asignatura/' + id + '/alumno/add';
+            /*var url = CONFIG.APISOSTOS + '/profesor/asignatura/' + id + '/alumno/add';
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            return $http.post(url, obj);
+            return $http.post(url, obj);*/
+
+            deferred = $q.defer();
+            $http({
+                method: 'POST',
+                skipAuthorization: true,
+                url: CONFIG.APISOSTOS + '/profesor/asignatura/' + id + '/alumno/add'
+            }).then(function(res) {
+                deferred.resolve(res);
+            }).then(function(error){
+                deferred.reject(error);
+            })
+            return deferred.promise;
+
+
         }
 
     }
