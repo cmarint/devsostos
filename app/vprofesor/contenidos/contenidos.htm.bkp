@@ -12,19 +12,7 @@
         </button -->
     </div>
 
-    <ul class="nav nav-tabs">
-      <li ng-class="{'active': $index == 0, '': $index > 0}" ng-repeat="nodo in arbolito"><a data-toggle="tab" href="!#{{nodo.id}}">{{nodo.nombre}}</a></li>
-    </ul>
 
-    <div class="tab-content">
-      <div ng-repeat="nodo in arbolito" id="{{nodo.id}}" ng-class="{'tab-pane fade in active': $index == 0,'tab-pane fade': $index > 0}">
-        <h3>HOME</h3>
-        <p>Some content.</p>
-      </div>
-    </div>
-
-
-    <!--
     <div class="tree well">
     <ul>
         <li ng-repeat="nodo in arbolito">
@@ -41,12 +29,17 @@
                     <button class="btn " type="button" data-toggle="modal" data-target="#m-preguntas" ng-click="preguntasPage(nodo.id, nodohijo.id, nodohijo.nombre);">
                         <i class="fa fa-question-circle" aria-hidden="true"></i> Preguntas
                     </button>
+                    <!-- ul>
+                        <li>
+	                        <span><i class="icon-leaf"></i> Grand Child</span> <a href="">Goes somewhere</a>
+                        </li>
+                    </ul -->
                 </li>
             </ul>
         </li>
     </ul>
 </div>
--->
+
 </div>
 </section>
 
