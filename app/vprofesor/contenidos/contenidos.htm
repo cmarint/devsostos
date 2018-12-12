@@ -22,18 +22,21 @@
 
 
         <div class="tab-content">
-            <div class="col-md-4">
               <div ng-repeat="nodo in arbolito" id="{{nodo.id}}" ng-class="{'tab-pane fade in active': $index == 0,'tab-pane fade': $index > 0}">
+                <div class="col-md-4">
                   <div class="list-group">
+                    <a href="" class="list-group-item active">
+                      Eje Temático
+                    </a>
                     <a ng-repeat="nodohijo in nodo.hijos" href="#" class="list-group-item">
                       {{nodohijo.nombre}}
                     </a>
                   </div>
+                </div>
+                <div class="col-md-4">
+                  Temas según eje temático
+                </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              acá van los temas...
-            </div>
         </div>
 
 
