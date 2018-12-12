@@ -18,9 +18,11 @@
 
     <div class="tab-content">
       <div ng-repeat="nodo in arbolito" id="{{nodo.id}}" ng-class="{'tab-pane fade in active': $index == 0,'tab-pane fade': $index > 0}">
-          <ul class="nav nav-pills nav-stacked">
-            <li ng-repeat="nodohijo in nodo.hijos"><a>{{nodohijo.nombre}}</a></li>
-          </ul>
+          <div class="list-group">
+            <a ng-repeat="nodohijo in nodo.hijos" href="#" class="list-group-item">
+              {{nodohijo.nombre}}
+            </a>
+          </div>
       </div>
     </div>
 
