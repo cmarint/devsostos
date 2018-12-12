@@ -113,7 +113,7 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
         var registro = { "nombre": data[0], "rut": data[1], "email": data[2], "estado": data[3]};
          $timeout( function(){
             apiAlumnoFactory.addAlumno(id, registro).then(function (data) {
-                console.log(data);
+                console.log("id:" + id + " | registro:" + registro + " | data:" + data);
             })
         }, 3000 );
 
