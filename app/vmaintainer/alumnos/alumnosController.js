@@ -111,7 +111,7 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
     for ( var i = 1; i < allTextLines.length; i++) {
         var data = allTextLines[i].split(',');
         var registro = { "nombre": data[0], "rut": data[1], "email": data[2], "estado": data[3]};
-        console.log("nombre:" + data[0]);
+        console.log(registro);
         /* $timeout( function(){
             apiAlumnoFactory.addAlumno(id, reg).then(function (data) {
                 console.log("id:" + id + " | registro:" + registro + " | data:" + data);
