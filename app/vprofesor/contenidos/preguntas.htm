@@ -122,6 +122,10 @@
                   <textarea cols="6" rows="4" class="form-control" id="nombTema" placeholder="Ingrese nombre de Tema" ng-model="datos.pregunta.descripcion_Pregunta" ng-required="true"></textarea>
                   <!-- input type="text" class="form-control" id="nombTema" placeholder="Ingrese nombre de Tema" ng-model="datos.pregunta.descripcion_Pregunta" ng-required="true" -->
                 </div>
+
+              </div>
+              <div class="row">
+                Formula: <span mathjax-bind=datos.pregunta.descripcion_Pregunta></span>
               </div>
               <div class="row" ng-repeat="re in datos.respuestas">
                 <label class="control-label col-md-4">Respuesta ({{$index + 1}})</label>
@@ -197,3 +201,4 @@
 <!-- Fin Modal Editar -->
 </any>
 
+<p>{{ formulas }}</p>

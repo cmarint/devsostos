@@ -21,6 +21,28 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
             })
             return deferred.promise;
         },
+        getEjesCon: function(id_Tema_Padre)
+        {
+
+            if (id_Tema_Padre == null) { obj={}; } else { obj={ "id_Tema_Padre": id_Tema_Padre}; }
+
+            /*$http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/profesor/tema/find';
+            return $http.post(url, obj);*/
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+             deferred = $q.defer();
+            $http({
+                method: 'POST',
+                //skipAuthorization: true,
+                url: CONFIG.APISOSTOS + '/profesor/tema/find',
+                data: obj,
+            }).then(function(res) {
+                deferred.resolve(res);
+            }).then(function(error){
+                deferred.reject(error);
+            })
+            return deferred.promise;
+        },
         getPreguntas: function(id_tema)
         {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
@@ -130,6 +152,10 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
   $scope.idTema = $routeParams.idtema;
   $scope.muestraTema = false;
 
+  $scope.filtrarSubtemas = function(id) {
+    $scope.hijos = $filter('filter')($scope.comboSubTemas,{id_Tema_Padre: id})
+  }
+
   $scope.getAll = function () {
       apiTemaFactory.getTema(null).then(function (data) {
           var parentId = "";
@@ -149,7 +175,6 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
                     angular.forEach(datos2, function (value, key) {
                          if (angular.equals(value.id_Tema_Padre, parentId)) {
                             hijos.push({id: value.id, nombre: value.nombre});
-                            //console.log('Id' + value.id + ' Hijo de' + value.id_Tema_Padre);
                          }
                     })
                     arbol.push({id: parentId, nombre: parentName, hijos: hijos});
@@ -197,12 +222,23 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
     $scope.id_del = id;
   }
 
-  $scope.delTEM = function(){
-          apiTemaFactory.delTem($scope.id_del).then(function (data){
+  $scope.delTEM = function(id){
+          apiTemaFactory.delTem(id).then(function (data){
             if (data.data.detailsResponse.code != 0) {
               alert('Existe un error al eliminar, contacte al Administrador');
             } else {
               $scope.getAll();
+            }
+
+          });
+  }
+
+  $scope.delCON = function(){
+          apiTemaFactory.delTem($scope.id_del).then(function (data){
+            if (data.data.detailsResponse.code != 0) {
+              alert('Existe un error al eliminar, contacte al Administrador');
+            } else {
+              $scope.getEjeCon($scope.ejeTematico);
             }
 
           });
@@ -240,6 +276,31 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
           }
 
       })
+  }
+
+  $scope.getEjeCon = function(id_Tema_Padre) {
+    apiTemaFactory.getEjesCon(id_Tema_Padre).then(function (data) {
+      //console.log(data);
+      $scope.contenidos = data.data.trxObject;
+    })
+  }
+
+  $scope.addCON = function(registro){
+      let obj = { "id_Tema_Padre": $scope.ejeTematico, "nombre": registro.nombre };
+      apiTemaFactory.addTem(obj).then(function (data) {
+          if (data.data.detailsResponse.code == "00") {
+              $scope.getEjeCon($scope.ejeTematico);
+          } else {
+              alert('Error al agregar registro');
+          }
+
+      })
+  }
+
+  $scope.selSubitem = function (id) {
+    $scope.ejeTematico = id;
+    $scope.getEjeCon(id);
+
   }
 
 

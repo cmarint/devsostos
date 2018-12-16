@@ -5,7 +5,16 @@
 
     <div class="bjd">
         <button class="btn " data-toggle="modal" data-target="#m-agr-tema" type="button">
-          <i class="fa fa-plus-circle"></i> Agregar Tema / Subtema
+          <i class="fa fa-plus-circle"></i> Agregar Tema
+        </button>
+        <button class="btn " data-toggle="modal" data-target="#m-agr-eje" type="button">
+          <i class="fa fa-plus-circle"></i> Agregar Eje Temático
+        </button>
+        <button class="btn danger" data-toggle="modal" data-target="#m-eli-tem" type="button">
+          <i class="fa fa-trash"></i> Eliminar Tema
+        </button>
+        <button class="btn " data-toggle="modal" data-target="#m-agr-con" type="button">
+          <i class="fa fa-plus-circle"></i> Agregar Contenido Eje
         </button>
         <!-- button class="btn " data-toggle="modal" type="button" ng-click="preguntasPage(null,null)">
           <i class="fa fa-plus-circle"></i> Preguntas / Respuestas
@@ -13,58 +22,62 @@
     </div>
 
     <ul class="nav nav-tabs">
-      <li ng-class="{'active': $index == 0, '': $index > 0}" ng-repeat="nodo in arbolito"><a data-toggle="tab" href="!#{{nodo.id}}">{{nodo.nombre}}</a></li>
+      <li ng-class="{'active': $index == 0, '': $index > 0}" ng-repeat="nodo in comboTemas"><a data-toggle="tab" href="!#{{nodo.id}}">{{nodo.nombre}}</a></li>
     </ul>
 
     <br>
-    <h3>1.- Debe seleccionar un eje temático</h3>
-    <p>Los ejes temáticos es una caractegoría para personalizar los contenidos de evaluación.</p>
-
+    <h4>Debe seleccionar un eje temático y luego un contenido del eje</h4>
+    <p>Los ejes temáticos son una caractegoría para personalizar los contenidos de evaluación.</p>
 
         <div class="tab-content">
               <div ng-repeat="nodo in arbolito" id="{{nodo.id}}" ng-class="{'tab-pane fade in active': $index == 0,'tab-pane fade': $index > 0}">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="list-group">
-                    <a href="" class="list-group-item active">
-                      Eje Temático
-                    </a>
-                    <a ng-repeat="nodohijo in nodo.hijos" href="#" class="list-group-item">
+                    <li class="list-group-item active">
+                      <b>Eje Temático</b> <small>  (haga click sobre el botón "Seleccionar")</small>
+                    </li>
+                    <li ng-repeat="nodohijo in nodo.hijos" class="list-group-item">
                       {{nodohijo.nombre}}
-                    </a>
+                      &emsp;
+                      &emsp;
+                      &emsp;
+                      &emsp;
+                      &emsp;
+                      &emsp;
+                      &emsp;
+                      <button class="btn " type="button" data-toggle="modal" data-target="#m-eliminar" ng-click="delTMP(nodohijo.id)">
+                          <i class="fa fa-trash" aria-hidden="true"></i> Eliminar
+                      </button>
+                      <button class="btn " type="button" ng-click="selSubitem(nodohijo.id)">
+                          <i class="fa fa-question-circle" aria-hidden="true"></i> Seleccionar
+                      </button>
+                    </li>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  Temas según eje temático
+                <div class="col-md-6">
+                        <ul class="list-group">
+                          <li href="" class="list-group-item active">
+                            <b>Contenidos del Eje Seleccionado</b>
+                          </li>
+                          <li class="list-group-item" ng-repeat="cont in contenidos">
+                            {{cont.nombre}}
+                            &emsp;
+                            &emsp;
+                            &emsp;
+                            &emsp;
+                            &emsp;
+                            &emsp;
+                            &emsp;
+                            <button class="btn " type="button" data-toggle="modal" data-target="#m-eliminar" ng-click="delTMP(cont.id)">
+                                <i class="fa fa-trash" aria-hidden="true"></i> Eliminar
+                            </button>
+                            <button class="btn " type="button" data-toggle="modal" data-target="#m-preguntas" ng-click="preguntasPage(ejeTematico, cont.id, cont.nombre);">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i> Preguntas
+                            </button>
+                          </li>
                 </div>
               </div>
         </div>
-
-
-
-
-    <!--
-    <div class="tree well">
-    <ul>
-        <li ng-repeat="nodo in arbolito">
-            <span><i class="fa fa-folder" aria-hidden="true"></i> {{nodo.nombre}}</span> <a href="" ng-click="getTemaById(nodo.id);" data-toggle="modal" data-target="#m-edi-estb">Editar</a>
-            <ul>
-                <li ng-repeat="nodohijo in nodo.hijos">
-                	<span><i class="fa fa-file" aria-hidden="true"></i> {{nodohijo.nombre}}</span>
-                    <button class="btn " type="button" data-toggle="modal" data-target="#m-edi-estb" ng-click="getTemaById(nodohijo.id);">
-                        <i class="fa fa-pencil" aria-hidden="true"></i> Editar
-                    </button>
-                    <button class="btn " type="button" data-toggle="modal" data-target="#m-eliminar" ng-click="delTMP(nodohijo.id)">
-                        <i class="fa fa-trash" aria-hidden="true"></i> Eliminar
-                    </button>
-                    <button class="btn " type="button" data-toggle="modal" data-target="#m-preguntas" ng-click="preguntasPage(nodo.id, nodohijo.id, nodohijo.nombre);">
-                        <i class="fa fa-question-circle" aria-hidden="true"></i> Preguntas
-                    </button>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</div>
--->
 </div>
 </section>
 
@@ -77,7 +90,7 @@
                 <h4 class="modal-title">Eliminar Contenido [{{id_del}}]</h4>
             </div>
             <div class="modal-body ng-scope"><p>¿Estás seguro de querer eliminar este registro?</p></div>
-                <div class="modal-footer"><button type="button" class="btn btn_c1" data-dismiss="modal" ng-click="delTEM()"><i class="fa fa-check-circle" aria-hidden="true"></i>Sí</button><button type="button" class="btn btn_c2" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i>No</button>
+                <div class="modal-footer"><button type="button" class="btn btn_c1" data-dismiss="modal" ng-click="delCON()"><i class="fa fa-check-circle" aria-hidden="true"></i>Sí</button><button type="button" class="btn btn_c2" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i>No</button>
             </div>
         </div>
     </div>
@@ -127,13 +140,41 @@
   </div>
 <!-- Fin Modal Editar -->
 
+<div id="m-agr-con" class="modal fade" role="dialog" aria-hidden="true" style="display: none;" ng-init="datos = null">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">Agregar Contenido</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-horizontal" role="form">
+          <div class="form-group col-md-12">
+            <div class="row">
+              <label class="control-label col-md-4" for="nombTema">Nombre Contenido</label>
+              <div class="col-md-8">
+                <input type="text" class="form-control" id="nombTema" placeholder="Ingrese nombre de Contenido" ng-model="datos.nombre">
+              </div>
+            </div>
+            <div class="more"></div>
+          </div>
+          <div class="modal-footer">
+            <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="addCON(datos)">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!-- Modal Agregar Establecimiento-->
   <div id="m-agr-tema" class="modal fade" role="dialog" aria-hidden="true" style="display: none;" ng-init="datos = null">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">×</button>
-          <h4 class="modal-title">Agregar Tema/Subtema</h4>
+          <h4 class="modal-title">Agregar Tema</h4>
         </div>
         <div class="modal-body">
           <div class="form-horizontal" role="form">
@@ -142,23 +183,47 @@
                 <label class="control-label col-md-4" for="nombTema">Nombre Tema</label>
                 <div class="col-md-8">
                   <input type="text" class="form-control" id="nombTema" placeholder="Ingrese nombre de Tema" ng-model="datos.nombre">
-                  <input type="checkbox" ng-model="chksubtema">Es subtema?
                 </div>
-              </div>
-              <div class="row" ng-show="chksubtema">
-                    <label class="control-label col-md-8" for="nombre">Tema</label>
-                    <select ng-model="datos.id_Tema_Padre" class="form-control" ng-options="tema.id as tema.nombre for tema in comboTemas">
-                    </select>
               </div>
               <div class="more"></div>
             </div>
-            <div class="row">
-                   <label class="control-label col-md-8" for="respuesta">Estado</label>
-                   <div class="col-md-8">
-                        <input type="checkbox" ng-model="datos.estado" ng-true-value="'A'" ng-false-value="'I'">
-                        <strong ng-if="datos.estado == 'A'"> Activo</strong><strong ng-if="datos.estado == 'I'"> Inactivo</strong>
-                   </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="addTEM(datos)">
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Fin Modal Agregar -->
+<!-- Modal Agregar Establecimiento-->
+  <div id="m-agr-eje" class="modal fade" role="dialog" aria-hidden="true" style="display: none;" ng-init="datos = null">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Agregar Eje Temático</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-horizontal" role="form">
+            <div class="form-group col-md-12">
+              <div class="row">
+                <label class="control-label col-md-4" for="nombre">Tema</label>
+                <div class="col-md-8">
+                  <select ng-model="datos.id_Tema_Padre" class="form-control" ng-options="tema.id as tema.nombre for tema in comboTemas">
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <label class="control-label col-md-4" for="nombTema">Eje Temático</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" id="nombTema" placeholder="Ingrese nombre de Tema" ng-model="datos.nombre">
+                </div>
+              </div>
+
+              <div class="more"></div>
+            </div>
+
 
             <div class="modal-footer">
               <input type="button" class="btn btn_c1" data-dismiss="modal" value="Aceptar" ng-click="addTEM(datos)">
@@ -169,78 +234,33 @@
     </div>
   </div>
 <!-- Fin Modal Agregar -->
+<!-- Modal Agregar Establecimiento-->
+  <div id="m-eli-tem" class="modal fade" role="dialog" aria-hidden="true" style="display: none;" ng-init="datos = null">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Eliminar Tema</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-horizontal" role="form">
+            <div class="form-group col-md-12">
+              <div class="row">
+                <label class="control-label col-md-4" for="nombre">Tema</label>
+                <div class="col-md-8">
+                  <select ng-model="datos.id_Tema_Padre" class="form-control" ng-options="tema.id as tema.nombre for tema in comboTemas">
+                  </select>
+                </div>
+              </div>
+              <div class="more"></div>
+            </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn_c1" data-dismiss="modal" value="Eliminar" ng-click="delTEM(datos.id_Tema_Padre)">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Fin Modal Agregar -->
 </any>
-<style>
-    .tree {
-    min-height:20px;
-    padding:19px;
-    margin-bottom:20px;
-    background-color:#fbfbfb;
-    border:1px solid #999;
-    -webkit-border-radius:4px;
-    -moz-border-radius:4px;
-    border-radius:4px;
-    -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05);
-    box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.05)
-}
-.tree li {
-    list-style-type:none;
-    margin:0;
-    padding:10px 5px 0 5px;
-    position:relative
-}
-.tree li::before, .tree li::after {
-    content:'';
-    left:-20px;
-    position:absolute;
-    right:auto
-}
-.tree li::before {
-    border-left:1px solid #999;
-    bottom:50px;
-    height:100%;
-    top:0;
-    width:1px
-}
-.tree li::after {
-    border-top:1px solid #999;
-    height:20px;
-    top:25px;
-    width:25px
-}
-.tree li span {
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
-    border:1px solid #999;
-    border-radius:5px;
-    display:inline-block;
-    padding:3px 8px;
-    text-decoration:none
-}
-.tree li.parent_li>span {
-    cursor:pointer
-}
-.tree>ul>li::before, .tree>ul>li::after {
-    border:0
-}
-.tree li:last-child::before {
-    height:30px
-}
-.tree li.parent_li>span:hover, .tree li.parent_li>span:hover+ul li span {
-    background:#eee;
-
-</style>
-<script>
-    $(function () {
-    $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
-    $('.tree li.parent_li > span').on('click', function (e) {
-        var children = $(this).parent('li.parent_li').find(' > ul > li');
-        if (children.is(":visible")) {
-            children.hide('fast');
-            $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
-        } else {
-            children.show('fast');
-            $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
-
-</script>
