@@ -46,6 +46,7 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
   }
 
   $scope.getAll = function (id) {
+      $scope.asignaturaId = id;
       apiAlumnoFactory.getMisAlumnos(id).then(function (data) {
           $scope.gridOptions.data = data.data.trxObject;
       }).then(function (data) {
@@ -122,14 +123,18 @@ app.controller('alumnosController', function ($scope, i18nService, CONFIG, apiAl
 
     for ( var i = 1; i < allTextLines.length; i++) {
         var data = allTextLines[i].split(',');
-        var registro = { "nombre": data[0], "rut": data[1], "email": data[2], "estado": data[3]};
-        //console.log(registro);
-         $timeout( function(){
+        var registro = { "nombre": data[0], "rut": data[1], "email": data[2], "estado": data[3] };
+        console.log(registro);
+        $scope.addALUCSV(id, registro);
+         /*$timeout( function(){
             $scope.addALUCSV(id, registro);
-        }, 8000 );
+        }, 8000 );*/
 
 
     }
+    $scope.getAll($scope.asignaturaId);
+    alert('Archivo procesado');
+
 
   }
 
@@ -177,12 +182,14 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, $cookies){
             /*var url = CONFIG.APISOSTOS + '/profesor/asignatura/' + id + '/alumno/add';
             $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             return $http.post(url, obj);*/
-
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            $http.defaults.headers.common['Content-type'] = 'application/json';
             deferred = $q.defer();
             $http({
                 method: 'POST',
                 skipAuthorization: true,
-                url: CONFIG.APISOSTOS + '/profesor/asignatura/' + id + '/alumno/add'
+                url: CONFIG.APISOSTOS + '/profesor/asignatura/' + id + '/alumno/add',
+                data: obj
             }).then(function(res) {
                 deferred.resolve(res);
             }).then(function(error){
