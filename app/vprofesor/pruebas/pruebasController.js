@@ -68,6 +68,12 @@ app.factory('apiPruebaFactory', function($http, $q, CONFIG, store, $cookies){
                 "id_Categoria": 1
                 }
             */
+        },
+        updEstadoPrueba: function(id) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+            var url = CONFIG.APISOSTOS + '/profesor/prueba/upd';
+            console.log(id);
+            return $http.post(url, { "id": id, "estado": "C"});
         }
 
     }
@@ -141,11 +147,17 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
         $scope.datos = { id_prueba: "", num_var: ""};
         var registro = $scope.gridApi.selection.getSelectedRows();
         if (registro != '') {
-            $scope.datos = { id_prueba: registro[0].id, num_var: ""};
-            //alert(registro[0].id);
+            $scope.datos = { id_prueba: registro[0].prueba.id, num_var: ""};
+            console.log(registro);
         } else {
             alert('Debe Seleccionar un Registro');
         }
+    }
+
+    $scope.PruebaCorregida = function() {
+      apiPruebaFactory.updEstadoPrueba($scope.datos.id_prueba).then(function (data) {
+        console.log(data);
+      })
     }
 
 

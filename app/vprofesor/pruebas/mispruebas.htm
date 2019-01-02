@@ -14,7 +14,10 @@
         <button class="btn " data-toggle="modal" data-target="#m-lst-var" type="button" ng-click="listarVariantes()">
           <i class="fa fa-share-alt"></i> Variantes
         </button>
-        <a class="btn " role="button" href="template.png" download target="_self">
+        <button class="btn " data-toggle="modal" data-target="#m-cam-est" type="button" ng-click="selectPrueba()">
+          <i class="fa fa-check-circle"></i> Cambiar Estado
+        </button>
+        <a class="btn " role="button" href="template1.0.pdf" download target="_self">
           <i class="fa fa-file-text"></i> Plantilla Respuesta
         </a>
     </div>
@@ -59,6 +62,23 @@
       </div>
     </div>
   </div>
+
+  <div id="m-cam-est" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">Cambiar Estado Prueba</h4>
+          </div>
+          <div class="modal-body">
+            <button class="btn " type="button" ng-click="PruebaCorregida()">
+               <i class="fa fa-check-circle"></i> Prueba Corregida
+             </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
 
 <div id="m-agr-var" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
