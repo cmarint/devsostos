@@ -227,6 +227,7 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
             if (data.data.detailsResponse.code != 0) {
               alert('Existe un error al eliminar, contacte al Administrador');
             } else {
+              console.log('Entro al borrar');
               $scope.getAll();
             }
 

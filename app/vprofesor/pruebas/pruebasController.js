@@ -79,7 +79,7 @@ app.factory('apiPruebaFactory', function($http, $q, CONFIG, store, $cookies){
     }
 });
 
-app.controller('pruebasController', function ($scope, CONFIG, $http, $location, apiPruebaFactory, i18nService, uiGridConstants) {
+app.controller('pruebasController', function ($scope, CONFIG, $http, $location, apiPruebaFactory, i18nService, uiGridConstants, $filter) {
 
     i18nService.setCurrentLang('es');
 
@@ -133,6 +133,14 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
    }
 
 
+   $scope.getCombosTema = function () {
+       apiTemaFactory.getTemas(null).then(function (data) {
+           $scope.comboTemas = $filter('filter')(data.data.trxObject,{id_Tema_Padre: null});
+           $scope.comboSubTemas = $filter('filter')(data.data.trxObject,{id_Tema_Padre: ''});;
+       });
+   }
+
+
 
     $scope.getAll = function() {
         apiPruebaFactory.getTodos().then(function(data) {
@@ -177,8 +185,12 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
         angular.forEach(arreglo, function (value, key) {
             obj.temas.push({ "id": value });
         })
+
+        obj.fecha = $filter('date')(obj.fecha, 'dd/MM/yyyy');
+        //console.log(obj.fecha);
+
         apiPruebaFactory.addPruebaAutomatica(obj).then(function (data) {
-            console.log(data);
+          console.log('Ejecutado');
         })
 
     }

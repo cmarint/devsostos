@@ -23,7 +23,7 @@
                   <thead>
                     <tr>
                       <th scope="col"></th>
-                      <th scope="col">Pregunta</th>
+                      <th scope="col">Pregunta <span class="badge">{{preguntaList.length}}</span></th>
                       <th scope="col">Respuesta (1)</th>
                       <th scope="col">Respuesta (2)</th>
                       <th scope="col">Respuesta (3)</th>
@@ -46,7 +46,7 @@
                             </div>
                          </td>
                          <th>
-                             {{ reg.pregunta.descripcion_Pregunta }}
+                             {{$index + 1}}) {{ reg.pregunta.descripcion_Pregunta }}
                          </th>
                          <td ng-repeat="reg2 in reg.respuestas">{{ reg2.descripcion_Respuesta }} <i class="fa fa-check-circle" aria-hidden="true" ng-show="reg2.correcta_Respuesta == 'S'"></i></td>
                      </tr>
