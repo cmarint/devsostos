@@ -1,3 +1,51 @@
+app.factory("fileReader", function($q, $log) {
+  var onLoad = function(reader, deferred, scope) {
+    return function() {
+      scope.$apply(function() {
+        deferred.resolve(reader.result);
+      });
+    };
+  };
+
+  var onError = function(reader, deferred, scope) {
+    return function() {
+      scope.$apply(function() {
+        deferred.reject(reader.result);
+      });
+    };
+  };
+
+  var onProgress = function(reader, scope) {
+    return function(event) {
+      scope.$broadcast("fileProgress", {
+        total: event.total,
+        loaded: event.loaded
+      });
+    };
+  };
+
+  var getReader = function(deferred, scope) {
+    var reader = new FileReader();
+    reader.onload = onLoad(reader, deferred, scope);
+    reader.onerror = onError(reader, deferred, scope);
+    reader.onprogress = onProgress(reader, scope);
+    return reader;
+  };
+
+  var readAsDataURL = function(file, scope) {
+    var deferred = $q.defer();
+
+    var reader = getReader(deferred, scope);
+    reader.readAsDataURL(file);
+
+    return deferred.promise;
+  };
+
+  return {
+    readAsDataUrl: readAsDataURL
+  };
+});
+
 app.factory('apiPreguntaFactory', function($http, $q, CONFIG, store, $cookies){
     return {
         getTema: function(id)
@@ -79,6 +127,12 @@ app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFacto
   $scope.idPadre = $routeParams.idpadre;
   $scope.idTema = $routeParams.idtema;
   $scope.muestraTema = false;
+
+  $scope.imageSrc = "";
+
+  $scope.$on("fileProgress", function(e, progress) {
+    $scope.progress = progress.loaded / progress.total;
+  });
 
 
   $scope.getTemaById = function (id) {
@@ -213,5 +267,13 @@ app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFacto
         });
     }
 
-    $scope.formulas = 'When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$';
 });
+
+
+
+////////////
+
+var app = angular.module('plunkr', [])
+  app.controller('UploadController', function($scope, fileReader) {
+
+  });

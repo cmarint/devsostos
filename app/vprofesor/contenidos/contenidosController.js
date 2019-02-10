@@ -265,8 +265,8 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
 
   $scope.addTEM = function(registro){
       apiTemaFactory.addTem(registro).then(function (data) {
-          if (data.data.detailsResponse.code == "00") {
-              alert('Registro Agregado Correctamente');
+          if (data.data.detailsResponse.code == 0) {
+              //alert('Registro Agregado Correctamente');
               setTimeout(function(){
                  $scope.arbolito = '';
                  $scope.getAll();
@@ -289,7 +289,9 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
   $scope.addCON = function(registro){
       let obj = { "id_Tema_Padre": $scope.ejeTematico, "nombre": registro.nombre };
       apiTemaFactory.addTem(obj).then(function (data) {
-          if (data.data.detailsResponse.code == "00") {
+          if (data.data.detailsResponse.code == 0) {
+            $scope.getAll();
+            $scope.$digest();
               $scope.getEjeCon($scope.ejeTematico);
           } else {
               alert('Error al agregar registro');
@@ -323,8 +325,6 @@ app.controller('contenidosController', function ($scope, CONFIG, apiTemaFactory,
               })
 
   }
-
-
 
 
     $scope.getComboCategoria = function () {

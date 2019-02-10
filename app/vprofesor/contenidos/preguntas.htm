@@ -46,7 +46,8 @@
                             </div>
                          </td>
                          <th>
-                             {{$index + 1}}) {{ reg.pregunta.descripcion_Pregunta }}
+                             {{$index + 1}}) {{ reg.pregunta.descripcion_Pregunta }}<br>
+                             <img class="imagenComp" ng-src="{{reg.pregunta.adjunto_Pregunta}}" />
                          </th>
                          <td ng-repeat="reg2 in reg.respuestas">{{ reg2.descripcion_Respuesta }} <i class="fa fa-check-circle" aria-hidden="true" ng-show="reg2.correcta_Respuesta == 'S'"></i></td>
                      </tr>
@@ -122,10 +123,13 @@
                   <textarea cols="6" rows="4" class="form-control" id="nombTema" placeholder="Ingrese nombre de Tema" ng-model="datos.pregunta.descripcion_Pregunta" ng-required="true"></textarea>
                   <!-- input type="text" class="form-control" id="nombTema" placeholder="Ingrese nombre de Tema" ng-model="datos.pregunta.descripcion_Pregunta" ng-required="true" -->
                 </div>
-
               </div>
               <div class="row">
-                Formula: <span mathjax-bind=datos.pregunta.descripcion_Pregunta></span>
+                <label class="control-label col-md-4" for="imagenComp">Imágen Complementaria</label>
+                <div class="col-md-8">
+                  <input type="file" ng-file-select="onFileSelect($files)" ng-model="datos.pregunta.adjunto_Pregunta">
+                  <img class="imagenComp" ng-src="{{datos.pregunta.adjunto_Pregunta}}" />
+                </div>
               </div>
               <div class="row" ng-repeat="re in datos.respuestas">
                 <label class="control-label col-md-4">Respuesta ({{$index + 1}})</label>
@@ -200,5 +204,9 @@
   </div>
 <!-- Fin Modal Editar -->
 </any>
-
-<p>{{ formulas }}</p>
+<style>
+.imagenComp{
+  width: 170px;
+  height:auto;
+}
+</style>
