@@ -128,7 +128,7 @@
                 <label class="control-label col-md-4" for="imagenComp">Imágen Complementaria</label>
                 <div class="col-md-8">
                   <input type="file" ng-file-select="onFileSelect($files)" ng-model="datos.pregunta.adjunto_Pregunta">
-                  <img class="imagenComp" ng-src="{{datos.pregunta.adjunto_Pregunta}}" />
+                  <img class="imagenComp" id="imagen" ng-src="{{datos.pregunta.adjunto_Pregunta}}" />
                 </div>
               </div>
               <div class="row" ng-repeat="re in datos.respuestas">

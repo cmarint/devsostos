@@ -122,7 +122,7 @@ app.factory('apiPreguntaFactory', function($http, $q, CONFIG, store, $cookies){
     }
 });
 
-app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFactory, $filter, $location, $routeParams, $timeout) {
+app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFactory, fileReader,$filter, $location, $routeParams, $timeout) {
 
   $scope.idPadre = $routeParams.idpadre;
   $scope.idTema = $routeParams.idtema;
@@ -166,8 +166,12 @@ app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFacto
                 $scope.preguntaList = data.data.trxObject;
                   $scope.getTemaById($scope.idTema);
                 }).then(function (data) {
+                  //limpio Archivo
+                  $scope.datos.pregunta.adjunto_Pregunta = "";
+                  document.getElementById("imagen").src = '';
+                  //fin
                   $scope.datos = { "pregunta":
-                                  { "tipo_Pregunta": "SM" },
+                                  { "tipo_Pregunta": "SM", "adjunto_Pregunta": "" },
                                   "respuestas": [
                                       { "descripcion_Respuesta": "", "correcta_Respuesta": "N" },
                                       { "descripcion_Respuesta": "", "correcta_Respuesta": "N" },
@@ -187,7 +191,7 @@ app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFacto
     $scope.tipoPregunta = function () {
         if ($scope.datos.pregunta.tipo_Pregunta == 'SM') {
             $scope.datos = { "pregunta":
-                                  { "tipo_Pregunta": "SM" },
+                                  { "tipo_Pregunta": "SM", "adjunto_Pregunta": "" },
                                   "respuestas": [
                                       { "descripcion_Respuesta": "", "correcta_Respuesta": "N" },
                                       { "descripcion_Respuesta": "", "correcta_Respuesta": "N" },
@@ -198,7 +202,7 @@ app.controller('preguntasController', function ($scope, CONFIG, apiPreguntaFacto
             $scope.datos.pregunta.id_Categoria = 1;
         } else {
            $scope.datos = { "pregunta":
-                                  { "tipo_Pregunta": "VF" },
+                                  { "tipo_Pregunta": "VF", "adjunto_Pregunta": "" },
                                   "respuestas": [
                                       { "descripcion_Respuesta": "Verdadero", "correcta_Respuesta": "N" },
                                       { "descripcion_Respuesta": "Falso", "correcta_Respuesta": "N" }
