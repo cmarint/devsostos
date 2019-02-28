@@ -65,7 +65,6 @@ app.factory("perfilFactory", ["$http", "$q", "CONFIG","$cookies", function($http
 		getPer: function()
 		{
             var deferred;
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -106,7 +105,6 @@ app.factory("perfilFactory", ["$http", "$q", "CONFIG","$cookies", function($http
 		},
         getPregAll: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -122,7 +120,6 @@ app.factory("perfilFactory", ["$http", "$q", "CONFIG","$cookies", function($http
         getPreSeg: function()
 		{
             var deferred;
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -149,7 +146,6 @@ app.factory("perfilFactory", ["$http", "$q", "CONFIG","$cookies", function($http
                     "id_Usuario": 0,
                     "id_PreguntaSeguridad": obj.id_PreguntaSeguridad
                 }
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'POST',
@@ -171,7 +167,6 @@ app.factory("perfilFactory", ["$http", "$q", "CONFIG","$cookies", function($http
         setContrasena: function(obj)
 		{
             var deferred;
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'POST',

@@ -1,4 +1,4 @@
-var app = angular.module('appSostos', ['ngRoute','ngSanitize','angular-jwt', 'angular-storage','xlsx-model','ngTouch','ui.grid','ui.grid.selection','ui.grid.pagination','ui.grid.cellNav','ngCookies','dndLists','ng-rut','ngPassword','naif.base64']);
+var app = angular.module('appSostos', ['ngRoute','ngSanitize','angular-jwt', 'angular-storage','xlsx-model','ngTouch','ui.grid','ui.grid.selection','ui.grid.pagination','ui.grid.cellNav','ngCookies','dndLists','ng-rut','ngPassword','naif.base64', 'chart.js']);
 
 app.constant('CONFIG', {
     APISOSTOS: "http://168.232.165.85:8080/sostos_frontend_api",
@@ -9,8 +9,11 @@ app.constant('CONFIG', {
 
 
 
-app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies', function($rootScope, jwtHelper, store, $location,$routeParams,$cookies) {
+app.run(['$rootScope','jwtHelper', 'store', '$location','$routeParams','$cookies','$http', function($rootScope, jwtHelper, store, $location,$routeParams,$cookies, $http) {
 
+  $http.defaults.headers.common['Authorization'] = 'Bearer ' + $cookies.get('sostos.tkn');
+  $http.defaults.headers.common['Accept'] = 'application/json';
+  $http.defaults.headers.common['Content-Type'] = 'application/json';
    //$rootScope.isUserLoggedIn = false ; //Cambiar a false
    //$cookies.remove('sostos.tkn');
    //store.remove('token');
@@ -182,6 +185,16 @@ var myInterceptor = function($q, $rootScope) {
   })
   .when('/misevaluaciones', {
     templateUrl : 'app/vprofesor/evaluaciones/misevaluaciones.htm',
+    controller: 'evaluacionesController',
+    authorization: true
+  })
+  .when('/misevaluaciones/estadisticas', {
+    templateUrl : 'app/vprofesor/evaluaciones/estadisticas.htm',
+    controller: 'evaluacionesController',
+    authorization: true
+  })
+  .when('/evaluar', {
+    templateUrl : 'app/vprofesor/evaluaciones/evaluar.htm',
     controller: 'evaluacionesController',
     authorization: true
   })

@@ -29,7 +29,6 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
             /*$http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/find';
             return $http.post(url, obj);*/
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
              deferred = $q.defer();
             $http({
                 method: 'POST',
@@ -45,7 +44,6 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
         },
         getPreguntas: function(id_tema)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/find';
             return $http.post(url,{});
         },
@@ -55,31 +53,26 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
             if (id != null) {
                 obj = { "id": id };
             }
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/preguntasrespuestas/find';
             return $http.post(url, obj);
         },
         addPregunta: function(id_tema, obj)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/add';
             return $http.post(url,obj);
         },
         delPregunta: function(id_tema, obj)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/del/' + obj.id;
             return $http.get(url,obj);
         },
         updPregunta: function(id_tema, obj)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/upd';
             return $http.post(url,obj);
         },
         setTem: function(registro)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -96,7 +89,6 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
         },
         addTem: function(registro)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -113,7 +105,6 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
         },
         delTem: function(id)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(id);
             deferred = $q.defer();
             $http({
@@ -129,7 +120,6 @@ app.factory('apiTemaFactory', function($http, $q, CONFIG, store, $cookies){
         },
          getCategorias: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',

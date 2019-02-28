@@ -146,7 +146,6 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, $cookies){
 
         getTodos: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -179,11 +178,6 @@ app.factory('apiAlumnoFactory', function($http, $q, CONFIG, $cookies){
         },
         addAlumno: function(id, obj)
         {
-            /*var url = CONFIG.APISOSTOS + '/profesor/asignatura/' + id + '/alumno/add';
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            return $http.post(url, obj);*/
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            $http.defaults.headers.common['Content-type'] = 'application/json';
             deferred = $q.defer();
             $http({
                 method: 'POST',
@@ -208,7 +202,6 @@ app.factory('apiComboFactory', function($http, $q, CONFIG, store, $cookies){
         getInst: function()
         {
           var datos = {};
-          $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
           var url = CONFIG.APISOSTOS + '/profesor/asignatura/find';
           return $http.post(url,datos);
 
@@ -218,14 +211,12 @@ app.factory('apiComboFactory', function($http, $q, CONFIG, store, $cookies){
         },
         getNiv: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/nivel/get';
             return $http.get(url);
         },
         getAsignaturas: function( id, id_niv )
         {
             var datos = { "id_Institucion": id, "id_Nivel": id_niv };
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/asignatura/find';
             return $http.post(url,datos);
         }

@@ -1,0 +1,40 @@
+<section class="ng-scope m-asig">
+<div class="container ng-scope">
+    <form name="form">
+    <h3>Mis Evaluaciones</h3>
+      <div class="input-group">
+        <label for="file">Seleccionar Archivo</label>
+        <input type="file" ng-model="file" name="file" base-sixty-four-input required onload="onLoad" maxsize="500" accept=".gif, .jpg, .png">
+      </div>
+
+    <table class="table table-bordered table-striped">
+      <tr>
+        <th>Nombre Archivo</th>
+        <th>Tipo</th>
+        <th>Tama&ntilde;o (<i><small>KB</small></i>)</th>
+        <th>base64</th>
+      </tr>
+      <tr ng-show="file">
+        <td>{{file.filename}}</td>
+        <td>{{file.filetype}}</td>
+        <td>{{file.filesize / 1000}}</td>
+        <td>{{file.base64.substring(0, 30)}}...</td>
+      </tr>
+      <tr>
+        <td colspan="4" ng-show="!file">
+          <small><i>No hay archivos seleccionados.</i></small>
+        </td>
+      </tr>
+      <tr>
+          <td colspan="4">
+              <button class="btn " type="button" ng-click="evaluar(file.base64)">
+                <i class="fa fa-plus-circle"></i> Enviar
+              </button>
+          </td>
+      </tr>
+    </table>
+    <hr>
+    </form>
+
+  </div>
+</section>

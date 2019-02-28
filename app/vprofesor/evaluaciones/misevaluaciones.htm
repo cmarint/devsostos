@@ -1,40 +1,44 @@
-<section class="ng-scope m-asig">
+<section class="ng-scope m-eval">
 <div class="container ng-scope">
-    <form name="form">
-    <h3>Mis Evaluaciones</h3>
-      <div class="input-group">
-        <label for="file">Seleccionar Archivo</label>
-        <input type="file" ng-model="file" name="file" base-sixty-four-input required onload="onLoad" maxsize="500" accept=".gif, .jpg, .png">
+    <h2>Mis Evaluaciones</h2>
+    <div class="bjd">
+        <button class="btn " data-toggle="modal" type="button" ng-click="estadisticas()">
+          <i class="fa fa-bar-chart"></i> Estad&iacute;sticas
+        </button>
+        <div class="row row-centered"  ng-init="comboCursoInstitucion()">
+          <div class="col-md-4">
+            <label class="control-label col-md-4" for="asigna">Institución</label>
+            <select ng-model="institucion.id" name="asigna" class="form-control" ng-options="institucion.id_Institucion as institucion.nombre_Institucion for institucion in comboIns | unique: 'nombre_Institucion'"><option value="">--SELECCIONE INSTITUCIÓN--</option></select>
+          </div>
+          <div class="col-md-4">
+            <label class="control-label col-md-4" for="nombNivel">Nivel</label>
+            <select ng-model="nivel.id" id="nombNivel" class="form-control" ng-options="nivel.id as nivel.nombre for nivel in cmbNiv | filter: { id_Institucion:institucion.id}" ng-change="comboAsignaturaPorNivel(institucion.id, nivel.id)" ng-required="true">
+              <option value="">--SELECCIONE NIVEL--</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+           <label class="control-label col-md-4" for="asigna">Asignarturas</label>
+           <select ng-model="asignatura.id" name="asigna" class="form-control" ng-options="asignatura.id as asignatura.nombre for asignatura in combo"  ng-change="getAll(asignatura.id)"><option value="">--SELECCIONE ASIGNATURA--</option></select>
+          </div>
+        </div>
+    </div>
+     <div class="row row-centered">
+        <div class="col-md-12 col-centered">
+            <div ui-grid="gridOptions" ui-grid-pagination ui-grid-edit ui-grid-selection class="grid"></div>
+        </div>
       </div>
-
-    <table class="table table-bordered table-striped">
-      <tr>
-        <th>Nombre Archivo</th>
-        <th>Tipo</th>
-        <th>Tama&ntilde;o (<i><small>KB</small></i>)</th>
-        <th>base64</th>
-      </tr>
-      <tr ng-show="file">
-        <td>{{file.filename}}</td>
-        <td>{{file.filetype}}</td>
-        <td>{{file.filesize / 1000}}</td>
-        <td>{{file.base64.substring(0, 30)}}...</td>
-      </tr>
-      <tr>
-        <td colspan="4" ng-show="!file">
-          <small><i>No hay archivos seleccionados.</i></small>
-        </td>
-      </tr>
-      <tr>
-          <td colspan="4">
-              <button class="btn " type="button" ng-click="evaluar(file.base64)">
-                <i class="fa fa-plus-circle"></i> Enviar
-              </button>
-          </td>
-      </tr>
-    </table>
-    <hr>
-    </form>
-
-  </div>
+      <p>Página actual: {{ gridApi.pagination.getPage() }} de {{ gridApi.pagination.getTotalPages() }}</p>
+       <button type="button" class="btn " ng-click="gridApi.pagination.seek(1)">
+        Primera
+      </button>
+      <button type="button" class="btn " ng-click="gridApi.pagination.previousPage()">
+        Anterior
+      </button>
+      <button type="button" class="btn " ng-click="gridApi.pagination.nextPage()">
+        Siguiente
+      </button>
+      <button type="button" class="btn " ng-click="gridApi.pagination.seek(gridApi.pagination.getTotalPages())">
+        Última
+      </button>
+</div>
 </section>

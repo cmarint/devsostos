@@ -53,7 +53,6 @@ app.factory('apiPreguntaFactory', function($http, $q, CONFIG, store, $cookies){
             var obj;
             if (id == null) { obj={}; } else { obj={ "id": id}; }
 
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'POST',
@@ -69,7 +68,6 @@ app.factory('apiPreguntaFactory', function($http, $q, CONFIG, store, $cookies){
         },
         getPreguntas: function(id_tema)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/pregunta/find';
             return $http.post(url,{});
         },
@@ -79,25 +77,21 @@ app.factory('apiPreguntaFactory', function($http, $q, CONFIG, store, $cookies){
             if (id != null) {
                 obj = { "id": id };
             }
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/preguntasrespuestas/find';
             return $http.post(url, obj);
         },
         addPreguntaRespuestas: function(id_tema, obj)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/preguntasrespuestas/add';
             return $http.post(url,obj);
         },
         delPreguntaRespuestas: function(id_tema, obj)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/preguntasrespuestas/del';
             return $http.post(url,obj);
         },
         updPreguntaRespuestas: function(id_tema, obj)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/preguntasrespuestas/upd';
             return $http.post(url,obj);
         },
@@ -105,7 +99,6 @@ app.factory('apiPreguntaFactory', function($http, $q, CONFIG, store, $cookies){
 
          getCategorias: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',

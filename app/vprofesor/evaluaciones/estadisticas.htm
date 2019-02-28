@@ -1,0 +1,49 @@
+<section class="ng-scope m-eval">
+<div class="container ng-scope">
+  <h2>Estad&iacute;sticas</h2>
+  <div class="bjd">
+    <div class="row row-centered">
+      <div class="col-md-6">
+          <div class="row row-centered">
+            <div class="col-md-12">
+              <h3>Frecuencia de Notas</h3>
+              <canvas id="bar" class="chart chart-bar" chart-colors="colorsFrecuencia" chart-data="dataFrecuencia" chart-labels="labelsFrecuencia" chart-series="seriesFrecuencia"></canvas>
+            </div>
+          </div>
+          <div class="row row-centered">
+            <div class="col-md-12">
+              <h3>Puntajes</h3>
+              <canvas id="bar2" class="chart chart-bar" chart-colors="colorsPuntaje" chart-data="dataPuntaje" chart-labels="labelsPuntaje" chart-series="seriesPuntaje"></canvas>
+            </div>
+          </div>
+      </div>
+      <div class="col-md-6" style="overflow-y: scroll; height: 300px;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Buenas</th>
+              <th scope="col">Malas</th>
+              <th scope="col">Rut</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Ptje</th>
+              <th scope="col">Nota</th>
+            </tr>
+          </thead>
+          <tbody>
+            <div>
+              <tr ng-repeat="reg in notasAlumnos">
+                <th scope="row">{{reg.buena}}</th>
+                <td>{{reg.mala}}</td>
+                <td>{{reg.rut}}</td>
+                <td>{{reg.nombre}}</td>
+                <td>{{reg.ptje}}</td>
+                <td>{{reg.nota}}</td>
+              </tr>
+            </div>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
