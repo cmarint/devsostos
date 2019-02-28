@@ -20,6 +20,10 @@
    <link rel="stylesheet" href="assets/css/sostos.css" />
    <link rel="stylesheet" href="assets/css/tabla.css" />
    <link rel="icon" href="assets/img/favicon.png">
+   <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async>
+</script>
+
 </head>
 <body ng-controller="navController">
     <!-- iframe src="http://168.232.165.85:8088" id="chatApp" frameborder="0" width="300px" height="400px" style="position: fixed;bottom: -5px;right:20px;background:none transparent; z-index: 100;" scrolling="no" allowtransparency="true" onload="this.style.visibility = 'visible'"></iframe -->
@@ -69,7 +73,8 @@
         <div ng-view></div>
     </div>
     <!-- Fin sección contenido -->
-    
+
+
     <!--footer-->
     <footer ng-if="isUserLoggedIn">
      <div ng-include="'app/vnav/footer.htm'"></div>
@@ -97,6 +102,8 @@
     <script src="node_modules/angular-ui-grid/ui-grid.min.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/adonespitogo/angular-base64-upload/master/src/angular-base64-upload.js"></script>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <script src="assets/js/angular-chart.min.js"></script>
 
 
     <script src="app/app.js"></script>
@@ -105,6 +112,8 @@
     <script src="app/vhelp/preguntas.js"></script>
     <script src="app/vmaintainer/preguntasseguridad/preguntasseguridadController.js"></script>
     <script src="app/vmaintainer/preguntasfrecuente/preguntasfrecuenteController.js"></script>
+    <script src="app/vprofesor/pruebas/pruebasController.js"></script>
+    <script src="app/vprofesor/mensajes/mensajesController.js"></script>
     <script src="app/vmaintainer/alumnos/alumnosController.js"></script>
     <script src="app/vmaintainer/instituciones/institucionesController.js"></script>
     <script src="app/vmaintainer/niveles/nivelesController.js"></script>
@@ -115,18 +124,17 @@
     <script src="app/vperfil/perfilController.js"></script>
     <script src="app/vprofesor/contenidos/contenidosController.js"></script>
     <script src="app/vprofesor/contenidos/preguntasController.js"></script>
-    <script src="app/vprofesor/pruebas/pruebasController.js"></script>
-    <script src="app/vprofesor/mensajes/mensajesController.js"></script>
     <script src="app/vprofesor/evaluaciones/evaluacionesController.js"></script>
     <script src="app/vsuscripcion/suscripcionController.js"></script>
     <script src="app/vhelp/preguntas.js"></script>
 
     <!-- Fin Controllers -->
     <script src="app/components/services/servicios.js"></script>
-    
+
     <script type="text/javascript" src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
     <script type="text/javascript" src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
-    
+
+
     <!--SCRIPTS-->
   <script type="text/javascript">
     $(window).scroll(function() {
@@ -146,4 +154,3 @@
 
 </body>
 </html>
-
