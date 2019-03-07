@@ -298,40 +298,123 @@ app.controller('evaluacionesController', function ($scope, CONFIG, $http, $locat
       $location.url('/misevaluaciones/estadisticas',true);
     }
 
+    $scope.evaluar = function() {
+      $location.url('/evaluar',true);
+    }
 
- $scope.notasAlumnos = [
-{ "buena": 58, "mala":	17,	"rut": "174577390",	"nombre": "MARDONES FUENTES ROXANA CECILIA", "ptje": "44,6", "nota": "4,7"},
-{ "buena": 48, "mala":	22,	"rut": "176765887",	"nombre": "SOTO ALVEAR FRANCISCO JAVIER", "ptje": "43,6", "nota": "3,7"},
-{ "buena": 57, "mala":	23,	"rut": "178540408",	"nombre": "REYES CEA ANTONIETA XIMENA", "ptje": "52,4", "nota": "4,7"},
-{ "buena": 60, "mala":	19,	"rut": "173232039",	"nombre": "RAMOS GONZALEZ MARIA FERNANDA", "ptje": "56,2", "nota": "4,8"},
-{ "buena": 50, "mala":	21,	"rut": "17641331K",	"nombre": "CALZADILLA RIVERAS JEANNETTE ALEJANDRA", "ptje": "55,0", "nota": "3,8"},
-{ "buena": 42, "mala":	16,	"rut": "17040565K",	"nombre": "NAVARRO VALDES CONSTANZA DEL PILAR", "ptje": "45,8", "nota": "3,1"},
-{ "buena": 57, "mala":	15,	"rut": "17323290K",	"nombre": "VARGAS DIAZ MONICA PAMELA", "ptje": "38,8", "nota": "4,6"},
-{ "buena": 53, "mala":	21,	"rut": "165583434",	"nombre": "ZAPATA JORQUERA MARIA GABRIELA", "ptje": "46,8", "nota": "4,1"},
-{ "buena": 53, "mala":	21,	"rut": "178246488",	"nombre": "CASTRO CARREÑO HELEN CONSTANZA", "ptje": "55,0", "nota": "4,1"},
-{ "buena": 68, "mala":	11,	"rut": "178865005",	"nombre": "ARELLANO ALCANTARA ANA GABRIEL", "ptje": "48,8", "nota": "5,7"},
-{ "buena": 56, "mala":	15,	"rut": "179876531",	"nombre": "RAMIREZ YAÑEZ RAFAEL ZACARIAS", "ptje": "55,0", "nota": "4,5"}
- ];
+    $scope.getNotasAlumnos = function (id, tipo) {
+      var filtro = null;
+      if (tipo === "P") { // Caso de uso Prueba
+        filtro = { "id_Prueba": id };
+        apiPruebaFactory.getNotasAlumnosPrueba(filtro).then(function(data) {
+          $scope.notasAlumnos = data.data.trxObject;
+        });
+      } else { //Caso de Uso Variante
+        filtro = { "id_PruebaVariante": id};
+        apiPruebaFactory.getNotasAlumnosVariante(filtro).then(function(data) {
+          $scope.notasAlumnos = data.data.trxObject;
+        });
+      }
+     }
 
-//Grafico de Frecuencia
-  $scope.colorsFrecuencia = ['#803690'];
-  $scope.labelsFrecuencia = ['1,5', '2', '2,5', '3', '3,5', '4', '4,5', '5', '5,5', '6', '6,5', '7'];
-  $scope.seriesFrecuencia = ['Frecuencia Notas'];
-  $scope.dataFrecuencia = [
-    [0,0,0,1,1,8,10,5,0,1,0,0]
-  ];
+$scope.getFrecuenciaNotasPruebaVariante = function (id, tipo) {
+  var filtro = null;
+  var valores = [];
+  //Grafico de Frecuencia
+  $scope.labelsFrecuencia = [];
+  $scope.dataFrecuencia = [];
+  if (tipo === "P") { // Caso de uso Prueba
+    filtro = { "id_Prueba": id };
+    apiPruebaFactory.getFrecuenciaNotasPrueba(filtro).then(function(data) {
+      $scope.reg = data.data.trxObject;
+      for (var i=0; i < $scope.reg.length; i++) {
+        $scope.labelsFrecuencia.push($scope.reg[i].nota.toString());
+        valores.push($scope.reg[0].cantidad);
+      }
+      $scope.colorsFrecuencia = ['#803690'];
+      $scope.seriesFrecuencia = ['Frecuencia Notas'];
+      $scope.dataFrecuencia.push(valores);
+    });
+  } else { //Caso de Uso Variante
+    filtro = { "id_PruebaVariante": id};
+    apiPruebaFactory.getFrecuenciaNotasPruebaVariante(filtro).then(function(data) {
+      $scope.reg = data.data.trxObject;
+      for (var i=0; i < $scope.reg.length; i++) {
+        $scope.labelsFrecuencia.push($scope.reg[i].nota.toString());
+        valores.push($scope.reg[0].cantidad);
+      }
+      $scope.colorsFrecuencia = ['#803690'];
+      //$scope.labelsFrecuencia = ['1,5', '2', '2,5', '3', '3,5', '4', '4,5', '5', '5,5', '6', '6,5', '7'];
+      $scope.seriesFrecuencia = ['Frecuencia Notas'];
+      //$scope.dataFrecuencia = [[0,0,0,1,1,8,10,5,0,1,0,0]];
+      $scope.dataFrecuencia.push(valores);
+      console.log($scope.dataFrecuencia);
+    });
+  }
+ }
 
-//Grafico de Puntajes
-$scope.colorsPuntaje = ['#FDB45C'];
-$scope.labelsPuntaje = ['6,7','13,3','20','26,7','27,4','40','46,7','53,3','60','66,7','73,3','80'];
-$scope.seriesPuntaje = ['Puntajes'];
-$scope.dataPuntaje = [ [0,0,0,0,0,2,4,14,5,1,0,0] ];
+$scope.getFrecuenciaPuntajesPruebaVariante = function (id, tipo) {
+   var filtro = null;
+   var valores = [];
+   //Grafico de Frecuencia
+   $scope.labelsPuntaje = [];
+   $scope.dataPuntaje = [];
+   $scope.colorsPuntaje = ['#FDB45C'];
+   $scope.seriesPuntaje = ['Puntajes'];
+   if (tipo === "P") {
+     filtro = { "id_Prueba": id };
+     apiPruebaFactory.getFrecuenciaPuntajePrueba(filtro).then(function(data) {
+       $scope.regp = data.data.trxObject;
+       for (var i=0; i < $scope.regp.length; i++) {
+         $scope.labelsPuntaje.push($scope.regp[i].puntaje.toString());
+         valores.push($scope.regp[0].cantidad);
+       }
+       $scope.dataPuntaje.push(valores);
+     });
+   } else {
+     filtro = { "id_PruebaVariante": id};
+     apiPruebaFactory.getFrecuenciaPuntajePruebaVariante(filtro).then(function(data) {
+       $scope.regp = data.data.trxObject;
+       for (var i=0; i < $scope.regp.length; i++) {
+         $scope.labelsPuntaje.push($scope.regp[i].puntaje.toString());
+         valores.push($scope.regp[0].cantidad);
+       }
+       //$scope.labelsFrecuencia = ['1,5', '2', '2,5', '3', '3,5', '4', '4,5', '5', '5,5', '6', '6,5', '7'];
+       //$scope.dataFrecuencia = [[0,0,0,1,1,8,10,5,0,1,0,0]];
+       $scope.dataPuntaje.push(valores);
+     });
+   }
+ }
 
 
 
 });
 app.factory('apiPruebaFactory', function($http, $q, CONFIG, store, $cookies){
     return {
+        getFrecuenciaNotasPrueba: function (filtro) {
+            var url = CONFIG.APISOSTOS + '/profesor/prueba/frecuencianotas/find'
+            return $http.post(url, filtro);
+        },
+        getFrecuenciaNotasPruebaVariante: function (filtro) {
+            var url = CONFIG.APISOSTOS + '/profesor/pruebavariante/frecuencianotas/find'
+            return $http.post(url, filtro);
+        },
+        getFrecuenciaPuntajePrueba: function (filtro) {
+            var url = CONFIG.APISOSTOS + '/profesor/prueba/frecuenciapuntajes/find'
+            return $http.post(url, filtro);
+        },
+        getFrecuenciaPuntajePruebaVariante: function (filtro) {
+            var url = CONFIG.APISOSTOS + '/profesor/pruebavariante/frecuenciapuntajes/find'
+            return $http.post(url, filtro);
+        },
+        getNotasAlumnosPrueba: function (filtro) {
+            var url = CONFIG.APISOSTOS + '/profesor/prueba/notasalumnos/find'
+            return $http.post(url, filtro);
+        },
+        getNotasAlumnosPruebaVariante: function (filtro) {
+            var url = CONFIG.APISOSTOS + '/profesor/pruebavariante/notasalumnos/find'
+            return $http.post(url, filtro);
+        },
         getTodos: function(filtro)
         {
             var url = CONFIG.APISOSTOS + '/profesor/prueba/find';

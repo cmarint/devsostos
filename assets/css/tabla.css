@@ -1,0 +1,176 @@
+.ui-grid-menu .ui-grid-menu-inner ul li:not(:last-child)>button {
+    border-bottom: 1px solid #ffffff;
+}
+.m-eval button:hover,
+.m-corr button:hover,
+/*Establecimientos*/
+.m-estb .ui-grid {
+    border: 2px solid #0067AA;
+    border-radius: 15px;
+}
+.m-estb .ui-grid-header {
+    border-bottom: 1px solid #0067AA;
+    color: #fff;
+}
+.m-estb .ui-grid-top-panel {
+    background: #0067AA;
+    border-radius: 10px 10px 0 0;
+}
+.m-estb .ui-grid-menu .ui-grid-menu-inner {
+    background: #0067AA;
+    border: 1px solid #0067AA;
+}
+/**
+.m-estb .ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item-active {
+  	background-color: #de6d00; /*Color oscuro*/
+}**/
+.m-estb .ui-grid-row:nth-child(even) .ui-grid-cell {
+    background-color: rgba(255, 125, 0, 0.12); /*color con opacidad*/
+}
+.m-estb .ui-grid-menu .ui-grid-menu-inner ul li button {
+    background: #0067AA;
+}
+/*Cursos*/
+.m-curs .ui-grid {
+    border: 2px solid #00ADDB;
+    border-radius: 15px;
+}
+.m-curs .ui-grid-header {
+    border-bottom: 1px solid #00ADDB;
+    color: #fff;
+}
+.m-curs .ui-grid-top-panel {
+    background: #00ADDB;
+    border-radius: 10px 10px 0 0;
+}
+.m-curs .ui-grid-menu .ui-grid-menu-inner {
+    background: #00ADDB;
+    border: 1px solid #00ADDB;
+}
+/***
+.m-curs .ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item-active {
+  	background-color: #de6d00; /*Color oscuro*/
+}
+***/
+.m-curs .ui-grid-row:nth-child(even) .ui-grid-cell {
+    background-color: rgba(255, 125, 0, 0.12); /*color con opacidad*/
+}
+.m-curs .ui-grid-menu .ui-grid-menu-inner ul li button {
+    background: #00ADDB;
+}
+/*Asignatura*/
+.m-asig .ui-grid {
+    border: 2px solid #248E7C;
+    border-radius: 15px;
+}
+.m-asig .ui-grid-header {
+    border-bottom: 1px solid #248E7C;
+    color: #fff;
+}
+.m-asig .ui-grid-top-panel {
+    background: #248E7C;
+    border-radius: 10px 10px 0 0;
+}
+.m-asig .ui-grid-menu .ui-grid-menu-inner {
+    background: #248E7C;
+    border: 1px solid #248E7C;
+}
+/**
+.m-asig .ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item-active {
+  	background-color: #de6d00; /*Color oscuro*/
+}
+**/
+.m-asig .ui-grid-row:nth-child(even) .ui-grid-cell {
+    background-color: rgba(255, 125, 0, 0.12); /*color con opacidad*/
+}
+.m-asig .ui-grid-menu .ui-grid-menu-inner ul li button {
+    background: #248E7C;
+}
+/*Alumno*/
+.m-alum .ui-grid {
+    border: 2px solid #ff7d00;
+    border-radius: 15px;
+}
+.m-alum .ui-grid-header {
+    border-bottom: 1px solid #ff7d00;
+    color: #fff;
+}
+.m-alum .ui-grid-top-panel {
+    background: #ff7d00;
+    border-radius: 10px 10px 0 0;
+}
+.m-alum .ui-grid-menu .ui-grid-menu-inner {
+    background: #ff7d00;
+    border: 1px solid #ff7d00;
+}
+/**
+.m-alum .ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item-active {
+  	background-color: #de6d00; /*Color oscuro*/
+}
+**/
+.m-alum .ui-grid-row:nth-child(even) .ui-grid-cell {
+    background-color: rgba(255, 125, 0, 0.12); /*color con opacidad*/
+}
+.m-alum .ui-grid-menu .ui-grid-menu-inner ul li button {
+    background: #ff7d00;
+}
+/*Corrección*/
+.m-corr .ui-grid {
+    border: 2px solid #ff7d00;
+    border-radius: 15px;
+}
+.m-corr .ui-grid-header {
+    border-bottom: 1px solid #ff7d00;
+    color: #fff;
+}
+.m-corr .ui-grid-top-panel {
+    background: #ff7d00;
+    border-radius: 10px 10px 0 0;
+}
+.m-corr .ui-grid-menu .ui-grid-menu-inner {
+    background: #ff7d00;
+    border: 1px solid #ff7d00;
+}
+/**
+.m-corr .ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item-active {
+  	background-color: #de6d00; /*Color oscuro*/
+}
+**/
+.m-corr .ui-grid-row:nth-child(even) .ui-grid-cell {
+    background-color: rgba(255, 125, 0, 0.12); /*color con opacidad*/
+}
+.m-corr .ui-grid-menu .ui-grid-menu-inner ul li button {
+    background: #ff7d00;
+}
+/*Evaluación*/
+.m-eval .ui-grid {
+    border: 2px solid #ff7d00;
+    border-radius: 15px;
+}
+.m-eval .ui-grid-header {
+    border-bottom: 1px solid #ff7d00;
+    color: #fff;
+}
+.m-eval .ui-grid-top-panel {
+    background: #ff7d00;
+    border-radius: 10px 10px 0 0;
+}
+.m-eval .ui-grid-menu .ui-grid-menu-inner {
+    background: #ff7d00;
+    border: 1px solid #ff7d00;
+}
+/**
+.m-eval .ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item-active {
+  	background-color: #de6d00; /*Color oscuro*/
+}**/
+.m-eval .ui-grid-row:nth-child(even) .ui-grid-cell {
+    background-color: rgba(255, 125, 0, 0.12); /*color con opacidad*/
+}
+.m-eval .ui-grid-menu .ui-grid-menu-inner ul li button {
+    background: #ff7d00;
+}
+
+input[type="text"].ui-grid-filter-input {
+	color: #000;
+}
+
