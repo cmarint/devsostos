@@ -130,7 +130,6 @@ app.factory('usuariosFactory', function($http, $q, CONFIG, store, $cookies){
     return {
         getTodos: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'POST',
@@ -146,7 +145,6 @@ app.factory('usuariosFactory', function($http, $q, CONFIG, store, $cookies){
         },
         getRol: function()
         {
-           $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'POST',
@@ -162,7 +160,6 @@ app.factory('usuariosFactory', function($http, $q, CONFIG, store, $cookies){
         },
         usuarioUpd: function(reg)
         {
-           $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'POST',
@@ -178,7 +175,6 @@ app.factory('usuariosFactory', function($http, $q, CONFIG, store, $cookies){
         },
         usuarioDel: function(id)
         {
-           $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'POST',
@@ -194,7 +190,6 @@ app.factory('usuariosFactory', function($http, $q, CONFIG, store, $cookies){
         },
         usuarioAdd: function(user)
         {
-           $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'POST',
@@ -210,7 +205,6 @@ app.factory('usuariosFactory', function($http, $q, CONFIG, store, $cookies){
         },
         profesorAdd: function(user)
         {
-           $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'POST',

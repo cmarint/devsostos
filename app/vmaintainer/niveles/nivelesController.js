@@ -1,8 +1,7 @@
 app.factory('apiCursoFactory', function($http, $q, CONFIG, store, $cookies){
     return {
-        getTodos: function() 
-        { 
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+        getTodos: function()
+        {
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -17,7 +16,6 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG, store, $cookies){
         },
         getIns: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -31,8 +29,7 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG, store, $cookies){
             return deferred.promise;
         },
         setNiv: function(registro)
-        {   
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+        {
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -48,8 +45,7 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG, store, $cookies){
             return deferred.promise;
         },
         addNiv: function(registro)
-        {   
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+        {
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -65,8 +61,7 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG, store, $cookies){
             return deferred.promise;
         },
         delNiv: function(id)
-        {   
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
+        {
             var regjson = angular.toJson(id);
             deferred = $q.defer();
             $http({
@@ -80,12 +75,12 @@ app.factory('apiCursoFactory', function($http, $q, CONFIG, store, $cookies){
             })
             return deferred.promise;
         }
-        
+
     }
 });
 
 app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCursoFactory, uiGridConstants) {
-  
+
   i18nService.setCurrentLang('es');
 
   $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
@@ -98,7 +93,7 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
 
   $scope.gridOptions = {
     enableFiltering: true,
-    enableRowSelection: true, 
+    enableRowSelection: true,
     enableRowHeaderSelection: false,
     enablePaginationControls: false,
     multiSelect: false,
@@ -135,15 +130,15 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
 
   $scope.editNIV = function(){
       var registro = $scope.gridApi.selection.getSelectedRows();
-      if (registro != '') { 
+      if (registro != '') {
           $scope.registroEdit = registro[0];
       }
   }
-  
-  
+
+
   $scope.delNIV = function(){
       var registro = $scope.gridApi.selection.getSelectedRows();
-      if (registro != '') {  
+      if (registro != '') {
           apiCursoFactory.delNiv(registro[0].id).then(function (data){
             angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
                 $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
@@ -153,7 +148,7 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
           alert('Debe seleccionar un registro');
       }
   }
-  
+
   $scope.updNIV = function(registro){
       apiCursoFactory.setNiv(registro).then(function (data) {
         alert('Registro Actualizado Correctamente');
@@ -167,7 +162,7 @@ app.controller('nivelesController', function ($scope, i18nService, CONFIG, apiCu
           alert('Error al Editar registro');
       })
   }
-  
+
   $scope.addNIV = function(registro){
       apiCursoFactory.addNiv(registro).then(function (data) {
           alert('Registro Agregado Correctamente');

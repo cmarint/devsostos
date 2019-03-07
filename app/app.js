@@ -252,8 +252,6 @@ var myInterceptor = function($q, $rootScope) {
     return {
         getTodos: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
-            //$http.defaults.headers.common.Authorization = 'Bearer ' + store.get("token");
             deferred = $q.defer();
             $http({
                 method: 'GET',

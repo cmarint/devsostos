@@ -46,32 +46,27 @@ app.factory('mensajesFactory', function($http, $q, CONFIG, store, $cookies){
         getIns: function()
         {
           var datos = {};
-          $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
           var url = CONFIG.APISOSTOS + '/profesor/asignatura/find';
           return $http.post(url,datos);
         },
         getNiv: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/nivel/get';
             return $http.get(url);
         },
         getAsignaturas: function( id, id_niv )
         {
             var datos = { "id_Institucion": id, "id_Nivel": id_niv };
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/asignatura/find';
             return $http.post(url,datos);
         },
         getMisAlumnos: function(id)
         {
             var url = CONFIG.APISOSTOS + '/profesor/asignatura/' + id + '/alumno/find';
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             return $http.post(url,{});
         },
         sendMail: function(obj)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'POST',

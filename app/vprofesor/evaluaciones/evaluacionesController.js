@@ -2,7 +2,6 @@ app.factory('evaluacionesFactory', function($http, $q, CONFIG, store, $cookies){
     return {
         evaluar: function(obj)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'POST',

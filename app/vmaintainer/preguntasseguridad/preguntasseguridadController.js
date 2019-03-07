@@ -3,7 +3,6 @@ app.factory('apiPseFactory', function($http, $q, CONFIG, store, $cookies){
     return {
         getTodos: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -18,7 +17,6 @@ app.factory('apiPseFactory', function($http, $q, CONFIG, store, $cookies){
         },
         setPse: function(registro)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -35,7 +33,6 @@ app.factory('apiPseFactory', function($http, $q, CONFIG, store, $cookies){
         },
         addPse: function(registro)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -52,7 +49,6 @@ app.factory('apiPseFactory', function($http, $q, CONFIG, store, $cookies){
         },
         delPse: function(id)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(id);
             deferred = $q.defer();
             $http({
@@ -71,7 +67,7 @@ app.factory('apiPseFactory', function($http, $q, CONFIG, store, $cookies){
 });
 
 app.controller('preguntasseguridadController', function ($scope, i18nService, CONFIG, apiPseFactory, uiGridConstants) {
-  
+
   i18nService.setCurrentLang('es');
   $scope.gridOptions = {
     enableRowSelection: true,

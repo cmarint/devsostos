@@ -2,7 +2,6 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
     return {
         getTodos: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             deferred = $q.defer();
             $http({
                 method: 'GET',
@@ -18,32 +17,27 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
         getTodosPrima: function()
         {
             var datos = {};
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/asignatura/find';
             return $http.post(url,datos);
         },
         getIns: function()
         {
             var url = CONFIG.APISOSTOS + '/institucion/get';
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             return $http.get(url);
         },
         getNiv: function()
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/nivel/get';
             return $http.get(url);
         },
         setAsi: function(registro)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
             var url = CONFIG.APISOSTOS + '/profesor/asignatura/upd';
             return $http.post(url,regjson);
         },
         addAsi: function(registro)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var regjson = angular.toJson(registro);
             deferred = $q.defer();
             $http({
@@ -60,7 +54,6 @@ app.factory('apiAsignaturaFactory', function($http, $q, CONFIG, store, $cookies)
         },
         delAsi: function(id)
         {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get('sostos.tkn');
             var url = CONFIG.APISOSTOS + '/profesor/asignatura/del/' + id;
             return $http.get(url);
 
@@ -204,4 +197,3 @@ app.controller('misasignaturasController', function ($scope, i18nService, CONFIG
 
 
 });
-
