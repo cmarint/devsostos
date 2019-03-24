@@ -51,7 +51,7 @@ input[type="url"]:focus,
 input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
-.uneditable-input:focus {   
+.uneditable-input:focus {
   border-color: #FFC100;
   box-shadow: 0 0px 0px rgba(0, 0, 0, 0.075) inset, 0 0 0px rgba(126, 239, 104, 0.0);
   outline: 0 none;
@@ -188,7 +188,7 @@ input[type="submit"], input[type="button"] {
   font-size: 14px;
   padding: 20px 0;
 }
-#Experiencias { 
+#Experiencias {
   padding: 125px 0;
 }
 .profesores .nav-tabs > li > a{
@@ -310,8 +310,8 @@ input[type="submit"], input[type="button"] {
   border-color: #337ab7;
 }
 .navbar-nav>li>.dropdown-menu {
-  border-top-left-radius: 10px; 
-  border-top-right-radius: 10px; 
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   margin-top: 0;
 }
 .nav>li>a:focus, .nav>li>a:hover {
@@ -409,7 +409,7 @@ input[type="submit"], input[type="button"] {
   text-align: left;
 }
 .label {
-  display: inline-block;  
+  display: inline-block;
   font-size: 15px;
   font-weight: 700;
   margin-bottom: 5px;
@@ -583,11 +583,11 @@ footer input[type="submit"]:hover{
   color: #ffffff;
   text-decoration: none;
 }
-.pagination>.active>a, 
-.pagination>.active>a:focus, 
-.pagination>.active>a:hover, 
-.pagination>.active>span, 
-.pagination>.active>span:focus, 
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
 .pagination>.active>span:hover {
   z-index: 3;
   color: #fff;
@@ -800,7 +800,7 @@ background-color: #fff5ab;
   margin:28px 0;
   text-align: center;
 }
-.m-genr, 
+.m-genr,
 .m-estb>.ng-scope,
 .m-alum>.ng-scope,
 .m-curs>.ng-scope,
@@ -833,15 +833,15 @@ background-color: #fff5ab;
   margin-bottom: 4px;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.29);
 }
-.menu2 a:hover, 
-.m-estb button:hover, 
+.menu2 a:hover,
+.m-estb button:hover,
 .m-curs button:hover,
 .m-asig button:hover,
 .m-alum button:hover,
 .m-eval button:hover,
 .m-corr button:hover,
-.menu2 button:focus, 
-.m-estb button:focus, 
+.menu2 button:focus,
+.m-estb button:focus,
 .m-curs button:focus,
 .m-asig button:focus,
 .m-alum button:focus,
@@ -944,7 +944,7 @@ background-color: #fff5ab;
 }
 .menu2 .m-corr span{
  color: #8636A3;
-} 
+}
 .m-corr .table-bordered, .m-corr .table-bordered>thead>tr>th{
   border: 2px solid #8636A3;
 }
@@ -1027,7 +1027,7 @@ table.dataTable {
 .img img {
   border-radius: 20px;
 }
-.overlay {  
+.overlay {
   display: block;
   position: absolute;
   z-index: 20;
@@ -1047,10 +1047,10 @@ a.expand {
   display: block;
   position: absolute;
   z-index: 100;
-  text-align: center; 
+  text-align: center;
   color: #fff;
   font-weight: 700;
-  font-size: 14px;  
+  font-size: 14px;
 }
 /* ============================================================
   EFFECT 1 - SLIDE IN BOTTOM
@@ -1093,7 +1093,7 @@ a.expand {
   .func{
     flex-direction: column;
   }
-  #Experiencias { 
+  #Experiencias {
     padding: 50px 0 100px;
   }
   .navbar-toggle .icon-bar {
@@ -1253,4 +1253,9 @@ a.expand {
 .simpleDemo ul[dnd-list] li.selected {
     background-color: #dff0d8;
     color: #3c763d;
+}
+
+.bold {
+    font-weight: bold;
+    color: red;
 }

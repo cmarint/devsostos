@@ -90,16 +90,29 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
 
 
 
-    $scope.selectPrueba = function(){
-        $scope.datos = { id_prueba: "", num_var: ""};
+    /*$scope.selectPrueba = function(){
+        $scope.datos = { id_prueba: "", num_var: 5, exigencia: "", puntajeMax: ""};
         var registro = $scope.gridApi.selection.getSelectedRows();
         if (registro != '') {
-            $scope.datos = { id_prueba: registro[0].prueba.id, num_var: ""};
-            console.log(registro);
+            $scope.datos = { id_prueba: registro[0].prueba.id, num_var: "", exigencia: registro[0].prueba.exigencia, puntajeMax:registro[0].prueba.puntajeMax };
+            console.log($scope.datos);
         } else {
             alert('Debe Seleccionar un Registro');
         }
+    }*/
+
+    $scope.gridOptions.onRegisterApi = function(gridApi){
+      $scope.datos = { id_prueba: "", num_var: 5, exigencia: "", puntajeMax: ""};
+      $scope.gridApi = gridApi;
+      gridApi.selection.on.rowSelectionChanged($scope,function(row){
+        var msg = 'row selected ' + row.entity.prueba.id;
+        console.log(msg);
+        $scope.datos = { id_prueba: row.entity.prueba.id, num_var: "" };
+        //console.log($scope.datos);
+      });
     }
+
+
 
     $scope.PruebaCorregida = function() {
       apiPruebaFactory.updEstadoPrueba($scope.datos.id_prueba).then(function (data) {
@@ -142,7 +155,7 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
     }
 
     $scope.getPreguntas = function(id_tema) {
-              apiPruebaFactory.getPreguntas(id_tema).then(function (data) {
+              apiPruebaFactory.getTemaPreguntasRespuestas(id_tema).then(function (data) {
                 $scope.preguntaList = data.data.trxObject;
               })
     }
@@ -151,6 +164,7 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
 
     $scope.addPreguntaPrueba = function(modelPregunta) {
         $scope.listaPreguntasPrueba.push(modelPregunta);
+        console.log($scope.listaPreguntasPrueba);
     }
 
     $scope.delPreguntaPrueba = function(id) {
@@ -187,7 +201,7 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
 
     $scope.listaVariantesPrueba = null;
     $scope.listarVariantes = function() {
-        $scope.selectPrueba();
+        //$scope.selectPrueba();
         if ($scope.datos != "") {
             apiPruebaFactory.getVariantes($scope.datos.id_prueba).then(function (data) {
                 $scope.listaVariantesPrueba = data.data.trxObject;
@@ -201,7 +215,7 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
     {
         var objPrueba = { "estado": "A",
                 "id_Asignatura": obj.id_Asignatura,
-                "fecha": obj.fecha,
+                "fecha": $filter('date')(obj.fecha, 'dd/MM/yyyy'),
                 "id_Forma": 1,
                 "descripcion": obj.descripcion,
                 "exigencia": obj.exigencia,
@@ -213,6 +227,11 @@ app.controller('pruebasController', function ($scope, CONFIG, $http, $location, 
         //console.log(obj);
         apiPruebaFactory.addPruebaManual(objPrueba).then(function (data) {
             console.log(data);
+            if (data.data.detailsResponse.code == 0) {
+                  //Graba preguntas y respuestas
+            } else {
+              alert('No fue posible crear la prueba. Favor nuevamente o contacte al administrador');
+            }
         })
     }
 
@@ -478,7 +497,17 @@ app.factory('apiPruebaFactory', function($http, $q, CONFIG, store, $cookies){
             var url = CONFIG.APISOSTOS + '/profesor/pruebavariante/find';
             return $http.post(url,{ "id_Prueba": idPrueba });
         },
+        getTemaPreguntasRespuestas: function(id_tema)
+        {
+            var obj = {};
+            var url = CONFIG.APISOSTOS + '/profesor/tema/' + id_tema + '/preguntasrespuestas/find';
+            return $http.post(url, obj);
+        },
         addPruebaManual: function(obj) {
+            var url = CONFIG.APISOSTOS + '/profesor/prueba/add';
+            return $http.post(url, obj);
+        },
+        addPrguntasRespuestasPrueba: function(obj) {
             var url = CONFIG.APISOSTOS + '/profesor/prueba/add';
             return $http.post(url, obj);
         },

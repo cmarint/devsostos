@@ -21,24 +21,34 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <label class="control-label" for="notaMin">Tema</label>
+                <label class="control-label" for="notaMin">Seleccionar Tema</label>
                 <select ng-model="datos.id_Tema" size="10" class="form-control" ng-options="tem.id as tem.nombre for tem in ComboTema" ng-change="getPreguntas(datos.id_Tema)" ng-required="true">
                 </select>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" >
+              <label class="control-label">Seleccionar Preguntas</label>
+              <div class="list-group" style="overflow-y: scroll; height:250px; width: auto;">
+                <a ng-click="addPreguntaPrueba(reg)" class="list-group-item" ng-repeat="reg in preguntaList" data-toggle="tooltip" title="Haga click para seleccionar">
+                  <h4 class="list-group-item-heading">{{reg.pregunta.descripcion_Pregunta}}</h4>
+                  <div ng-repeat="resp in reg.respuestas">
+                      <p class="list-group-item-text"><i class="fa fa-check-circle" aria-hidden="true" ng-if="resp.correcta_Respuesta === 'S'"></i>{{resp.descripcion_Respuesta}}</p>
+                  </div>
+                </a>
+              </div>
+              <!--
                  <label class="control-label" for="notaMin">Preguntas</label>
-                <!--<select ng-model="datos.id_Pregunta" size="10" class="form-control" ng-options="pre.id_Pregunta as ('[' + pre.tipo_Pregunta + '] - ' + pre.descripcion_Pregunta) for pre in preguntaList">-->
                     <select ng-model="datos.modelPregunta" size="10" class="form-control" ng-options="('[' + pre.tipo_Pregunta + '] - ' + pre.descripcion_Pregunta) for pre in preguntaList track by pre.id_Pregunta">
                     </select>
                 <button class="btn " type="button" ng-click="addPreguntaPrueba(datos.modelPregunta)">
                   <i class="fa fa-plus-circle"></i> Agregar
                 </button>
+            -->
             </div>
         </div>
         <div class="row">
-             <div class="col-md-8">
+             <div class="col-md-12">
                 <table class="table table-sm">
-                     <label class="control-label" for="notaMin">Preguntas Prueba</label>
+                     <label class="control-label" for="notaMin"><strong>Preguntas Seleccionadas para la Prueba</strong></label>
                   <thead>
                     <tr>
                       <th scope="col">Tema</th>
@@ -49,9 +59,9 @@
                   </thead>
                   <tbody>
                     <tr ng-repeat="regPrueba in listaPreguntasPrueba">
-                      <td align="left">{{regPrueba.nombre_Tema}}</td>
-                      <td align="left">{{regPrueba.descripcion_Pregunta}}</td>
-                      <td>{{regPrueba.tipo_Pregunta}}</td>
+                      <td align="left">{{regPrueba.pregunta.nombre_Tema}}</td>
+                      <td align="left">{{regPrueba.pregunta.descripcion_Pregunta}}</td>
+                      <td>{{regPrueba.pregunta.tipo_Pregunta}}</td>
                       <td><button class="btn btn-danger" ng-click="delPreguntaPrueba($index)">Eliminar</button></td>
                     </tr>
                   </tbody>
@@ -88,3 +98,8 @@
     </form>
 </div>
 </section>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
